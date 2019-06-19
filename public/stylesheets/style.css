@@ -1,8 +1,61 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* ROOT CONFIGURATION */
+
+html{
+  font-size:10px;
 }
 
-a {
-  color: #00B7FF;
+h1{
+  font-family: sans-serif;
+  font-size:3rem;
+}
+
+p{
+  font-family: sans-serif;
+  font-size: 1.3rem;
+}
+
+
+/* Container */
+
+.container {
+  background-color: coral;
+  width:80%; 
+  margin:5%;
+  padding:5%;
+  border-radius: 30px;
+}
+
+
+/* Wrapper */
+.wrapper{
+  display: block;
+}
+
+.table_wrapper{
+  display: table;
+}
+
+.cell_wrapper{
+  display: inline-block;
+}
+
+
+/* ID section */
+
+#logo{
+  display: inline-block;
+}
+
+#logo_description {
+  display: inline-flex;
+  float: right;
+}
+
+#logo{
+  display: inline;
+  width:100%;
+}
+
+#logo_img{
+  width:150px;
 }
