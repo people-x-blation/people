@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "NODE_ENV=development npx nodemon --exec babel-node ./bin/www",
+    "start": "NODE_ENV=production babel-node ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^8.0.0",
-    "eslint-config-airbnb": "^17.1.0",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
@@ -19,6 +19,16 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "eslint-plugin-import": "^2.17.3"
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-styled-components": "^1.10.1",
+    "babel-preset-env": "^1.7.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "prettier": "^1.18.2"
   }
 }
