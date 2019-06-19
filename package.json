@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development npx nodemon --exec babel-node app.js",
-    "start": "NODE_ENV=production babel-node app.js"
+    "dev": "NODE_ENV=development npx nodemon --exec babel-node ./bin/www",
+    "start": "NODE_ENV=production babel-node ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -22,6 +22,8 @@
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-plugin-styled-components": "^1.10.1",
     "babel-preset-env": "^1.7.0",
     "eslint-config-airbnb": "^17.1.0",

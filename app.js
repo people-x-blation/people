@@ -1,4 +1,4 @@
-import express from 'expres';
+import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use('/api/v1', router);
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -39,4 +39,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-export default app;
+module.exports = app;
