@@ -159,13 +159,14 @@ nav ul li {
 }
 
 nav ul li a {
+  display: block;
   color:black;
   max-height:100px;
   text-decoration: none;
 }
 
 nav ul li a:hover{
-  
+  background-color: aquamarine;
 }
 
 /* Animation */
