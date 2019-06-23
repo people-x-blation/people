@@ -25,26 +25,11 @@ html {
 }
 
 /* Tag */
-h1 {
-  font-size: 2.3rem;
-  font-weight: 900;
-}
-
-h2 {
-  font-size: 1.7rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-h4 {
-  font-size: 1.3rem;
-}
-
-p {
-  font-size: 0.95rem;
-}
+h1 { font-size: 2.3rem; font-weight: 900; }
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.3rem; }
+p { font-size: 0.95rem; }
 
 body{
   /* NAV 영역 공백 */
@@ -54,13 +39,49 @@ footer{
   text-align: center;
 }
 
+/* CONTAINER */
 .container {
-  border-radius: 4rem;
+  border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
   padding: 5vw;
+  margin: 30px;
 }
 .container h1, .container h2{ text-align: center; }
 .container p{ text-align: left; }
+
+.list_container{
+  border-radius: 2rem;
+  box-shadow: 5px 5px 5px #f0f0f0;
+  margin: 20px;
+}
+
+.list_container .img_wrapper{
+  display: table-cell;
+  border-radius: 2rem;
+  padding: 5vw;
+  /* 배경 사진의 경우에는 인라인으로 조정(후에 서버 스크립트 작성 고려) */
+  width:80px;
+  height:80px;
+  margin:0;
+}
+
+.list_container .content_wrapper{
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 30px;
+  padding-right:30px;
+  /*width:calc(100vw - 175px);*/
+}
+
+.list_container .content_wrapper h2{
+  margin-top:0px;
+  margin-bottom: 0px;
+  font-size: 1.2rem;
+}
+
+.list_container .content_wrapper span{
+  font-size: 0.9rem;
+}
 
 #loading {
   background-color: white;
@@ -117,7 +138,6 @@ img#logo {
   /* DESKTOP CONSTRAINTS */
   max-width: 150px;
   max-height: 150px;
-
 }
 
 #header_wrap {
@@ -169,6 +189,8 @@ nav ul li a:hover{
   background-color: aquamarine;
 }
 
+
+
 /* Animation */
 
 @keyframes pulse {
@@ -184,6 +206,9 @@ nav ul li a:hover{
     box-shadow: 0 0 0 0 #E23434;
   }
 }
+
+
+
 
 @keyframes roll{
   from{
