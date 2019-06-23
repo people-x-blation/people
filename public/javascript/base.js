@@ -12,6 +12,8 @@ function fadeOutEffect(target) {
             fadeTarget.style.opacity -= 0.1;
         } else {
             clearInterval(fadeEffect);
+            fadeTarget.style.display = "none";
         }
-    }, 100);
+    }, 50);
+    
 }

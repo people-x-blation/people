@@ -1,21 +1,26 @@
+/* 
+  아이콘 정보 : http://www.alessioatzeni.com/metrize-icons/
+
+*/
+
 * {
   /* border:1px solid black; */
 }
 
 html {
-  font-size: 16px;
+  font-size: 15px;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
 @media screen and (min-width: 320px) {
   html {
-    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+    font-size: calc(15px + 6 * ((100vw - 320px) / 680));
   }
 }
 
 @media screen and (min-width: 1000px) {
   html {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 
@@ -41,20 +46,21 @@ p {
   font-size: 0.95rem;
 }
 
+body{
+  /* NAV 영역 공백 */
+  padding-bottom: 10vw;
+}
+footer{
+  text-align: center;
+}
 
 .container {
   border-radius: 4rem;
   box-shadow: 5px 5px 5px #f0f0f0;
   padding: 5vw;
 }
-
-.container h1, .container h2{
-  text-align: center;
-}
-
-.container p{
-  text-align: left;
-}
+.container h1, .container h2{ text-align: center; }
+.container p{ text-align: left; }
 
 #loading {
   background-color: white;
@@ -69,13 +75,18 @@ p {
 }
 
 #loading img {
-  width: 30vw;
-  height: 30vw;
+  width: 20vw;
+  height: 20vw;
+
+  /* DESKTOP Constraints */
+  max-width: 150px;
+  max-height: 150px;
+
   border-radius: 15vw;
   margin-top: calc(50vh - 15vw);
   animation-name: pulse, roll;
   animation-duration: 0.8s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 5;
 }
 
 #loading span {
@@ -102,6 +113,11 @@ img#logo {
   display: table-cell;
   vertical-align: middle;
   width: 30vw;
+
+  /* DESKTOP CONSTRAINTS */
+  max-width: 150px;
+  max-height: 150px;
+
 }
 
 #header_wrap {
@@ -111,15 +127,46 @@ img#logo {
   width: 70vw;
   color: #E23434;
 }
+#header_wrap h1 { margin: 0 0; }
+#header_wrap span { font-size: 0.95rem; }
 
-#header_wrap>h1 {
-  margin: 0 0;
+
+nav {
+  position: fixed;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index: 99;
+  display:table;
+
+  width: 100%;
+
+  background-color: #f0f0f0;
 }
 
-#header_wrap>span {
-  font-size: 0.95rem;
+nav ul{
+  list-style-type: none;
+  padding-left:0;
+  text-align: center;
 }
 
+nav ul li {
+  width: 25vw;
+  height: 2.3vw;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+nav ul li a {
+  color:black;
+  max-height:100px;
+  text-decoration: none;
+}
+
+nav ul li a:hover{
+  
+}
 
 /* Animation */
 
