@@ -1,12 +1,9 @@
 import { Router } from 'express';
 
 const router = new Router();
+const controller = require('./index.ctrl');
 
-router.get('/',function(req,res,next){
-   res.render('board/list',{}); 
-});
-router.get('/list',function(req,res,next){
-   res.render('board/list',{}); 
-});
+router.get('/', controller.list);
+router.get('/list', controller.list);
 
 export default router;
