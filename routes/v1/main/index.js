@@ -1,11 +1,8 @@
 import { Router } from 'express';
 
 const router = new Router();
+const controller = require('./index.ctrl');
 
-router.get('/', function(req,res,next){
-    res.render('index', {
-        "title" : "피'플"
-    });
-});
+router.get('/', controller.index);
 
 export default router;
