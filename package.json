@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development npx nodemon --exec babel-node ./bin/www",
+    "dev": "NODE_ENV=development npx nodemon --exec babel-node -- ./bin/www",
     "start": "NODE_ENV=production babel-node ./bin/www"
   },
   "dependencies": {
@@ -12,7 +12,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
-    "express": "~4.16.0",
+    "express": "^4.17.1",
     "http-errors": "~1.6.2",
     "jquery": "^3.4.1",
     "morgan": "~1.9.0"
