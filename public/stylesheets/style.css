@@ -1,8 +1,195 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* 
+  아이콘 정보 : http://www.alessioatzeni.com/metrize-icons/
+
+*/
+
+* {
+  /* border:1px solid black; */
 }
 
-a {
-  color: #00B7FF;
+html {
+  font-size: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(15px + 6 * ((100vw - 320px) / 680));
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Tag */
+h1 {
+  font-size: 2.3rem;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 1.7rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+p {
+  font-size: 0.95rem;
+}
+
+body{
+  /* NAV 영역 공백 */
+  padding-bottom: 10vw;
+}
+footer{
+  text-align: center;
+}
+
+.container {
+  border-radius: 4rem;
+  box-shadow: 5px 5px 5px #f0f0f0;
+  padding: 5vw;
+}
+.container h1, .container h2{ text-align: center; }
+.container p{ text-align: left; }
+
+#loading {
+  background-color: white;
+  position: fixed;
+  display: table-cell;
+  text-align: center;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#loading img {
+  width: 20vw;
+  height: 20vw;
+
+  /* DESKTOP Constraints */
+  max-width: 150px;
+  max-height: 150px;
+
+  border-radius: 15vw;
+  margin-top: calc(50vh - 15vw);
+  animation-name: pulse, roll;
+  animation-duration: 0.8s;
+  animation-iteration-count: 5;
+}
+
+#loading span {
+  display: block;
+  margin-top: 20px;
+}
+
+.header {
+  /*  */
+}
+
+.wrapper {
+  display: table;
+  height: auto;
+  /* float 인식 */
+  overflow: hidden;
+}
+
+img#logo {
+  width: 100%;
+}
+
+#logo_wrap {
+  display: table-cell;
+  vertical-align: middle;
+  width: 30vw;
+
+  /* DESKTOP CONSTRAINTS */
+  max-width: 150px;
+  max-height: 150px;
+
+}
+
+#header_wrap {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 70vw;
+  color: #E23434;
+}
+#header_wrap h1 { margin: 0 0; }
+#header_wrap span { font-size: 0.95rem; }
+
+
+nav {
+  position: fixed;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index: 99;
+  display:table;
+
+  width: 100%;
+
+  background-color: #f0f0f0;
+}
+
+nav ul{
+  list-style-type: none;
+  padding-left:0;
+  text-align: center;
+}
+
+nav ul li {
+  width: 25vw;
+  height: 2.3vw;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+nav ul li a {
+  display: block;
+  color:black;
+  max-height:100px;
+  text-decoration: none;
+}
+
+nav ul li a:hover{
+  background-color: aquamarine;
+}
+
+/* Animation */
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #E23434;
+  }
+
+  70% {
+    box-shadow: 0 0 0 20px #E23434;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 #E23434;
+  }
+}
+
+@keyframes roll{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
 }

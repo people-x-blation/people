@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import router from './routes';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import createError from 'http-errors';
 
 const app = express();
 
@@ -13,13 +14,15 @@ dotenv.config({
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// jQuery 지정
+app.use('/jquery',express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use(bodyParser.json());
 app.use('/', router);
 
