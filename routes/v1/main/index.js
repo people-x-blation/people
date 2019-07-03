@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
 const router = new Router();
-const controller = require('./index.ctrl');
+import { index } from 'index.ctrl';
 
-router.get('/', controller.index);
+router.get('/', index);
 
 export default router;
