@@ -1,0 +1,62 @@
+-- admin 0 user 1
+CREATE TYPE admin_t as enum('0','1');
+
+CREATE TABLE member
+(
+    id        VARCHAR(20)     NOT NULL    , 
+    nickname  VARCHAR(20)     NOT NULL    , 
+    password  VARCHAR(45)     NOT NULL    , 
+    blood     VARCHAR(12)     NOT NULL    , 
+    profile   VARCHAR(100)    NOT NULL    , 
+    phone     VARCHAR(30)     NOT NULL    , 
+    email	VARCHAR(45)     NOT NULL    , 
+    usernum SERIAL , 
+	
+    PRIMARY KEY (usernum), UNIQUE(nickname), UNIQUE(email)
+);
+
+-- show 1 notshow 0 pending 2
+CREATE TYPE show_flag_t as enum('0', '1', '2');
+
+-- seoul 0 busan 1 incheon 2 daejeon 3 gyeongi 4 chugncheong 5 jeonla 6 gyeongsang 7 jeju 8 sejong 9
+CREATE TYPE location_t as enum('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+CREATE TABLE board
+(
+    title        VARCHAR(50)     NOT NULL    , 
+    author  INTEGER REFERENCES member (usernum) on delete cascade NOT NULL   , 
+    like_count  INTEGER     ,  
+    create_at   timestamp    NOT NULL    ,
+	show_flag show_flag_t NOT NULL,
+	locations location_t NOT NULL,
+	hospital VARCHAR(50) NOT NULL,
+    boardnum SERIAL , 
+	contents TEXT NOT NULL,
+    PRIMARY KEY (boardnum)
+);
+
+CREATE TABLE comment
+(
+	commentnum SERIAL,
+	boardnum INTEGER REFERENCES board (boardnum) on delete cascade,
+	usernum INTEGER REFERENCES member (usernum) on delete cascade,
+	contents VARCHAR(200),
+	PRIMARY KEY(commentnum)
+);
+
+CREATE TABLE breport
+(
+	boardnum INTEGER REFERENCES board (boardnum) on delete cascade,
+	rcount INTEGER,
+	PRIMARY KEY(boardnum)
+);
+
+CREATE TABLE creport
+(
+	commentnum INTEGER REFERENCES comment (commentnum) on delete cascade,
+	rcount INTEGER,
+	PRIMARY KEY(commentnum)
+);
+
+
+
