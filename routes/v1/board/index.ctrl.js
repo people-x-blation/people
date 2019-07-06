@@ -1,2 +1,7 @@
+export const list = (req,res) => {
+    res.render("board/list");
+};
 
-export const retrieve = () => {};
+export const read = (req,res) => {
+    res.render("board/read");
+}
