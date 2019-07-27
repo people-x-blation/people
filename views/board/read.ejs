@@ -29,7 +29,7 @@
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
             <img id="read_profile_pic" src="https://via.placeholder.com/50x50" />
-            <img id="read_setting" src="/images/dots_menu.svg"></img>
+            <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
         </div>
         <div id="read_user_info" class="read_content_wrapper">
             <span>닉네임 | RH+ O형</span>
@@ -59,6 +59,16 @@
         </div>
     </div>
 
+
+    <!-- SETTING DISPLAY -->
+    <div class="menu_container">
+        <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
+        <ul>
+            <li><a href="#">수정하기</a></li>
+            <li>삭제하기</li>
+            <li onclick="read_closeSetting()">닫기</li>
+        </ul>
+    </div>
 </body>
 
 </html>
