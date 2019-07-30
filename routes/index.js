@@ -8,7 +8,7 @@ const router = new Router();
 
 router.use('/', mainRouter);
 router.use('/board', boardRouter);
-router.use('/users', userRouter);
+router.use('/user', userRouter);
 router.use('/auth', authRouter);
 
 export default router;
