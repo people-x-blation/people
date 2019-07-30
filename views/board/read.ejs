@@ -41,26 +41,47 @@
         </div>
         <div class="read_content_wrapper">
             <div class="read_comment_wrapper">
+                <form>
+                    <input id="read_comment_form" type="text" />
+                    <button id="read_comment_submit">댓글 작성</button>
+                </form>
+            </div>
+            <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저1</div>
-                <p class="read_comment_content">기관과 스며들어 품으</p>
+                <p class="read_comment_content">기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저2</div>
                 <p class="read_comment_content">낙원을 봄날의 끓는다.rkrkrkrkrkrkrkrkrkrkrkrkrkrkrkrk</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저3</div>
                 <p class="read_comment_content">기관과 스며들어 품으며rkrkrkrkrkrkrkrkrk</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저4</div>
                 <p class="read_comment_content">낙원을 봄날의 끓는다rkrkrkrkrkrkrkrkrk.</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
             </div>
+            
         </div>
     </div>
 
 
-    <!-- SETTING DISPLAY -->
+    <!-- CONTENTS SETTING DISPLAY -->
+    <div class="menu_container">
+        <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
+        <ul>
+            <li><a href="#">수정하기</a></li>
+            <li>삭제하기</li>
+            <li onclick="read_closeSetting()">닫기</li>
+        </ul>
+    </div>
+
+    <!-- CONTENTS SETTING DISPLAY -->
     <div class="menu_container">
         <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
         <ul>

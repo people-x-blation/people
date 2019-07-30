@@ -321,7 +321,7 @@ nav ul li a:hover {
 
 .read_comment_content {
   display: inline-block;
-  width: 70%;
+  width: calc(80% - 5vw);
   word-break: break-all;
   margin: 0;
   white-space: pre-wrap;
@@ -355,8 +355,26 @@ nav ul li a:hover {
   white-space: pre-wrap;
 }
 
+.read_comment_setting{
+  display: inline;
+
+}
+.read_comment_setting > img{
+  width: 4vw;
+}
+
+#read_comment_form{
+  width: 70%;
+}
+#read_comment_submit{
+  width: 20%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.8rem;
+}
+
 /* INPUT */
-input[type=text],textarea, select {
+input[type=text],input[type=password],textarea, select {
   width: 90%;
   border-radius: 10vw;
   border: none;
@@ -383,30 +401,68 @@ textarea#write_content{
 form > button{
   background-color: #F76363;
   border: none;
-  padding: 10px;
+  padding: 1vw;
   border-radius: 10px;
   color:white;
   font-family: 'Noto Sans KR', sans-serif;
   margin-top: 5px;
+  font-size: 1rem;
 }
 
-input#search_bar{
-  width: 80%;
+select#search_locations,select#locations {
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+  -moz-appearance: none; 
+  appearance: none;
+  background: url("/images/down-arrow.svg") no-repeat 95% 50%;
 }
 
-button#search_bar_icon{
-  background-color: transparent;
-  width: 5%;
-  margin-left: -10%;
-  padding: 0;
+button#search_bar_icon {
+  display: block;
+  width: 20%;
+  margin: 10px auto;
+  background-color: #efefef;
 }
 
 button#search_bar_icon > img{
-  width: 100%;
-  vertical-align: middle;
-  
+  width: 5vw;
 }
 
+#login_form{
+  width: 50vw;
+  margin-left: 25vw;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+#login_form button[type=submit]{
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  font-size: 0.8rem;
+}
+
+#login_form_span{
+  font-size: 0.7rem;
+}
+#login_form_span > a {
+  color: #F76363;
+}
+
+/* TERMS */
+#terms_text{
+  height: 50vh;
+  white-space: pre-wrap;
+  overflow: scroll;
+  border-radius: 1vw;
+  box-shadow: 2px 2px 2px 2px #c0c0c0;
+  margin: 5vw;
+  font-size: 0.8rem;
+  padding:5px;
+}
+
+#terms_form{
+  text-align: center;
+}
 
 /* Animation */
 
