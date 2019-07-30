@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피플</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="/javascript/base.js"></script>
+</head>
+
+<body>
+    <!-- Loading -->
+    <div id="loading">
+        <img src="/images/logo.svg">
+        <span>로딩중 입니다...</span>
+    </div>
+
+    <div class="form_wrapper">
+        <form action="#" method="post" id="write_form">
+            <input class="basic_input" type="text" placeholder="제목" name="title" id="">
+            <select name="locations" id="locations">
+                <option>지역을 선택해 주십시오.</option>
+                <option value="1">서울특별시</option>
+                <option value="2">부산광역시</option>
+                <option value="3">대구광역시</option>
+                <option value="4">인천광역시</option>
+                <option value="5">대전광역시</option>
+                <option value="6">광주광역시</option>
+                <option value="7">울산광역시</option>
+                <option value="8">세종특별자치시</option>
+                <option value="9">강원도</option>
+                <option value="10">경기도</option>
+                <option value="11">충청남도</option>
+                <option value="12">충청북도</option>
+                <option value="13">전라북도</option>
+                <option value="14">전라남도</option>
+                <option value="15">경상북도</option>
+                <option value="16">경상남도</option>
+                <option value="17">제주특별자치도</option>
+            </select>
+            <textarea id="write_content" name="contents" placeholder="게시글작성"></textarea>
+            <br />
+            <span id="write_info">모든 게시글은 승인후에 게시됩니다.</span>
+            <button>게시요청</button>
+            <button onclick="write_cancel()">작성취소</button>
+        </form>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <ul>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a></li>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a></li>
+            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a></a></li>
+        </ul>
+    </nav>
+
+
+</body>
+
+</html>

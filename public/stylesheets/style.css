@@ -8,7 +8,7 @@
 }
 
 html {
-  font-size: 15px;
+  font-size: 13px;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -16,12 +16,20 @@ html {
   html {
     font-size: calc(15px + 6 * ((100vw - 320px) / 680));
   }
+
+  .container {
+    margin: 10px !important;
+  }
 }
 
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
   }
+}
+
+body {
+  background-color: #f9f9f9;
 }
 
 /* Tag */
@@ -46,21 +54,117 @@ p {
   font-size: 0.95rem;
 }
 
-body{
+body {
   /* NAV 영역 공백 */
   padding-bottom: 10vw;
+  margin-left: 0;
+  margin-right: 0;
 }
-footer{
+
+footer {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+  color: black
+}
+
+/* CONTAINER */
 .container {
-  border-radius: 4rem;
+  background-color: #ffffff;
+  border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
   padding: 5vw;
+  margin: 30px;
 }
-.container h1, .container h2{ text-align: center; }
-.container p{ text-align: left; }
+
+.container h1,
+.container h2 {
+  text-align: center;
+}
+
+.container p {
+  text-align: left;
+}
+
+.list_container {
+  border-radius: 2rem;
+  box-shadow: 5px 5px 5px #f0f0f0;
+  margin: 20px;
+}
+
+.list_container .img_wrapper {
+  display: table-cell;
+  border-radius: 2rem;
+  padding: 5vw;
+  /* 배경 사진의 경우에는 인라인으로 조정(후에 서버 스크립트 작성 고려) */
+  width: 80px;
+  height: 80px;
+  margin: 0;
+}
+
+.list_container .content_wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 30px;
+  padding-right: 30px;
+  /*width:calc(100vw - 175px);*/
+}
+
+.list_container .content_wrapper h2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 1.2rem;
+}
+
+.list_container .content_wrapper span {
+  font-size: 0.9rem;
+}
+
+.menu_container {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 97;
+  display: none;
+}
+
+.menu_container>ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  width: 200px;
+  font-size: 1.2rem;
+  position: fixed;
+  top: 25%;
+  left: calc(50% - 100px);
+}
+
+.menu_container>ul>li {
+  text-align: center;
+  background-color: #efefef;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.menu_container>ul>li:nth-child(2n-1) {
+  background-color: #e0e0e0;
+}
+
+.menu_container>ul>li:hover {
+  background-color: beige;
+}
+
+.menu_container>ul>li:last-child {
+  background-color: black;
+  color: white;
+}
+
 
 #loading {
   background-color: white;
@@ -72,6 +176,8 @@ footer{
   left: 0;
   right: 0;
   bottom: 0;
+
+  z-index: 99;
 }
 
 #loading img {
@@ -105,6 +211,12 @@ footer{
   overflow: hidden;
 }
 
+.form_wrapper{
+  max-width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+
 img#logo {
   width: 100%;
 }
@@ -117,7 +229,6 @@ img#logo {
   /* DESKTOP CONSTRAINTS */
   max-width: 150px;
   max-height: 150px;
-
 }
 
 #header_wrap {
@@ -127,26 +238,35 @@ img#logo {
   width: 70vw;
   color: #E23434;
 }
-#header_wrap h1 { margin: 0 0; }
-#header_wrap span { font-size: 0.95rem; }
+
+#header_wrap h1 {
+  margin: 0 0;
+}
+
+#header_wrap span {
+  font-size: 0.95rem;
+}
 
 
 nav {
   position: fixed;
-  left:0;
-  bottom:0;
-  right:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 99;
-  display:table;
-
+  display: table;
   width: 100%;
 
-  background-color: #f0f0f0;
+  border-top-left-radius: 5vw;
+  border-top-right-radius: 5vw;
+  box-shadow: 5px 5px 5px 5px #f0f0f0;
+
+  background-color: #ffffff;
 }
 
-nav ul{
+nav ul {
   list-style-type: none;
-  padding-left:0;
+  padding-left: 0;
   text-align: center;
 }
 
@@ -160,13 +280,188 @@ nav ul li {
 
 nav ul li a {
   display: block;
-  color:black;
-  max-height:100px;
+  color: black;
+  max-height: 100px;
   text-decoration: none;
 }
 
-nav ul li a:hover{
+nav ul li a:hover {
   background-color: aquamarine;
+}
+
+#nav_home,
+#nav_search,
+#nav_write,
+#nav_login {
+  width: 8vw;
+}
+
+.read_content_wrapper {}
+
+#read_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#read_setting {
+  /* width: 30px; */
+}
+
+.read_comment_user,
+.read_comment_content {
+  font-size: 0.8rem;
+}
+
+.read_comment_user {
+  display: inline-block;
+  width: 15%;
+  vertical-align: top;
+}
+
+.read_comment_content {
+  display: inline-block;
+  width: calc(80% - 5vw);
+  word-break: break-all;
+  margin: 0;
+  white-space: pre-wrap;
+  font-weight: lighter;
+  vertical-align: top;
+}
+
+#read_profile_pic {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 4vw;
+}
+
+
+#read_user_info {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+#read_title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#read_content_image {
+  width: 100%;
+  height: 30vh;
+}
+
+#read_content_text {
+  white-space: pre-wrap;
+}
+
+.read_comment_setting{
+  display: inline;
+
+}
+.read_comment_setting > img{
+  width: 4vw;
+}
+
+#read_comment_form{
+  width: 70%;
+}
+#read_comment_submit{
+  width: 20%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.8rem;
+}
+
+/* INPUT */
+input[type=text],input[type=password],textarea, select {
+  width: 90%;
+  border-radius: 10vw;
+  border: none;
+  box-shadow: 2px 2px 2px 2px #f0f0f0;
+  padding: 2vw;
+  margin-bottom: 10px;
+}
+
+select{
+  width: 94%;
+}
+
+textarea#write_content{
+  height: 50vh;
+  padding: 10px;
+  border-radius: 4vw;
+}
+
+#write_info{
+  display: block;
+  font-size: 0.7rem;
+}
+
+form > button{
+  background-color: #F76363;
+  border: none;
+  padding: 1vw;
+  border-radius: 10px;
+  color:white;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+select#search_locations,select#locations {
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+  -moz-appearance: none; 
+  appearance: none;
+  background: url("/images/down-arrow.svg") no-repeat 95% 50%;
+}
+
+button#search_bar_icon {
+  display: block;
+  width: 20%;
+  margin: 10px auto;
+  background-color: #efefef;
+}
+
+button#search_bar_icon > img{
+  width: 5vw;
+}
+
+#login_form{
+  width: 50vw;
+  margin-left: 25vw;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+#login_form button[type=submit]{
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  font-size: 0.8rem;
+}
+
+#login_form_span{
+  font-size: 0.7rem;
+}
+#login_form_span > a {
+  color: #F76363;
+}
+
+/* TERMS */
+#terms_text{
+  height: 50vh;
+  white-space: pre-wrap;
+  overflow: scroll;
+  border-radius: 1vw;
+  box-shadow: 2px 2px 2px 2px #c0c0c0;
+  margin: 5vw;
+  font-size: 0.8rem;
+  padding:5px;
+}
+
+#terms_form{
+  text-align: center;
 }
 
 /* Animation */
@@ -185,11 +480,15 @@ nav ul li a:hover{
   }
 }
 
-@keyframes roll{
-  from{
+
+
+
+@keyframes roll {
+  from {
     transform: rotate(0deg);
   }
-  to{
+
+  to {
     transform: rotate(360deg);
   }
 }

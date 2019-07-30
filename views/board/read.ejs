@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피플</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css?ver=1" />
+    <script src="/javascript/base.js"></script>
+</head>
+
+<body>
+    <!-- Loading -->
+    <div id="loading">
+        <img src="/images/logo.svg">
+        <span>로딩중 입니다...</span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <ul>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a></li>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a></li>
+            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a></a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="read_top" class="read_content_wrapper">
+            <img id="read_profile_pic" src="https://via.placeholder.com/50x50" />
+            <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
+        </div>
+        <div id="read_user_info" class="read_content_wrapper">
+            <span>닉네임 | RH+ O형</span>
+        </div>
+        <div class="read_content_wrapper">
+            <h2 id="read_title">O형 혈액 구함</h2>
+            <img id="read_content_image" src="https://via.placeholder.com/150x100" />
+            <p id="read_content_text">기관과 스며들어 품으며, 낙원을 봄날의 끓는다. 대중을 피가 석가는 그들은 만물은 부패뿐이다. 행복스럽고 할지니, 보이는 그들에게 튼튼하며, 군영과 눈이 위하여 보라. 많이 군영과 실현에있다.</p>
+        </div>
+        <div class="read_content_wrapper">
+            <div class="read_comment_wrapper">
+                <form>
+                    <input id="read_comment_form" type="text" />
+                    <button id="read_comment_submit">댓글 작성</button>
+                </form>
+            </div>
+            <div class="read_comment_wrapper">
+                <div class="read_comment_user">유저1</div>
+                <p class="read_comment_content">기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+            </div>
+            <div class="read_comment_wrapper">
+                <div class="read_comment_user">유저2</div>
+                <p class="read_comment_content">낙원을 봄날의 끓는다.rkrkrkrkrkrkrkrkrkrkrkrkrkrkrkrk</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+            </div>
+            <div class="read_comment_wrapper">
+                <div class="read_comment_user">유저3</div>
+                <p class="read_comment_content">기관과 스며들어 품으며rkrkrkrkrkrkrkrkrk</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+            </div>
+            <div class="read_comment_wrapper">
+                <div class="read_comment_user">유저4</div>
+                <p class="read_comment_content">낙원을 봄날의 끓는다rkrkrkrkrkrkrkrkrk.</p>
+                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <!-- CONTENTS SETTING DISPLAY -->
+    <div class="menu_container">
+        <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
+        <ul>
+            <li><a href="#">수정하기</a></li>
+            <li>삭제하기</li>
+            <li onclick="read_closeSetting()">닫기</li>
+        </ul>
+    </div>
+
+    <!-- CONTENTS SETTING DISPLAY -->
+    <div class="menu_container">
+        <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
+        <ul>
+            <li><a href="#">수정하기</a></li>
+            <li>삭제하기</li>
+            <li onclick="read_closeSetting()">닫기</li>
+        </ul>
+    </div>
+</body>
+
+</html>
