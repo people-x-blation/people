@@ -1,6 +1,17 @@
 window.onload = function(){
-    fadeOutEffect("loading");
+    fadeOutEffect("loading");  
 }
+
+read_displaySetting = () => {
+    document.getElementsByClassName('menu_container')[0].style.display="block"
+};
+read_closeSetting = () => {
+    document.getElementsByClassName('menu_container')[0].style.display="none"
+};
+
+// write_cancel = () => {
+//     location.href = 
+// }
 
 function fadeOutEffect(target) {
     var fadeTarget = document.getElementById(target);
@@ -16,4 +27,4 @@ function fadeOutEffect(target) {
         }
     }, 50);
     
-}
+};
