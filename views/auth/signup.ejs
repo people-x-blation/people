@@ -26,7 +26,57 @@
         </ul>
     </nav>
 
-    
+    <!-- SIGNUP FORM -->
+    <div class="container">
+        <h2>회원가입</h2>
+        <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
+            <div class="signup_input_container">
+                <label for="signup_id">아이디</label> : <input type="text" class="signup_input" name="id" id="signup_id">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_pw">패스워드</label> : <input type="password" class="signup_input" name="password"
+                    id="signup_pw">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_pw_chk">패스워드 확인</label> : <input type="password" class="signup_input" name="password_chk"
+                    id="signup_pw_chk">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_nickname">닉네임</label> : <input type="text" class="signup_input" name="nickname"
+                    id="signup_nickname">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_email">이메일</label> : <input type="email" class="signup_input" name="email"
+                    id="signup_email">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_profile">프로필 사진</label> : <input type="file" class="signup_input" name="profile"
+                    id="signup_profile">
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_email">전화번호</label> : <input type="text" class="signup_input" name="phone"
+                    id="signup_phone">
+                <span id="signup_phone_notice">전화번호가 010-XXXX-XXXX인 경우 010XXXXXXXX 로 작성해주세요</span>
+            </div>
+            <div class="signup_input_container">
+                <label for="signup_blood">혈액형</label> :
+                <select name="blood" class="signup_input" id="signup_blood">
+                    <option>혈액형을 선택해 주십시오.</option>
+                    <option value="RH+A">RH+ A형</option>
+                    <option value="RH+B">RH+ B형</option>
+                    <option value="RH+AB">RH+ AB형</option>
+                    <option value="RH+O">RH+ O형</option>
+                    <option value="RH-A">RH- A형</option>
+                    <option value="RH-B">RH- B형</option>
+                    <option value="RH-AB">RH- AB형</option>
+                    <option value="RH-O">RH- O형</option>
+                </select>
+                <span id="signup_blood_notice">ABO식 혈액형 기준으로 선택해 주세요.</span>
+                <button type="submit">회원가입</button>
+            </div>
+        </form>
+    </div>
+
 
 </body>
 
