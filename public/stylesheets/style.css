@@ -22,9 +22,21 @@ html {
   }
 }
 
+@media screen and (min-width: 650px) {
+  body {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
+  }
+
+  body {
+    padding-left: 25vw;
+    padding-right: 25vw;
   }
 }
 
@@ -200,8 +212,8 @@ a {
   margin-top: 20px;
 }
 
-.header {
-  /*  */
+.header-2 {
+  padding: 0;
 }
 
 .wrapper {
@@ -211,24 +223,28 @@ a {
   overflow: hidden;
 }
 
-.form_wrapper{
+.form_wrapper {
   max-width: 90%;
   text-align: center;
   margin: 0 auto;
 }
 
-img#logo {
+img#logo, img#profile_pic {
   width: 100%;
 }
 
-#logo_wrap {
+img#profile_pic{
+  border-radius: 100%;
+}
+
+#logo_wrap, #profile_wrap {
   display: table-cell;
   vertical-align: middle;
-  width: 30vw;
+  width: 20vw;
 
   /* DESKTOP CONSTRAINTS */
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 100px;
+  max-height: 100px;
 }
 
 #header_wrap {
@@ -241,6 +257,7 @@ img#logo {
 
 #header_wrap h1 {
   margin: 0 0;
+  font-size: 2rem;
 }
 
 #header_wrap span {
@@ -294,6 +311,7 @@ nav ul li a:hover {
 #nav_write,
 #nav_login {
   width: 8vw;
+  max-width: 25px;
 }
 
 .read_content_wrapper {}
@@ -306,6 +324,11 @@ nav ul li a:hover {
 
 #read_setting {
   /* width: 30px; */
+}
+
+#read_comment{
+  background-color: #f0f0f0;
+  padding-left: 20px;
 }
 
 .read_comment_user,
@@ -321,7 +344,7 @@ nav ul li a:hover {
 
 .read_comment_content {
   display: inline-block;
-  width: calc(80% - 5vw);
+  width: 70%;
   word-break: break-all;
   margin: 0;
   white-space: pre-wrap;
@@ -332,6 +355,8 @@ nav ul li a:hover {
 #read_profile_pic {
   width: 8vw;
   height: 8vw;
+  max-width: 60px;
+  max-height: 60px;
   border-radius: 4vw;
 }
 
@@ -355,26 +380,65 @@ nav ul li a:hover {
   white-space: pre-wrap;
 }
 
-.read_comment_setting{
+.read_comment_setting {
   display: inline;
 
 }
-.read_comment_setting > img{
-  width: 4vw;
+
+.read_comment_setting>img {
+  width: 2vw;
+  min-width: 15px;
+  cursor: pointer;
 }
 
-#read_comment_form{
-  width: 70%;
+.read_comment_setting>img:hover {
+  background-color: aquamarine;
+  border-radius: 100%;
 }
-#read_comment_submit{
-  width: 20%;
+
+#read_comment_form {
+  width: 75%;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+#read_comment_write{
+  text-align: center;
+  margin: 5px auto;
+}
+
+#read_comment_submit {
+  width: 15%;
   display: inline-block;
   vertical-align: middle;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  padding: 5px;
+}
+
+/* MYPAGE */
+
+#mypage_info{
+  
+}
+#profile_wrap{
+  width: 40vw !important;
+  text-align: center;
+}
+#mypage_nickname{
+
+}
+#mypage_info_wrap{
+  width:60vw;
+  display: table-cell;
+
 }
 
 /* INPUT */
-input[type=text],input[type=password],textarea, select {
+input[type=text],
+input[type=password],
+input[type=email],
+textarea,
+select {
   width: 90%;
   border-radius: 10vw;
   border: none;
@@ -383,35 +447,93 @@ input[type=text],input[type=password],textarea, select {
   margin-bottom: 10px;
 }
 
-select{
-  width: 94%;
+#signup_form {
+  background-color: #e0e0e0;
+  border-radius: 5vw;
+  padding: 5px;
 }
 
-textarea#write_content{
-  height: 50vh;
-  padding: 10px;
-  border-radius: 4vw;
+#signup_form label {
+  width: 20% !important;
+  display: inline-block;
+  font-size: 0.75rem;
+  vertical-align: middle;
 }
 
-#write_info{
+.signup_input {
+  width: 50% !important;
+  display: inline-block;
+  border-radius: 5px !important;
+  padding: 5px !important;
+}
+
+.signup_input_container {
   display: block;
-  font-size: 0.7rem;
+  text-align: center;
 }
 
-form > button{
+.signup_input_container>label {
+  margin-right: 10px !important;
+}
+
+.signup_input_container>button {
   background-color: #F76363;
   border: none;
   padding: 1vw;
   border-radius: 10px;
-  color:white;
+  color: white;
   font-family: 'Noto Sans KR', sans-serif;
   margin-top: 5px;
   font-size: 1rem;
 }
 
-select#search_locations,select#locations {
-  -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
-  -moz-appearance: none; 
+span#signup_phone_notice,
+span#signup_blood_notice {
+  font-size: 0.55rem;
+  display: block;
+}
+
+select {
+  width: 94%;
+}
+
+select#signup_blood {
+  margin: 0 5px;
+  -webkit-appearance: none;
+  /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+  background: url("/images/down-arrow.svg") no-repeat 95% 50%;
+}
+
+
+textarea#write_content {
+  height: 50vh;
+  padding: 10px;
+  border-radius: 4vw;
+}
+
+#write_info {
+  display: block;
+  font-size: 0.7rem;
+}
+
+form>button {
+  background-color: #F76363;
+  border: none;
+  padding: 1vw;
+  border-radius: 10px;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+select#search_locations,
+select#locations {
+  -webkit-appearance: none;
+  /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
   appearance: none;
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
 }
@@ -423,33 +545,34 @@ button#search_bar_icon {
   background-color: #efefef;
 }
 
-button#search_bar_icon > img{
+button#search_bar_icon>img {
   width: 5vw;
 }
 
-#login_form{
+#login_form {
   width: 50vw;
   margin-left: 25vw;
   text-align: center;
   margin-top: 10vh;
 }
 
-#login_form button[type=submit]{
+#login_form button[type=submit] {
   display: block;
   width: 50%;
   margin: 0 auto;
   font-size: 0.8rem;
 }
 
-#login_form_span{
+#login_form_span {
   font-size: 0.7rem;
 }
-#login_form_span > a {
+
+#login_form_span>a {
   color: #F76363;
 }
 
 /* TERMS */
-#terms_text{
+#terms_text {
   height: 50vh;
   white-space: pre-wrap;
   overflow: scroll;
@@ -457,10 +580,10 @@ button#search_bar_icon > img{
   box-shadow: 2px 2px 2px 2px #c0c0c0;
   margin: 5vw;
   font-size: 0.8rem;
-  padding:5px;
+  padding: 5px;
 }
 
-#terms_form{
+#terms_form {
   text-align: center;
 }
 

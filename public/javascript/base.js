@@ -8,6 +8,12 @@ read_displaySetting = () => {
 read_closeSetting = () => {
     document.getElementsByClassName('menu_container')[0].style.display="none"
 };
+read_comment_displaySetting = () => {
+    document.getElementsByClassName('menu_container')[1].style.display="block"
+};
+read_comment_closeSetting = () => {
+    document.getElementsByClassName('menu_container')[1].style.display="none"
+};
 
 // write_cancel = () => {
 //     location.href = 
