@@ -26,6 +26,19 @@
         </ul>
     </nav>
 
+
+    <div class="container header-2">
+        <div class="wrapper">
+            <div id="logo_wrap">
+                <img id="logo" src="/images/logo.svg" alt="로고" />
+            </div>
+            <div id="header_wrap">
+                <h1>P'ple</h1>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
             <img id="read_profile_pic" src="https://via.placeholder.com/50x50" />
@@ -37,36 +50,41 @@
         <div class="read_content_wrapper">
             <h2 id="read_title">O형 혈액 구함</h2>
             <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text">기관과 스며들어 품으며, 낙원을 봄날의 끓는다. 대중을 피가 석가는 그들은 만물은 부패뿐이다. 행복스럽고 할지니, 보이는 그들에게 튼튼하며, 군영과 눈이 위하여 보라. 많이 군영과 실현에있다.</p>
+            <p id="read_content_text">기관과 스며들어 품으며, 낙원을 봄날의 끓는다. 대중을 피가 석가는 그들은 만물은 부패뿐이다. 행복스럽고 할지니, 보이는 그들에게 튼튼하며, 군영과
+                눈이 위하여 보라. 많이 군영과 실현에있다.</p>
         </div>
-        <div class="read_content_wrapper">
-            <div class="read_comment_wrapper">
+        <div id="read_comment" class="read_content_wrapper">
+            <div class="read_comment_write">
                 <form>
                     <input id="read_comment_form" type="text" />
-                    <button id="read_comment_submit">댓글 작성</button>
+                    <button id="read_comment_submit">작성</button>
                 </form>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저1</div>
                 <p class="read_comment_content">기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으</p>
-                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
+                </div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저2</div>
                 <p class="read_comment_content">낙원을 봄날의 끓는다.rkrkrkrkrkrkrkrkrkrkrkrkrkrkrkrk</p>
-                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
+                </div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저3</div>
                 <p class="read_comment_content">기관과 스며들어 품으며rkrkrkrkrkrkrkrkrk</p>
-                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
+                </div>
             </div>
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저4</div>
                 <p class="read_comment_content">낙원을 봄날의 끓는다rkrkrkrkrkrkrkrkrk.</p>
-                <div class="read_comment_setting"><img src="/images/more.svg" /></div>
+                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
+                </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -76,7 +94,7 @@
         <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
         <ul>
             <li><a href="#">수정하기</a></li>
-            <li>삭제하기</li>
+            <li><a href="#">삭제하기</a></li>
             <li onclick="read_closeSetting()">닫기</li>
         </ul>
     </div>
@@ -86,8 +104,8 @@
         <!-- !! 마지막 버튼은 닫기 버튼으로 고정할것 -->
         <ul>
             <li><a href="#">수정하기</a></li>
-            <li>삭제하기</li>
-            <li onclick="read_closeSetting()">닫기</li>
+            <li><a href="#">삭제하기</a></li>
+            <li onclick="read_comment_closeSetting()">닫기</li>
         </ul>
     </div>
 </body>
