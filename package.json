@@ -7,6 +7,7 @@
     "start": "NODE_ENV=production babel-node ./bin/www"
   },
   "dependencies": {
+    "babel-plugin-module-resolver": "^3.2.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
