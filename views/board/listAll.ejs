@@ -38,8 +38,7 @@
         </div>
     </div>
 
-
-    <h2><%=location%></h2>
+    <h2>전체 지역 보기</h2>
     <% for(let item = 0; item < list.length; item++) { %>
     <div class="list_container">
         <div class="img_wrapper"
@@ -49,7 +48,7 @@
         <div class="content_wrapper">
             <span id="list_user_id"><%=user[list[item].author].nickname%></span>
             <h2 id="list_title"><a href="board/read"><%=list[item].title%></a></h2>
-            <span id="list_location"><%=location%></span> | <span id="list_blood_type"><%=user[list[item].author].blood%></span>
+            <span id="list_location"><%=location[list[item].locations]%></span> | <span id="list_blood_type"><%=user[list[item].author].blood%></span>
         </div>
     </div>
     <%}%>
