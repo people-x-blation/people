@@ -64,7 +64,8 @@ export const listAll = async (req, res) => {
 
   // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
   passport.deserializeUser((user, done) => {
-    done(null, user._json);
+    console.log("deserialize",user);
+    done(null, user);
   });
 
   let userInfo = {};

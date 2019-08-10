@@ -15,7 +15,6 @@ passport.use(new KakaoStrategy(
         callbackURL : 'http://localhost:3000/auth/kakao',
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log("profile",profile);
         return done(null, profile);
     }
 ));
