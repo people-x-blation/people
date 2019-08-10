@@ -1,8 +1,10 @@
+import passport from 'passport';
 import {
   select,
   insert,
   update
 } from '~/db/query';
+
 
 // 지역 매핑용
 let locationTable = {
@@ -24,8 +26,17 @@ let locationTable = {
   "16": "제주도"
 }
 
+
 export const list = async (req, res) => {
+
+  // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
+  passport.deserializeUser((user, done) => {
+    console.log('deserialize', user);
+    done(null, user);
+  });
+
   let userInfo = {};
+
   try {
     const list = await select('*', 'board', `locations = '${req.params.location}'`);
     for (let row in list.rows) {
@@ -38,7 +49,7 @@ export const list = async (req, res) => {
         "profile": memberInfo.profile,
       }
     }
-    console.log(list.rows);
+    // console.log(list.rows);
     res.render('board/list', {
       list: list.rows,
       user: userInfo,
@@ -50,9 +61,15 @@ export const list = async (req, res) => {
 };
 
 export const listAll = async (req, res) => {
+
+  // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
+  passport.deserializeUser((user, done) => {
+    done(null, user._json);
+  });
+
   let userInfo = {};
   try {
-    console.log(typeof req.params.location);
+    // console.log(typeof req.params.location);
     const list = await select('*', 'board', 'TRUE');
     for (let row in list.rows) {
       // 임시 변수
@@ -64,8 +81,8 @@ export const listAll = async (req, res) => {
         "profile": memberInfo.profile,
       }
     }
-    console.log(list.rows);
-    res.render('board/list', {
+    // console.log(list.rows);
+    res.render('board/listAll', {
       list: list.rows,
       user: userInfo,
       location: locationTable

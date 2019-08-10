@@ -6,6 +6,9 @@ import router from './routes';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import createError from 'http-errors';
+import passport from 'passport';
+import session from 'express-session';
+
 
 const app = express();
 
@@ -21,12 +24,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// jQuery 지정
-app.use(
-  '/jquery',
-  express.static(path.join(__dirname, '/node_modules/jquery/dist')),
-);
+// jQuery 
+app.use('/jquery',express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+
+// Session
+app.use(session({
+  secret: 'a!@szkldhsdf123963', //배포시에는 다른 키보드캣으로 넣기
+  resave: false,
+  saveUninitialized: true,
+})); 
+
+app.use(passport.initialize());
 app.use(bodyParser.json());
+app.use(passport.session());
+
+
+// route
 app.use('/', router);
 
 // catch 404 and forward to error handler
