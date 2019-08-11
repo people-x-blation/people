@@ -1,8 +1,9 @@
 import { Router } from 'express';
-
-const router = new Router();
+import passport from 'passport';
 import { kakao } from './index.ctrl';
 
-router.get('/kakao', kakao);
+const router = new Router();
+
+router.get('/kakao', passport.authenticate('kakao'), kakao);
 
 export default router;

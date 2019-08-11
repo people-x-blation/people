@@ -1,25 +1,23 @@
 import passport from 'passport';
-import {Strategy as KakaoStrategy} from 'passport-kakao';
 
-// 로그인이 성공하면, serializeUser 메서드를 이용하여 사용자 정보를 Session에 저장할 수 있다.
-passport.serializeUser((user, done) => {
-    console.log('serialize',user);
-    done(null, user);
-});
+export const kakao = async (req, res) => {
+  //console.log(req);
+  const user = req.user.username;
+  console.log(req.user._json.kaccount_email);
+  console.log(req.user.id);
 
-passport.use(new KakaoStrategy(
-    {
-        // 유출 주의
-        clientID : process.env.KAKAO_CLIENT_ID,
-        clientSecret: process.env.KAKAO_CLIENT_SECRET,
-        callbackURL : 'http://localhost:3000/auth/kakao',
-    },
-    function(accessToken, refreshToken, profile, done) {
-        return done(null, profile);
-    }
-));
+  // login 되면 게시판으로들어가고
+  //res.render('auth/login');
+  //안되면 회원가입창으로 들어감
+  //res.render('auth/signup');
+};
 
-export const kakao = passport.authenticate('kakao', {
-    successRedirect: '../board',
-    failureRedirect: '../user/login'
-})
+export const find_pw = (req, res) => {
+  res.render('auth/find_pw');
+};
+export const find_id = (req, res) => {
+  res.render('auth/find_id');
+};
+
+export const signup = (req, res) => {};
+export const login = (req, res) => {};
