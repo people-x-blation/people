@@ -40,20 +40,106 @@
 
 
     <h2><%=location%></h2>
-    <% for(let item = 0; item < list.length; item++) { %>
-    <div class="list_container">
-        <div class="img_wrapper"
-            style="background:url('https://i.imgur.com/4KyfXrZ.jpg');background-size: cover;background-repeat: no-repeat;background-position: center center;">
-            <!-- 이미지 영역 -->
+    <div id = "wrapper">
+        <% for(let item=0 ; item<list.length; item++){ %>
+        <div class="list_container">
+        
+            <div class="img_wrapper"
+                style="background:url('https://i.imgur.com/4KyfXrZ.jpg');background-size: cover;background-repeat: no-repeat;background-position: center center;">
+                <!-- 이미지 영역 -->
+            </div>
+            <div class="content_wrapper">
+                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>>
+                <span id="list_user_id"><%=list[item].nickname%></span>
+                <h2 id="list_title"><a href="board/read"><%=list[item].title%></a></h2>
+                <h2 id="list_like_likecount"><a href="board/read"><%=list[item].like_count%></a></h2>
+                <span id="list_location"><%=location%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
+            </div>
+            <div class="content_wrapper">
+                <span id="list_content"><%=list[item].content%></span>
+            </div>
         </div>
-        <div class="content_wrapper">
-            <span id="list_user_id"><%=user[list[item].author].nickname%></span>
-            <h2 id="list_title"><a href="board/read"><%=list[item].title%></a></h2>
-            <span id="list_location"><%=location%></span> | <span id="list_blood_type"><%=user[list[item].author].blood%></span>
-        </div>
+        <%}%>
     </div>
-    <%}%>
+  
+
+
+
     <script src="/jquery/jquery.min.js"></script>
+    <script>
+        
+        $( document ).ready( function() {
+            
+
+        let renderList = function(vo){
+
+            const html = '<div class="list_container">'+
+                '<div class="img_wrapper"'+
+                    'style="background:url(\'https://i.imgur.com/4KyfXrZ.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center center;">'+
+                '</div>'+
+                '<div class="content_wrapper">'+
+                    '<hidden id="boardnum" value='+vo.boardnum+'</hidden>'+
+                    '<span id="list_user_id"> '+vo.nickname +'</span>'+
+                    '<h2 id="list_title"><a href="board/read"> '+ vo.title +'</a></h2>'+
+                    '<h2 id="list_like_likecount"><a href="board/read"> '+ vo.like_count +'</a></h2>'+
+                    '<span id="list_location"> '+$('list_location').text() +'</span> | <span id="list_blood_type"> '+ vo.blood +'</span>'+
+                '</div>'+
+                '<div class="content_wrapper">'+
+                    '<span id="list_content"> '+ vo.content +'</span>'+
+                '</div>'+
+            '</div>';
+    
+            $("#wrapper").append(html);
+   
+        }
+            let page = 2;
+            let isEnd = false;
+            
+            $(function(){
+                $(window).scroll(function(){
+                    let $window = $(this);
+                    let scrollTop = $window.scrollTop();
+                    let windowHeight = $window.height();
+                    let documentHeight = $(document).height();
+
+                    if (scrollTop + windowHeight + 300 >= documentHeight) {
+                        fetchList();
+                        page++;
+                    }
+                })
+            })
+            let fetchList = function(){
+            if(isEnd == true){
+                return;
+            }
+            
+            $.ajax({
+                url:"/board/"+$('#list_location').text()+"?page=" + page ,
+                type: "GET",
+                dataType: "json",
+                success: function(result){
+                    let length = result.length;
+                    if( length < 10 ){
+                        isEnd = true;
+                    }
+    
+                    $.each(result, function(index, vo){
+                        renderList(vo);
+                    })
+                },
+                error: function(err){
+                    console.log(err)
+                }
+            });
+        }
+        })
+
+        
+
+
+
+
+    </script>
 </body>
 
 </html>
