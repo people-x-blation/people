@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../index').default;
+const app = require('../app').default;
 const debug = require('debug')('peoplex:server');
 const http = require('http');
 

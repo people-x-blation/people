@@ -1,36 +1,35 @@
-window.onload = function(){
-    fadeOutEffect("loading");  
-}
+window.onload = function() {
+  fadeOutEffect('loading');
+};
 
 read_displaySetting = () => {
-    document.getElementsByClassName('menu_container')[0].style.display="block"
+  document.getElementsByClassName('menu_container')[0].style.display = 'block';
 };
 read_closeSetting = () => {
-    document.getElementsByClassName('menu_container')[0].style.display="none"
+  document.getElementsByClassName('menu_container')[0].style.display = 'none';
 };
 read_comment_displaySetting = () => {
-    document.getElementsByClassName('menu_container')[1].style.display="block"
+  document.getElementsByClassName('menu_container')[1].style.display = 'block';
 };
 read_comment_closeSetting = () => {
-    document.getElementsByClassName('menu_container')[1].style.display="none"
+  document.getElementsByClassName('menu_container')[1].style.display = 'none';
 };
 
 // write_cancel = () => {
-//     location.href = 
+//     location.href =
 // }
 
 function fadeOutEffect(target) {
-    var fadeTarget = document.getElementById(target);
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-            fadeTarget.style.display = "none";
-        }
-    }, 50);
-    
-};
+  var fadeTarget = document.getElementById(target);
+  var fadeEffect = setInterval(function() {
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+      fadeTarget.style.display = 'none';
+    }
+  }, 50);
+}
