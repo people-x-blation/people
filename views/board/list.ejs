@@ -92,6 +92,7 @@
             $("#wrapper").append(html);
    
         }
+            let key = true;
             let page = 2;
             let isEnd = false;
             
@@ -102,9 +103,12 @@
                     let windowHeight = $window.height();
                     let documentHeight = $(document).height();
 
-                    if (scrollTop + windowHeight + 300 >= documentHeight) {
+                    if (scrollTop + windowHeight + 500 >= documentHeight && key) {
+                        key = false;
                         fetchList();
                         page++;
+                        
+
                     }
                 })
             })
@@ -122,6 +126,8 @@
                     if( length < 10 ){
                         isEnd = true;
                     }
+
+                    key = true;
     
                     $.each(result, function(index, vo){
                         renderList(vo);
@@ -133,11 +139,6 @@
             });
         }
         })
-
-        
-
-
-
 
     </script>
 </body>
