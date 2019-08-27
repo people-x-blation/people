@@ -22,4 +22,5 @@ export const board = {
 export const comment = {
   comment_num: '',
   content: '',
+  replier: '',
 };
