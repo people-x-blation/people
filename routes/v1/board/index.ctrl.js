@@ -34,7 +34,7 @@ export const boardlist = async (req, res) => {
     const list = await select(
       '*',
       'board',
-      query,
+      `${query} and show_flag='1'`,
       '',
       `order by boardnum desc limit ${size} offset ${begin}`,
     );
@@ -91,8 +91,9 @@ export const read = async (req, res) => {
     const article = await select(
       'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname as author, r.commentnum,q.nickname as replier,r.contents',
       'board as b',
-      `b.boardnum = ${boardnum} order by r.commentnum desc`,
+      `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
+      'order by r.commentnum desc',
     );
     console.log(article);
     const detail = article.rows[0];
