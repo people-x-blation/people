@@ -16,10 +16,6 @@ html {
   html {
     font-size: calc(15px + 6 * ((100vw - 320px) / 680));
   }
-
-  .container {
-    margin: 10px !important;
-  }
 }
 
 @media screen and (min-width: 650px) {
@@ -35,8 +31,8 @@ html {
   }
 
   body {
-    padding-left: 25vw;
-    padding-right: 25vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 }
 
@@ -46,20 +42,20 @@ body {
 
 /* Tag */
 h1 {
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 900;
 }
 
 h2 {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 h4 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 p {
@@ -87,7 +83,7 @@ a {
   background-color: #ffffff;
   border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
-  padding: 5vw;
+  padding: 2.5vw;
   margin: 30px;
 }
 
@@ -104,6 +100,7 @@ a {
   border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
   margin: 20px;
+  background-color: white;
 }
 
 .list_container .img_wrapper {
@@ -175,6 +172,10 @@ a {
 .menu_container>ul>li:last-child {
   background-color: black;
   color: white;
+}
+
+.search_container{
+  text-align: center;
 }
 
 
@@ -281,6 +282,10 @@ nav {
   background-color: #ffffff;
 }
 
+nav span{
+  font-size: 0.7rem;
+}
+
 nav ul {
   list-style-type: none;
   padding-left: 0;
@@ -302,9 +307,6 @@ nav ul li a {
   text-decoration: none;
 }
 
-nav ul li a:hover {
-  background-color: aquamarine;
-}
 
 #nav_home,
 #nav_search,
@@ -315,7 +317,7 @@ nav ul li a:hover {
 }
 
 .read_content_wrapper {
-  
+
 }
 
 #read_top {
@@ -378,10 +380,6 @@ nav ul li a:hover {
   cursor: pointer;
 }
 
-.read_comment_setting>img:hover {
-  background-color: aquamarine;
-  border-radius: 100%;
-}
 
 #read_comment_form {
   width: 75%;
@@ -537,10 +535,8 @@ button#search_bar_icon>img {
 }
 
 #login_form {
-  width: 50vw;
-  margin-left: 25vw;
+  margin-top:20vh;
   text-align: center;
-  margin-top: 10vh;
 }
 
 #login_form button[type=submit] {
@@ -590,9 +586,6 @@ button#search_bar_icon>img {
   }
 }
 
-
-
-
 @keyframes roll {
   from {
     transform: rotate(0deg);
@@ -601,4 +594,22 @@ button#search_bar_icon>img {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* list */
+
+#list_header_location{
+  width: 100%;
+  text-align: center;
+}
+
+#list_no_result{
+  display: block;
+  text-align: center;
+}
+
+#list_no_result_img{
+  width: 150px;
+  display: block;
+  margin: 10vh auto;
 }

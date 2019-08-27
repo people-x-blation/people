@@ -19,10 +19,10 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a></li>
-            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a></li>
-            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a></a></li>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">홈</span></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청글 작성</span></li>
+            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
         </ul>
     </nav>
 
@@ -32,14 +32,14 @@
             <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
         </div>
         <div id="read_user_info" class="read_content_wrapper">
-            <span><%=author%> | RH+ O형</span>
+            <span><%=nickname%> | RH+ O형</span>
         </div>
         <div class="read_content_wrapper">
-            <h2 id="read_title"><%=title%></h2>
+            <h2 id="read_title"><%=article.title%></h2>
             <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text"><%=contents%></p>
+            <p id="read_content_text"><%=article.contents%></p>
         </div>
-        <div id="read_comment" class="read_content_wrapper">
+        <!-- <div id="read_comment" class="read_content_wrapper">
             <div class="read_comment_write">
                 <form>
                     <input id="read_comment_form" type="text" />
@@ -67,11 +67,10 @@
             <div class="read_comment_wrapper">
                 <div class="read_comment_user">유저4</div>
                 <p class="read_comment_content">낙원을 봄날의 끓는다rkrkrkrkrkrkrkrkrk.</p>
-                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
-                </div>
+                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" /></div>
             </div>
 
-        </div>
+        </div> -->
     </div>
 
 

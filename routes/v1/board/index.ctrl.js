@@ -1,4 +1,4 @@
-import { select, insert, update } from '~/db/query';
+import { select, insert, update, findName } from '~/db/query';
 
 // 지역 매핑용
 const locationTable = {
@@ -48,11 +48,10 @@ export const boardlist = async (req, res) => {
 
       let content = item.contents;
 
-      if (item.contents.length > 25) {
-        content = content.substring(0, 24) + '...';
-      }
+      if (item.contents.length > 25) { content = content.substring(0, 24) + '...'; }
 
       memberInfo = memberInfo.rows[0];
+      
       const board = {
         boardnum: item.boardnum,
         title: item.title,
@@ -64,13 +63,15 @@ export const boardlist = async (req, res) => {
         nickname: memberInfo.nickname,
         blood: memberInfo.blood,
       };
+
       boardList.push(board);
     }
-
+    
     if (page == 1) {
       res.render('board/list', {
         list: boardList,
-        location: locationTable[req.params.location],
+        location: (typeof locationTable[req.params.location] === 'undefined') ? 0 : locationTable[req.params.location],
+        locationTable: locationTable
       });
     } else {
       res.json(boardList);
@@ -89,13 +90,12 @@ export const read = async (req, res) => {
       'board',
       `boardnum = ${boardnum}`
     );
-    console.log('')
-    const nickname = await findName(article.rows[0].author);
-    console.log(nickname);
-    // const articleInfo = {
-    //   title: article.rows[0].title,
-    // }
-    res.render('board/read',article.rows[0]);
+    const nickname = await findMember(article.rows[0].author);
+    const articleTable = {
+      nickname : nickname,
+      article: article.rows[0]
+    }
+    res.render('board/read', articleTable);
   }catch(e){
     console.log(e);
   }
