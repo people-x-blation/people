@@ -49,9 +49,9 @@
                 <!-- 이미지 영역 -->
             </div>
             <div class="content_wrapper">
-                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>>
+                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>
                 <span id="list_user_id"><%=list[item].nickname%></span>
-                <h2 id="list_title"><a href="board/read"><%=list[item].title%></a></h2>
+                <h2 id="list_title"><a href="board/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
                 <h2 id="list_like_likecount"><a href="board/read"><%=list[item].like_count%></a></h2>
                 <span id="list_location"><%=location%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
             </div>

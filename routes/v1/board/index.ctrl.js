@@ -83,6 +83,7 @@ export const list = async (req, res) => {
 };
 
 export const read = (req, res) => {
+  console.log(req.params);
   res.render('board/read');
 };
 
