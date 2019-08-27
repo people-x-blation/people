@@ -134,3 +134,7 @@ export const search = (req, res) => {
 export const write = (req, res) => {
   res.render('board/write');
 };
+
+export const upload = (req, res) => {
+  res.redirect('/board');
+};
