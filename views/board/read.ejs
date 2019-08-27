@@ -41,17 +41,15 @@
 
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
-            <img id="read_profile_pic" src="https://via.placeholder.com/50x50" />
             <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
         </div>
         <div id="read_user_info" class="read_content_wrapper">
-            <span>닉네임 | RH+ O형</span>
+            <span><%=author%> | RH+ O형</span>
         </div>
         <div class="read_content_wrapper">
-            <h2 id="read_title">O형 혈액 구함</h2>
+            <h2 id="read_title"><%=title%></h2>
             <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text">기관과 스며들어 품으며, 낙원을 봄날의 끓는다. 대중을 피가 석가는 그들은 만물은 부패뿐이다. 행복스럽고 할지니, 보이는 그들에게 튼튼하며, 군영과
-                눈이 위하여 보라. 많이 군영과 실현에있다.</p>
+            <p id="read_content_text"><%=contents%></p>
         </div>
         <div id="read_comment" class="read_content_wrapper">
             <div class="read_comment_write">

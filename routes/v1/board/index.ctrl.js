@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { select, insert, update } from '~/db/query';
+import { select, insert, update, findName } from '~/db/query';
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 
 // 지역 매핑용
@@ -82,9 +82,25 @@ export const list = async (req, res) => {
   }
 };
 
-export const read = (req, res) => {
-  console.log(req.params);
-  res.render('board/read');
+export const read = async (req, res) => {
+  
+  const boardnum = req.params.boardnum;
+  try{
+    const article = await select(
+      '*',
+      'board',
+      `boardnum = ${boardnum}`
+    );
+    console.log('')
+    const nickname = await findName(article.rows[0].author);
+    console.log(nickname);
+    // const articleInfo = {
+    //   title: article.rows[0].title,
+    // }
+    res.render('board/read',article.rows[0]);
+  }catch(e){
+    console.log(e);
+  }
 };
 
 export const search = (req, res) => {
@@ -94,3 +110,4 @@ export const search = (req, res) => {
 export const write = (req, res) => {
   res.render('board/write');
 };
+
