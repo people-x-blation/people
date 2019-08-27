@@ -6,12 +6,6 @@ import isValidate from '~/lib/validate';
 const router = new Router();
 router.get('/kakao/success', authCtrl.successLogin);
 
-<<<<<<< HEAD
-router.get('/login', function(req,res){
-    res.render('auth/login');
-});
-
-=======
 router.get(
   '/kakao',
   (req, res, next) => isValidate(req, res, next),
@@ -28,5 +22,4 @@ router.get(
 );
 
 router.get('/logout', authCtrl.logout);
->>>>>>> 9cf5ec9ec2398909fb02b7beada65ee35588c50f
 export default router;
