@@ -1,6 +1,4 @@
-import passport from 'passport';
 import { select, insert, update } from '~/db/query';
-import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 
 // 지역 매핑용
 const locationTable = {
@@ -22,14 +20,14 @@ const locationTable = {
   '16': '제주도',
 };
 
-export const list = async (req, res) => {
+export const boardlist = async (req, res) => {
   // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
 
   try {
     const locations = req.params.location;
     let query = '';
     if (locations == undefined) query = 'TRUE';
-    else query = locations;
+    else query = `locations = '${locations}'`;
     const page = req.query.page == undefined ? 1 : req.query.page;
     const size = 10;
     const begin = (page - 1) * size; // 시작 글
