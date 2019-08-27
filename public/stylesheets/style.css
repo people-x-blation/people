@@ -286,6 +286,7 @@ nav span{
   font-size: 0.7rem;
 }
 
+
 nav ul {
   list-style-type: none;
   padding-left: 0;
@@ -311,7 +312,8 @@ nav ul li a {
 #nav_home,
 #nav_search,
 #nav_write,
-#nav_login {
+#nav_login,
+#nav_signup {
   width: 8vw;
   max-width: 25px;
 }
