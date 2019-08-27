@@ -314,7 +314,9 @@ nav ul li a:hover {
   max-width: 25px;
 }
 
-.read_content_wrapper {}
+.read_content_wrapper {
+  
+}
 
 #read_top {
   text-align: right;
