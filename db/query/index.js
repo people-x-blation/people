@@ -1,6 +1,6 @@
 import { Singleton } from '~/db';
 
-export const select = async (object, table, where, join = '', add = '') => {
+export const select = async (object, table, where, add = '') => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
