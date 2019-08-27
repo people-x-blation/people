@@ -38,11 +38,10 @@ app.use(
     saveUninitialized: true,
   }),
 );
-passportConfig(app, passport);
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(passport.session());
-
+passportConfig(app, passport);
 // route
 app.use('/', router);
 
