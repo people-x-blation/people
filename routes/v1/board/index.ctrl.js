@@ -90,7 +90,7 @@ export const read = async (req, res) => {
       'board',
       `boardnum = ${boardnum}`
     );
-    const nickname = await findMember(article.rows[0].author);
+    const nickname = await findName(article.rows[0].author);
     const articleTable = {
       nickname : nickname,
       article: article.rows[0]

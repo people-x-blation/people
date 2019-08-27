@@ -24,21 +24,6 @@ export const findOne = async (where) => {
   }
 };
 
-// 유저번호 기반 닉네임 찾기 자동화
-export const findName = async (usernum) => {
-  try {
-    const instance = new Singleton();
-    const result = await instance.query(
-      `SELECT nickname FROM member WHERE usernum='${usernum}'`,
-    );
-    console.log(result.rows[0]);
-    if (result.rows.length > 0) return result.rows[0].nickname;
-    else return false;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const insert = async (object, table) => {
   const instance = new Singleton();
   const result = await instance.query(
