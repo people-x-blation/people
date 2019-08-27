@@ -89,9 +89,9 @@ export const read = async (req, res) => {
   console.log(boardnum);
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname, r.commentnum,q.nickname,r.contents',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname as author, r.commentnum,q.nickname as replier,r.contents',
       'board as b',
-      `b.boardnum = ${boardnum}`,
+      `b.boardnum = ${boardnum} order by r.commentnum desc`,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
     );
     console.log(article);
@@ -103,15 +103,16 @@ export const read = async (req, res) => {
     board_object.created_at = detail.created_at;
     board_object.location = detail.locations;
     board_object.hospital = detail.hospital;
-    board_object.content = detail.content;
-    board_object.nickname = detail.nickname;
+    board_object.content = detail.contents;
+    board_object.nickname = detail.author;
     board_object.blood = detail.blood;
     const comments = [];
 
     for (let item of article.rows) {
       const repl = Object.create(comment);
       repl.comment_num = item.commentnum;
-      repl.conetnt = item.contents;
+      repl.content = item.contents;
+      repl.replier = item.replier;
       comments.push(repl);
     }
     const articleTable = {
@@ -119,7 +120,7 @@ export const read = async (req, res) => {
       reply: comments,
     };
     console.log(articleTable);
-    res.render('board/read', articleTable);
+    res.render('board/read', { articleTable: articleTable });
   } catch (e) {
     console.log(e);
   }
