@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import passport from 'passport';
+import isValidate from '~/lib/validate';
 const router = new Router();
 
 import { boardlist, read, search, write } from './index.ctrl';
 
-
+router.get('/write', (req, res, next) => isValidate(req, res, next), write);
+router.get('/read', read);
 router.get('/search', search);
-router.get('/write', passport.authenticate('kakao'), write);
-router.get('/:location', boardlist);
 router.get('/', boardlist);
-router.get('/read/:boardnum', read);
+router.get('/:location', boardlist);
 
 export default router;
