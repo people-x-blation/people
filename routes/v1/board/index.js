@@ -1,13 +1,13 @@
 import { Router } from 'express';
-
+import passport from 'passport';
 const router = new Router();
 
-import { list, listAll, read, search, write } from './index.ctrl';
+import { boardlist, read, search, write } from './index.ctrl';
 
-router.get('/', list);
-router.get('/:location', list);
+router.get('/write', passport.authenticate('kakao'), write);
+router.get('/', boardlist);
+router.get('/:location', boardlist);
 router.get('/read', read);
 router.get('/search', search);
-router.get('/write', write);
 
 export default router;
