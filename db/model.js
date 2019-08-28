@@ -9,6 +9,7 @@ export const member = {
 };
 
 export const board = {
+  board_num: '',
   title: '',
   author: '',
   like_count: '',
@@ -16,4 +17,10 @@ export const board = {
   show_flag: '',
   locations: '',
   hospital: '',
+};
+
+export const comment = {
+  comment_num: '',
+  content: '',
+  replier: '',
 };

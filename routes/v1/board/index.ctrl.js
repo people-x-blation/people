@@ -1,5 +1,5 @@
 import { select, insert, update, findName } from '~/db/query';
-
+import { board, comment } from '~/db/model';
 // 지역 매핑용
 const locationTable = {
   '1': '서울',
@@ -34,7 +34,8 @@ export const boardlist = async (req, res) => {
     const list = await select(
       '*',
       'board',
-      query,
+      `${query} and show_flag='1'`,
+      '',
       `order by boardnum desc limit ${size} offset ${begin}`,
     );
 
@@ -48,30 +49,32 @@ export const boardlist = async (req, res) => {
 
       let content = item.contents;
 
-      if (item.contents.length > 25) { content = content.substring(0, 24) + '...'; }
+      if (item.contents.length > 25) {
+        content = content.substring(0, 24) + '...';
+      }
 
       memberInfo = memberInfo.rows[0];
-      
-      const board = {
-        boardnum: item.boardnum,
-        title: item.title,
-        like_count: item.like_count,
-        created_at: item.created_at,
-        location: item.locations,
-        hospital: item.hospital,
-        content: content,
-        nickname: memberInfo.nickname,
-        blood: memberInfo.blood,
-      };
-
-      boardList.push(board);
+      const board_object = Object.create(board);
+      board_object.boardnum = item.boardnum;
+      board_object.title = item.title;
+      board_object.like_count = item.like_count;
+      board_object.created_at = item.created_at;
+      board_object.location = item.locations;
+      board_object.hospital = item.hospital;
+      board_object.content = content;
+      board_object.nickname = memberInfo.nickname;
+      board_object.blood = memberInfo.blood;
+      boardList.push(board_object);
     }
-    
+
     if (page == 1) {
       res.render('board/list', {
         list: boardList,
-        location: (typeof locationTable[req.params.location] === 'undefined') ? 0 : locationTable[req.params.location],
-        locationTable: locationTable
+        location:
+          typeof locationTable[req.params.location] === 'undefined'
+            ? 0
+            : locationTable[req.params.location],
+        locationTable: locationTable,
       });
     } else {
       res.json(boardList);
@@ -82,21 +85,44 @@ export const boardlist = async (req, res) => {
 };
 
 export const read = async (req, res) => {
-  
   const boardnum = req.params.boardnum;
-  try{
+  console.log(boardnum);
+  try {
     const article = await select(
-      '*',
-      'board',
-      `boardnum = ${boardnum}`
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname as author, r.commentnum,q.nickname as replier,r.contents',
+      'board as b',
+      `b.boardnum = ${boardnum} `,
+      'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
+      'order by r.commentnum desc',
     );
-    const nickname = await findName(article.rows[0].author);
-    const articleTable = {
-      nickname : nickname,
-      article: article.rows[0]
+    console.log(article);
+    const detail = article.rows[0];
+    const board_object = Object.create(board);
+    board_object.boardnum = detail.boardnum;
+    board_object.title = detail.title;
+    board_object.like_count = detail.like_count;
+    board_object.created_at = detail.created_at;
+    board_object.location = detail.locations;
+    board_object.hospital = detail.hospital;
+    board_object.content = detail.contents;
+    board_object.nickname = detail.author;
+    board_object.blood = detail.blood;
+    const comments = [];
+
+    for (let item of article.rows) {
+      const repl = Object.create(comment);
+      repl.comment_num = item.commentnum;
+      repl.content = item.contents;
+      repl.replier = item.replier;
+      comments.push(repl);
     }
-    res.render('board/read', articleTable);
-  }catch(e){
+    const articleTable = {
+      board: board_object,
+      reply: comments,
+    };
+    console.log(articleTable);
+    res.render('board/read', { articleTable: articleTable });
+  } catch (e) {
     console.log(e);
   }
 };
@@ -109,3 +135,6 @@ export const write = (req, res) => {
   res.render('board/write');
 };
 
+export const upload = (req, res) => {
+  res.redirect('/board');
+};

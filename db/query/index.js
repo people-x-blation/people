@@ -1,10 +1,10 @@
 import { Singleton } from '~/db';
 
-export const select = async (object, table, where, add = '') => {
+export const select = async (object, table, where, add = '', add2 = '') => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
-      `SELECT ${object} FROM ${table} WHERE ${where} ${add}`,
+      `SELECT ${object} FROM ${table} ${add} WHERE ${where} ${add2}`,
     );
     return result;
   } catch (err) {
