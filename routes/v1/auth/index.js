@@ -22,4 +22,5 @@ router.get(
 );
 
 router.get('/logout', authCtrl.logout);
+router.get('/mypage', authCtrl.mypage);
 export default router;

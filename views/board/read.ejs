@@ -19,39 +19,25 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a></li>
-            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a></li>
-            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a></a></li>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">홈</span></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청글 작성</span></li>
+            <li><a href="#"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
         </ul>
     </nav>
 
 
-    <div class="container header-2">
-        <div class="wrapper">
-            <div id="logo_wrap">
-                <img id="logo" src="/images/logo.svg" alt="로고" />
-            </div>
-            <div id="header_wrap">
-                <h1>P'ple</h1>
-            </div>
-        </div>
-    </div>
-
-
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
-            <img id="read_profile_pic" src="https://via.placeholder.com/50x50" />
             <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
         </div>
         <div id="read_user_info" class="read_content_wrapper">
-            <span>닉네임 | RH+ O형</span>
+            <span><%=articleTable.board.nickname%> | <%=articleTable.board.blood%></span>
         </div>
         <div class="read_content_wrapper">
-            <h2 id="read_title">O형 혈액 구함</h2>
+            <h2 id="read_title"><%=articleTable.board.title%></h2>
             <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text">기관과 스며들어 품으며, 낙원을 봄날의 끓는다. 대중을 피가 석가는 그들은 만물은 부패뿐이다. 행복스럽고 할지니, 보이는 그들에게 튼튼하며, 군영과
-                눈이 위하여 보라. 많이 군영과 실현에있다.</p>
+            <p id="read_content_text"><%=articleTable.board.content%></p>
         </div>
         <div id="read_comment" class="read_content_wrapper">
             <div class="read_comment_write">
@@ -60,30 +46,15 @@
                     <button id="read_comment_submit">작성</button>
                 </form>
             </div>
+            <% if(articleTable.reply.length != 0){ %>
+            <% for(let item=0; item<articleTable.reply.length; item++ ){ %>
             <div class="read_comment_wrapper">
-                <div class="read_comment_user">유저1</div>
-                <p class="read_comment_content">기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으기관과 스며들어 품으</p>
+                <div class="read_comment_user"><%=articleTable.reply[item].replier%></div>
+                <p class="read_comment_content"><%=articleTable.reply[item].content%></p>
                 <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
                 </div>
             </div>
-            <div class="read_comment_wrapper">
-                <div class="read_comment_user">유저2</div>
-                <p class="read_comment_content">낙원을 봄날의 끓는다.rkrkrkrkrkrkrkrkrkrkrkrkrkrkrkrk</p>
-                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
-                </div>
-            </div>
-            <div class="read_comment_wrapper">
-                <div class="read_comment_user">유저3</div>
-                <p class="read_comment_content">기관과 스며들어 품으며rkrkrkrkrkrkrkrkrk</p>
-                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
-                </div>
-            </div>
-            <div class="read_comment_wrapper">
-                <div class="read_comment_user">유저4</div>
-                <p class="read_comment_content">낙원을 봄날의 끓는다rkrkrkrkrkrkrkrkrk.</p>
-                <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
-                </div>
-            </div>
+           <% }}%>
 
         </div>
     </div>

@@ -1,5 +1,6 @@
 window.onload = function() {
   fadeOutEffect('loading');
+  $('#nav_home_span, #nav_search_span, #nav_write_span, #nav_login_span').delay(900).hide(500);
 };
 
 read_displaySetting = () => {

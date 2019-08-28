@@ -19,28 +19,20 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a></li>
-            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a></li>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a></li>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">홈</span></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청글 작성</span></li>
+            <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
+            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">유저페이지</span></li>
         </ul>
     </nav>
 
-    <!-- Header -->
-    <div class="container header-2">
-        <div class="wrapper">
-            <div id="logo_wrap">
-                <img id="logo" src="/images/logo.svg" alt="로고" />
-            </div>
-            <div id="header_wrap">
-                <h1>P'ple</h1>
-            </div>
-        </div>
-    </div>
-
-
-    <h2><%=location%></h2>
+    <h2 id="list_header_location"><%=(location == 0) ? '전체보기' : location %></h2>
     <div id = "wrapper">
+        <% if(list.length == 0) { %>
+        <span id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>
+        <img id="list_no_result_img" src="/images/empty.svg" alt="결과 없음"/>
+        <% } else { %>
         <% for(let item=0 ; item<list.length; item++){ %>
         <div class="list_container">
         
@@ -49,17 +41,14 @@
                 <!-- 이미지 영역 -->
             </div>
             <div class="content_wrapper">
-                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>>
+                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>
                 <span id="list_user_id"><%=list[item].nickname%></span>
-                <h2 id="list_title"><a href="board/read"><%=list[item].title%></a></h2>
+                <h2 id="list_title"><a href="board/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
                 <h2 id="list_like_likecount"><a href="board/read"><%=list[item].like_count%></a></h2>
-                <span id="list_location"><%=location%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
-            </div>
-            <div class="content_wrapper">
-                <span id="list_content"><%=list[item].content%></span>
+                <span id="list_location"><%=locationTable[list[item].location]%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
             </div>
         </div>
-        <%}%>
+        <%} }%>
     </div>
   
 

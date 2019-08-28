@@ -16,10 +16,6 @@ html {
   html {
     font-size: calc(15px + 6 * ((100vw - 320px) / 680));
   }
-
-  .container {
-    margin: 10px !important;
-  }
 }
 
 @media screen and (min-width: 650px) {
@@ -35,8 +31,8 @@ html {
   }
 
   body {
-    padding-left: 25vw;
-    padding-right: 25vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 }
 
@@ -46,20 +42,20 @@ body {
 
 /* Tag */
 h1 {
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 900;
 }
 
 h2 {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 h4 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 p {
@@ -87,7 +83,7 @@ a {
   background-color: #ffffff;
   border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
-  padding: 5vw;
+  padding: 2.5vw;
   margin: 30px;
 }
 
@@ -104,6 +100,7 @@ a {
   border-radius: 2rem;
   box-shadow: 5px 5px 5px #f0f0f0;
   margin: 20px;
+  background-color: white;
 }
 
 .list_container .img_wrapper {
@@ -177,6 +174,10 @@ a {
   color: white;
 }
 
+.search_container{
+  text-align: center;
+}
+
 
 #loading {
   background-color: white;
@@ -229,15 +230,17 @@ a {
   margin: 0 auto;
 }
 
-img#logo, img#profile_pic {
+img#logo {
   width: 100%;
 }
 
 img#profile_pic{
+  width: 90px;
+  height: 90px;
   border-radius: 100%;
 }
 
-#logo_wrap, #profile_wrap {
+#logo_wrap{
   display: table-cell;
   vertical-align: middle;
   width: 20vw;
@@ -281,6 +284,11 @@ nav {
   background-color: #ffffff;
 }
 
+nav span{
+  font-size: 0.7rem;
+}
+
+
 nav ul {
   list-style-type: none;
   padding-left: 0;
@@ -302,28 +310,22 @@ nav ul li a {
   text-decoration: none;
 }
 
-nav ul li a:hover {
-  background-color: aquamarine;
-}
 
 #nav_home,
 #nav_search,
 #nav_write,
-#nav_login {
+#nav_login,
+#nav_signup {
   width: 8vw;
   max-width: 25px;
 }
 
-.read_content_wrapper {}
+.read_content_wrapper {
 
-#read_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-#read_setting {
-  /* width: 30px; */
+#read_top {
+  text-align: right;
 }
 
 #read_comment{
@@ -351,15 +353,6 @@ nav ul li a:hover {
   font-weight: lighter;
   vertical-align: top;
 }
-
-#read_profile_pic {
-  width: 8vw;
-  height: 8vw;
-  max-width: 60px;
-  max-height: 60px;
-  border-radius: 4vw;
-}
-
 
 #read_user_info {
   font-size: 0.8rem;
@@ -391,10 +384,6 @@ nav ul li a:hover {
   cursor: pointer;
 }
 
-.read_comment_setting>img:hover {
-  background-color: aquamarine;
-  border-radius: 100%;
-}
 
 #read_comment_form {
   width: 75%;
@@ -416,21 +405,70 @@ nav ul li a:hover {
 }
 
 /* MYPAGE */
-
 #mypage_info{
-  
+  display: flex;
+  flex-direction: column;
+}
+
+#mypage_nickname, #mypage_blood{
+  display: block;
+}
+
+#mypage_row_wrapper{
+  display: flex;
+  flex-direction: row;
 }
 #profile_wrap{
-  width: 40vw !important;
+  flex-grow: 1;
+  text-align: center;
+  border-right: 1px solid black;
+}
+
+#mypage_info_wrap{
+  flex-grow: 2;
+  width: 50%;
   text-align: center;
 }
-#mypage_nickname{
 
+
+
+#mypage_info_wrap > table{
+  width: 100%;
+  border: none;
+  font-size: 0.8rem;
 }
-#mypage_info_wrap{
-  width:60vw;
-  display: table-cell;
 
+#mypage_info_wrap > table th, #mypage_info_wrap > table td{
+  border-bottom: 1px dotted #c2c2c2;
+}
+
+#mypage_info_wrap button, .mypage_request_list button{
+  background-color: #F76363;
+  border: none;
+  padding: 1vw;
+  border-radius: 10px;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.mypage_request_list{
+  text-align: center;
+}
+
+.mypage_request_list > table{
+  width: 100%;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.mypage_request_list > table th, .mypage_request_list > table td{
+  border-bottom: 1px solid #c1c1c1;
+}
+
+.mypage_request_list > table th{
+  width: 35%;
 }
 
 /* INPUT */
@@ -550,10 +588,8 @@ button#search_bar_icon>img {
 }
 
 #login_form {
-  width: 50vw;
-  margin-left: 25vw;
+  margin-top:20vh;
   text-align: center;
-  margin-top: 10vh;
 }
 
 #login_form button[type=submit] {
@@ -603,9 +639,6 @@ button#search_bar_icon>img {
   }
 }
 
-
-
-
 @keyframes roll {
   from {
     transform: rotate(0deg);
@@ -614,4 +647,22 @@ button#search_bar_icon>img {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* list */
+
+#list_header_location{
+  width: 100%;
+  text-align: center;
+}
+
+#list_no_result{
+  display: block;
+  text-align: center;
+}
+
+#list_no_result_img{
+  width: 150px;
+  display: block;
+  margin: 10vh auto;
 }
