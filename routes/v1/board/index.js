@@ -13,6 +13,6 @@ router.get('/read/:boardnum', boardCtrl.read);
 router.get('/search', boardCtrl.search);
 router.get('/', boardCtrl.boardlist);
 router.get('/:location', boardCtrl.boardlist);
-router.get('/upload', boardCtrl.upload);
+// router.get('/upload', boardCtrl.upload);
 
 export default router;

@@ -28,14 +28,52 @@
 
     <!-- USER PAGE -->
     <div id="mypage_info" class="container">
-        <div id="profile_wrap">
-            <img id="profile_pic" src="https://via.placeholder.com/100x100" />
-            <span id="mypage_nickname">홍길동</span>
-            <span id="mypage_blood">RH+AB형</span>
+        <h1>마이페이지</h1>
+        <div id="mypage_row_wrapper">
+            <div id="profile_wrap">
+                <img id="profile_pic" src="https://via.placeholder.com/100x100" />
+                <span id="mypage_nickname">홍길동</span>
+                <span id="mypage_blood">RH+AB형</span>
+            </div>
+            <div id="mypage_info_wrap">
+                
+                <table>
+                    <tr>
+                        <th>가입일자</th>
+                        <td>XXXX.XX.XX</td>
+                    </tr>
+                    <tr>
+                        <th>게시 요청 수</th>
+                        <td>XXX개</td>
+                    </tr>
+                    <tr>
+                        <th>헌혈자 확인</th>
+                        <td>XXX명</td>
+                    </tr>
+                </table>
+                <button onclick="location.href='/auth/logout'">로그아웃</button>
+                <button>회원 탈퇴</button>
+            </div>
         </div>
-        <div id="mypage_info_wrap">
-            <h2>야옹이</h2>
-        </div>
+    </div>
+    
+    <h2 style="text-align: center;">작성 요청 목록</h2>
+    <div class="container mypage_request_list">
+        <table>
+            <tr>
+                <th>제목</th>
+                <td>RH+ AB형 있으신분 도와주세요</td>
+            </tr>
+            <tr>
+                <th>사연 배포 여부</th>
+                <td>배포됨</td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>부탁드려요 제발 ㅠㅠ</td>
+            </tr>
+        </table>
+        <button>요청 내리기</button>
     </div>
 
 </body>

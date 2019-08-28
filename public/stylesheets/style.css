@@ -230,15 +230,17 @@ a {
   margin: 0 auto;
 }
 
-img#logo, img#profile_pic {
+img#logo {
   width: 100%;
 }
 
 img#profile_pic{
+  width: 90px;
+  height: 90px;
   border-radius: 100%;
 }
 
-#logo_wrap, #profile_wrap {
+#logo_wrap{
   display: table-cell;
   vertical-align: middle;
   width: 20vw;
@@ -403,21 +405,70 @@ nav ul li a {
 }
 
 /* MYPAGE */
-
 #mypage_info{
-  
+  display: flex;
+  flex-direction: column;
+}
+
+#mypage_nickname, #mypage_blood{
+  display: block;
+}
+
+#mypage_row_wrapper{
+  display: flex;
+  flex-direction: row;
 }
 #profile_wrap{
-  width: 40vw !important;
+  flex-grow: 1;
+  text-align: center;
+  border-right: 1px solid black;
+}
+
+#mypage_info_wrap{
+  flex-grow: 2;
+  width: 50%;
   text-align: center;
 }
-#mypage_nickname{
 
+
+
+#mypage_info_wrap > table{
+  width: 100%;
+  border: none;
+  font-size: 0.8rem;
 }
-#mypage_info_wrap{
-  width:60vw;
-  display: table-cell;
 
+#mypage_info_wrap > table th, #mypage_info_wrap > table td{
+  border-bottom: 1px dotted #c2c2c2;
+}
+
+#mypage_info_wrap button, .mypage_request_list button{
+  background-color: #F76363;
+  border: none;
+  padding: 1vw;
+  border-radius: 10px;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.mypage_request_list{
+  text-align: center;
+}
+
+.mypage_request_list > table{
+  width: 100%;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.mypage_request_list > table th, .mypage_request_list > table td{
+  border-bottom: 1px solid #c1c1c1;
+}
+
+.mypage_request_list > table th{
+  width: 35%;
 }
 
 /* INPUT */

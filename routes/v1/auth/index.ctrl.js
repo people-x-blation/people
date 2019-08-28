@@ -27,3 +27,7 @@ export const logout = async (req, res) => {
   console.log(req.session);
   res.redirect('/');
 };
+
+export const mypage = async (req, res) => {
+  res.render('auth/mypage', {});
+}
