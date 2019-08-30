@@ -315,7 +315,9 @@ nav ul li a {
 #nav_search,
 #nav_write,
 #nav_login,
-#nav_signup {
+#nav_signup,
+#nav_mypage,
+#nav_logout {
   width: 8vw;
   max-width: 25px;
 }
