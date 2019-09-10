@@ -35,16 +35,37 @@
             <img id="read_setting" onclick="read_displaySetting()" src="/images/dots_menu.svg"></img>
         </div>
         <div id="read_user_info" class="read_content_wrapper">
-            <span><%=articleTable.board.nickname%> | <%=articleTable.board.blood%></span>
+            <!-- <span><%=articleTable.board.nickname%> | <%=articleTable.board.blood%></span> -->
         </div>
         <div class="read_content_wrapper">
             <h2 id="read_title"><%=articleTable.board.title%></h2>
-            <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text"><%=articleTable.board.content%></p>
+            <table class="read_info_table">
+                <tr>
+                    <th>닉네임</th>
+                    <td><%=articleTable.board.nickname%></td>
+                </tr>
+                <tr>
+                    <th>혈액형</th>
+                    <td><%=articleTable.board.blood%></td>
+                </tr>
+                <tr>
+                    <th>지역</th>
+                    <td><%=articleTable.board.location%></td>
+                </tr>
+                <tr>
+                    <th>병원</th>
+                    <td><%=articleTable.board.hospital%></td>
+                </tr>
+                <tr>
+                    <th>등록일자</th>
+                    <td><%=articleTable.board.created_at%></td>
+                </tr>
+            </table>
+            <p id="read_content_text"><%=articleTable.board.contents%></p>
         </div>
         <div id="read_comment" class="read_content_wrapper">
             <div class="read_comment_write">
-                <form>
+                <form action="#" method="post">
                     <input id="read_comment_form" type="text" />
                     <button id="read_comment_submit">작성</button>
                 </form>
@@ -52,13 +73,12 @@
             <% if(articleTable.reply.length != 0){ %>
             <% for(let item=0; item<articleTable.reply.length; item++ ){ %>
             <div class="read_comment_wrapper">
-                <div class="read_comment_user"><%=articleTable.reply[item].replier%></div>
-                <p class="read_comment_content"><%=articleTable.reply[item].content%></p>
+                <div class="read_comment_user"><%=articleTable.reply[item].replier %></div>
+                <p class="read_comment_content"><%=articleTable.reply[item].content %></p>
                 <div class="read_comment_setting"><img onClick="read_comment_displaySetting()" src="/images/more.svg" />
                 </div>
             </div>
-           <% }}%>
-
+            <% }}%>
         </div>
     </div>
 

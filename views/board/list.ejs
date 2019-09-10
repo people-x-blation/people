@@ -30,7 +30,7 @@
     </nav>
     <section class="list_location_selection">
         <ul>
-            <li id="location_toggle">지역 보기</li>
+            <li id="location_toggle">지역 보기 ▼</li>
             <li class="location_item"><a href=<%=(location==0) ? "board/1" : "./1" %>>서울</a></li>
             <li class="location_item"><a href=<%=(location==0) ? "board/2" : "./2" %>>부산</a></li>
             <li class="location_item"><a href=<%=(location==0) ? "board/3" : "./3" %>>대구</a></li>
@@ -67,7 +67,7 @@
             <div class="content_wrapper">
                 <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>
                 <span id="list_user_id"><%=list[item].nickname%></span>
-                <h2 id="list_title"><a href="board/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
+                <h2 id="list_title"><a href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
                 <h2 id="list_like_likecount"><a href="board/read"><%=list[item].like_count%></a></h2>
                 <span id="list_location"><%=locationTable[list[item].location]%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
             </div>
@@ -82,10 +82,7 @@
     <script>
         
         $( document ).ready( function() {
-            
-
         let renderList = function(vo){
-
             const html = '<div class="list_container">'+
                 '<div class="img_wrapper"'+
                     'style="background:url(\'https://i.imgur.com/4KyfXrZ.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center center;">'+
@@ -101,57 +98,57 @@
                     '<span id="list_content"> '+ vo.content +'</span>'+
                 '</div>'+
             '</div>';
-    
             $("#wrapper").append(html);
-   
         }
-            let key = true;
-            let page = 2;
-            let isEnd = false;
-            
-            $(function(){
-                $(window).scroll(function(){
-                    let $window = $(this);
-                    let scrollTop = $window.scrollTop();
-                    let windowHeight = $window.height();
-                    let documentHeight = $(document).height();
+        let key = true;
+        let page = 2;
+        let isEnd = false;
+        
+        $(function(){
+            $(window).scroll(function(){
+                let $window = $(this);
+                let scrollTop = $window.scrollTop();
+                let windowHeight = $window.height();
+                let documentHeight = $(document).height();
 
-                    if (scrollTop + windowHeight + 500 >= documentHeight && key) {
-                        key = false;
-                        fetchList();
-                        page++;
-                        
+                if (scrollTop + windowHeight + 500 >= documentHeight && key) {
+                    key = false;
+                    fetchList();
+                    page++;
+                    
 
-                    }
-                })
-            })
-            let fetchList = function(){
-            if(isEnd == true){
-                return;
-            }
-            
-            $.ajax({
-                url:"/board/"+$('#list_location').text()+"?page=" + page ,
-                type: "GET",
-                dataType: "json",
-                success: function(result){
-                    let length = result.length;
-                    if( length < 10 ){
-                        isEnd = true;
-                    }
-
-                    key = true;
-    
-                    $.each(result, function(index, vo){
-                        renderList(vo);
-                    })
-                },
-                error: function(err){
-                    console.log(err)
                 }
-            });
-        }
+            })
         })
+
+        let fetchList = function(){
+        
+        if(isEnd == true){
+            return;
+        }
+        
+        $.ajax({
+            url:"/board/"+$('#list_location').text()+"?page=" + page ,
+            type: "GET",
+            dataType: "json",
+            success: function(result){
+                let length = result.length;
+                if( length < 10 ){
+                    isEnd = true;
+                }
+
+                key = true;
+
+                $.each(result, function(index, vo){
+                    renderList(vo);
+                })
+            },
+            error: function(err){
+                console.log(err)
+            }
+        });
+    }
+    })
 
     </script>
 </body>

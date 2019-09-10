@@ -436,6 +436,21 @@ nav ul li a {
   padding: 5px;
 }
 
+table.read_info_table{
+  width: 100%;
+  border: none;
+  font-size: 0.8rem;
+}
+
+.read_info_table th{
+  width: 30%;
+}
+
+.read_info_table th, .read_info_table td{
+  border-bottom: 1px dotted #c2c2c2;
+}
+
+
 /* MYPAGE */
 #mypage_info{
   display: flex;

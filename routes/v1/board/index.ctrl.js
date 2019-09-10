@@ -59,7 +59,7 @@ export const boardlist = async (req, res) => {
       board_object.title = item.title;
       board_object.like_count = item.like_count;
       board_object.created_at = item.created_at;
-      board_object.location = item.locations;
+      board_object.location = locationTable[item.locations];
       board_object.hospital = item.hospital;
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
@@ -89,7 +89,7 @@ export const read = async (req, res) => {
   console.log(boardnum);
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname as author, r.commentnum,q.nickname as replier,r.contents',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author,  r.commentnum,q.nickname as replier,r.contents as comment, u.blood',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -101,18 +101,20 @@ export const read = async (req, res) => {
     board_object.boardnum = detail.boardnum;
     board_object.title = detail.title;
     board_object.like_count = detail.like_count;
-    board_object.created_at = detail.created_at;
-    board_object.location = detail.locations;
+    board_object.created_at = detail.create_at.toLocaleString();
+    board_object.location = locationTable[detail.locations];
     board_object.hospital = detail.hospital;
-    board_object.content = detail.contents;
+    board_object.contents = detail.contents;
     board_object.nickname = detail.author;
     board_object.blood = detail.blood;
+    
+    // 댓글
     const comments = [];
 
     for (let item of article.rows) {
       const repl = Object.create(comment);
       repl.comment_num = item.commentnum;
-      repl.content = item.contents;
+      repl.content = item.comment;
       repl.replier = item.replier;
       comments.push(repl);
     }
