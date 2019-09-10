@@ -28,8 +28,30 @@
             <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span id="nav_mypage_span">마이페이지</span></li>
         </ul>
     </nav>
+    <section class="list_location_selection">
+        <ul>
+            <li id="location_toggle">지역 보기</li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/1" : "./1" %>>서울</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/2" : "./2" %>>부산</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/3" : "./3" %>>대구</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/4" : "./4" %>>인천</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/5" : "./5" %>>대전</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/6" : "./6" %>>광주</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/7" : "./7" %>>울산</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/8" : "./8" %>>세종</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/9" : "./9" %>>강원도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/10" : "./10" %>>경기도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/11" : "./11" %>>충청남도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/12" : "./12" %>>전라북도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/13" : "./13" %>>전라남도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/14" : "./14" %>>경상북도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/15" : "./15" %>>경상남도</a></li>
+            <li class="location_item"><a href=<%=(location==0) ? "board/16" : "./16" %>>제주도</a></li>
+        </ul>
+    </section>
 
     <h2 id="list_header_location"><%=(location == 0) ? '전체보기' : location %></h2>
+
     <div id = "wrapper">
         <% if(list.length == 0) { %>
         <span id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>

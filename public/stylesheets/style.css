@@ -131,6 +131,36 @@ a {
   font-size: 0.9rem;
 }
 
+.list_location_selection{
+  /* display: flex;   */
+}
+
+.list_location_selection > ul{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list_location_selection li{
+  display: block;
+  padding: 10px 1px;
+  border: 1px solid #8c8c8c;
+  background-color: white;
+  text-align: center;
+  display: none;
+}
+
+#location_toggle{
+  display: block;
+}
+
+.list_location_selection li > a{
+  display: block;
+  
+  width: 100%;
+}
+
+
+
 .menu_container {
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
