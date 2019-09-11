@@ -97,7 +97,7 @@ export const read = async (req, res) => {
       'order by r.commentnum desc',
     );
     const detail = article.rows[0];
-    console.log(detail);
+
     const board_object = Object.create(board);
     board_object.boardnum = detail.boardnum;
     board_object.title = detail.title;
@@ -144,7 +144,7 @@ export const upload = async (req, res) => {
   new_board.author = user.rows[0].usernum;
   new_board.like_count = 0;
   new_board.created_at = 'now()';
-  new_board.show_flag = '1';
+  new_board.show_flag = '2';
   new_board.locations = req.body.locations;
   new_board.hospital = req.body.hospital;
   new_board.contents = req.body.contents;
