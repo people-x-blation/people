@@ -73,7 +73,7 @@ export const boardlist = async (req, res) => {
       board_object.title = item.title;
       board_object.like_count = item.like_count;
       board_object.created_at = item.created_at;
-      board_object.location = locationTable[item.locations];
+      board_object.location = item.locations;
       board_object.hospital = item.hospital;
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
@@ -145,14 +145,16 @@ export const read = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async(req, res) => {
   res.render('board/search');
 };
 
-export const write = (req, res) => {
+export const write = async(req, res) => {
   res.render('board/write');
 };
 
-export const upload = (req, res) => {
+export const upload = async(req, res) => {
   res.redirect('/board');
 };
+
+
