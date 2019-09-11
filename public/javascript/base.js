@@ -1,9 +1,16 @@
 window.onload = function() {
   fadeOutEffect('loading');
-  $('#nav_home_span, #nav_search_span, #nav_write_span, #nav_login_span')
-    .delay(900)
-    .hide(500);
 
+  $('#nav_home_span, #nav_search_span, #nav_write_span, #nav_login_span, #nav_mypage_span, #nav_logout_span, #nav_signup_span')
+  .delay(2000)
+  .hide(500);
+  
+  if($('#location_toggle').length != 0) {
+    $('#location_toggle').click(function(e){
+      $('.location_item').toggle();
+    });
+  }
+  
   $('#write_request_btn').click(function(e) {
     e.preventDefault();
   });
