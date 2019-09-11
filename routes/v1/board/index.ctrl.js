@@ -21,7 +21,21 @@ const locationTable = {
   '16': '제주도',
 };
 
+// 혈액형 하이라이트 색상 매핑용
+const bloodColorTable = {
+  'RH+ A' : '#e56662',
+  'RH+ B' : '#e0514e',
+  'RH+ O' : '#da3d36',
+  'RH+ AB' : '#ed6b68',
+  'RH- A' : '#36bc9b',
+  'RH- B' : '#36bc9b',
+  'RH- AB' : '#36bc9b',
+  'RH- O' : '#36bc9b'
+}
+
 export const boardlist = async (req, res) => {
+  console.log('//////////////////세션 : ', req.session);
+
   // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
 
   try {
@@ -65,6 +79,7 @@ export const boardlist = async (req, res) => {
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
       board_object.blood = memberInfo.blood;
+      
       boardList.push(board_object);
     }
 
@@ -76,6 +91,7 @@ export const boardlist = async (req, res) => {
             ? 0
             : locationTable[req.params.location],
         locationTable: locationTable,
+        bloodColorTable: bloodColorTable
       });
     } else {
       res.json(boardList);
@@ -90,7 +106,7 @@ export const read = async (req, res) => {
   console.log(boardnum);
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, u.nickname as author, r.commentnum,q.nickname as replier,r.contents',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author,  r.commentnum,q.nickname as replier,r.contents as comment, u.blood',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -102,18 +118,20 @@ export const read = async (req, res) => {
     board_object.boardnum = detail.boardnum;
     board_object.title = detail.title;
     board_object.like_count = detail.like_count;
-    board_object.created_at = detail.created_at;
-    board_object.location = detail.locations;
+    board_object.created_at = detail.create_at.toLocaleString();
+    board_object.location = locationTable[detail.locations];
     board_object.hospital = detail.hospital;
-    board_object.content = detail.contents;
+    board_object.contents = detail.contents;
     board_object.nickname = detail.author;
     board_object.blood = detail.blood;
+    
+    // 댓글
     const comments = [];
 
     for (let item of article.rows) {
       const repl = Object.create(comment);
       repl.comment_num = item.commentnum;
-      repl.content = item.contents;
+      repl.content = item.comment;
       repl.replier = item.replier;
       comments.push(repl);
     }
@@ -128,13 +146,14 @@ export const read = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async(req, res) => {
   res.render('board/search');
 };
 
-export const write = (req, res) => {
+export const write = async(req, res) => {
   res.render('board/write');
 };
+
 
 export const upload = async (req, res) => {
   const email = req.user._json.kaccount_email;
@@ -153,7 +172,8 @@ export const upload = async (req, res) => {
     `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
     'board',
   );
-  console.log(result);
 
   res.redirect('/board');
 };
+
+

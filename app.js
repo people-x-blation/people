@@ -25,10 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // jQuery
-app.use(
-  '/jquery',
-  express.static(path.join(__dirname, '/node_modules/jquery/dist')),
-);
+app.use('/jquery',express.static(path.join(__dirname, '/node_modules/jquery/dist')),);
+// AOS
+app.use('/aos',express.static(path.join(__dirname, '/node_modules/aos/dist')),);
 
 // Session
 app.use(

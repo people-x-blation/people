@@ -16,3 +16,4 @@ router.get('/', boardCtrl.boardlist);
 router.get('/:location', boardCtrl.boardlist);
 
 export default router;
+

@@ -4,6 +4,7 @@ import * as authCtrl from './index.ctrl';
 import isValidate from '~/lib/validate';
 
 const router = new Router();
+
 router.get('/kakao/success', authCtrl.successLogin);
 
 router.get(
@@ -23,4 +24,7 @@ router.get(
 
 router.get('/logout', authCtrl.logout);
 router.get('/mypage', authCtrl.mypage);
+router.post('/register',authCtrl.register);
+router.get('/leave', authCtrl.leave);
+router.post('/request_off', authCtrl.request_off);
 export default router;

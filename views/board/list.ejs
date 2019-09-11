@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>피플</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/style.css?ver=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/aos/aos.css" />
     <script src="/javascript/base.js"></script>
 </head>
 
@@ -29,8 +30,8 @@
         </ul>
     </nav>
     <section class="list_location_selection">
-        <ul>
-            <li id="location_toggle">지역 보기</li>
+        <ul data-aos="fade-down">
+            <li id="location_toggle">지역 보기 ▼</li>
             <li class="location_item"><a href=<%=(location==0) ? "board/1" : "./1" %>>서울</a></li>
             <li class="location_item"><a href=<%=(location==0) ? "board/2" : "./2" %>>부산</a></li>
             <li class="location_item"><a href=<%=(location==0) ? "board/3" : "./3" %>>대구</a></li>
@@ -51,25 +52,22 @@
     </section>
 
     <h2 id="list_header_location"><%=(location == 0) ? '전체보기' : location %></h2>
-
     <div id = "wrapper">
         <% if(list.length == 0) { %>
-        <span id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>
-        <img id="list_no_result_img" src="/images/empty.svg" alt="결과 없음"/>
+        <span data-aos="fade-left" id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>
+        <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음"/>
         <% } else { %>
         <% for(let item=0 ; item<list.length; item++){ %>
-        <div class="list_container">
-        
-            <div class="img_wrapper"
-                style="background:url('https://i.imgur.com/4KyfXrZ.jpg');background-size: cover;background-repeat: no-repeat;background-position: center center;">
-                <!-- 이미지 영역 -->
+        <div data-aos="fade-left" data-aos-duration="1300" class="list_container">
+            <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
+                <span id="highlight_location"><%=list[item].location%></span>
+                <span id="highlight_blood"><%=list[item].blood%></span>
             </div>
             <div class="content_wrapper">
                 <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>
                 <span id="list_user_id"><%=list[item].nickname%></span>
-                <h2 id="list_title"><a href="board/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
-                <h2 id="list_like_likecount"><a href="board/read"><%=list[item].like_count%></a></h2>
-                <span id="list_location"><%=locationTable[list[item].location]%></span> | <span id="list_blood_type"><%=list[item].blood%></span>
+                <h2 id="list_title"><a href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
+                <span id="list_like_likecount"><a href="board/read">지원 + 응원 : <%=list[item].like_count%></a></span>
             </div>
         </div>
         <%} }%>
@@ -79,13 +77,12 @@
 
 
     <script src="/jquery/jquery.min.js"></script>
+    <script src="/aos/aos.js"></script>
     <script>
         
         $( document ).ready( function() {
-            
-
+        AOS.init();
         let renderList = function(vo){
-
             const html = '<div class="list_container">'+
                 '<div class="img_wrapper"'+
                     'style="background:url(\'https://i.imgur.com/4KyfXrZ.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center center;">'+
@@ -101,57 +98,57 @@
                     '<span id="list_content"> '+ vo.content +'</span>'+
                 '</div>'+
             '</div>';
-    
             $("#wrapper").append(html);
-   
         }
-            let key = true;
-            let page = 2;
-            let isEnd = false;
-            
-            $(function(){
-                $(window).scroll(function(){
-                    let $window = $(this);
-                    let scrollTop = $window.scrollTop();
-                    let windowHeight = $window.height();
-                    let documentHeight = $(document).height();
+        let key = true;
+        let page = 2;
+        let isEnd = false;
+        
+        $(function(){
+            $(window).scroll(function(){
+                let $window = $(this);
+                let scrollTop = $window.scrollTop();
+                let windowHeight = $window.height();
+                let documentHeight = $(document).height();
 
-                    if (scrollTop + windowHeight + 500 >= documentHeight && key) {
-                        key = false;
-                        fetchList();
-                        page++;
-                        
+                if (scrollTop + windowHeight + 500 >= documentHeight && key) {
+                    key = false;
+                    fetchList();
+                    page++;
+                    
 
-                    }
-                })
-            })
-            let fetchList = function(){
-            if(isEnd == true){
-                return;
-            }
-            
-            $.ajax({
-                url:"/board/"+$('#list_location').text()+"?page=" + page ,
-                type: "GET",
-                dataType: "json",
-                success: function(result){
-                    let length = result.length;
-                    if( length < 10 ){
-                        isEnd = true;
-                    }
-
-                    key = true;
-    
-                    $.each(result, function(index, vo){
-                        renderList(vo);
-                    })
-                },
-                error: function(err){
-                    console.log(err)
                 }
-            });
-        }
+            })
         })
+
+        let fetchList = function(){
+        
+        if(isEnd == true){
+            return;
+        }
+        
+        $.ajax({
+            url:"/board/"+$('#list_location').text()+"?page=" + page ,
+            type: "GET",
+            dataType: "json",
+            success: function(result){
+                let length = result.length;
+                if( length < 10 ){
+                    isEnd = true;
+                }
+
+                key = true;
+
+                $.each(result, function(index, vo){
+                    renderList(vo);
+                })
+            },
+            error: function(err){
+                console.log(err)
+            }
+        });
+    }
+    })
 
     </script>
 </body>
