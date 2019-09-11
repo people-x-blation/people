@@ -6,7 +6,6 @@
     <title>피플</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css?ver=1" />
-    <script src="/javascript/base.js"></script>
 </head>
 
 <body>
@@ -39,6 +38,7 @@
         </div>
         <div class="read_content_wrapper">
             <h2 id="read_title"><%=articleTable.board.title%></h2>
+
             <table class="read_info_table">
                 <tr>
                     <th>닉네임</th>
@@ -65,6 +65,7 @@
             <form id="read_like_button">
                 <button>참여할 의사가 있습니다.<br/>(현재 <%=(articleTable.board.like_count == 0) ? "도움이 필요한 상황입니다." : articleTable.board.like_count + "명"%>)</button>
             </form>
+
         </div>
         <div id="read_comment" class="read_content_wrapper">
             <span id="read_comment_label">참여 / 응원 댓글 작성</span>
@@ -106,6 +107,9 @@
             <li onclick="read_comment_closeSetting()">닫기</li>
         </ul>
     </div>
+
+     <script src="/jquery/jquery.min.js"></script>
+     <script src="/javascript/base.js"></script>
 </body>
 
 </html>

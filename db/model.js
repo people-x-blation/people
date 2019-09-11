@@ -17,6 +17,7 @@ export const board = {
   show_flag: '',
   locations: '',
   hospital: '',
+  contents: '',
 };
 
 export const comment = {
