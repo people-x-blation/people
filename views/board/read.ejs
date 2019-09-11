@@ -61,7 +61,7 @@
                     <td><%=articleTable.board.created_at%></td>
                 </tr>
             </table>
-            <p id="read_content_text"><%=articleTable.board.contents%></p>
+            <p id="read_content_text"><%-articleTable.board.contents%></p>
             <form id="read_like_button">
                 <button>참여할 의사가 있습니다.<br/>(현재 <%=(articleTable.board.like_count == 0) ? "도움이 필요한 상황입니다." : articleTable.board.like_count + "명"%>)</button>
             </form>
