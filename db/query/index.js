@@ -16,7 +16,7 @@ export const findOne = async (where) => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
-      `SELECT nickname FROM member WHERE email='${where}'`,
+      `SELECT * FROM member WHERE email='${where}'`,
     );
     return result;
   } catch (err) {
@@ -25,14 +25,16 @@ export const findOne = async (where) => {
 };
 
 export const insert = async (object, table) => {
-  const instance = new Singleton();
-  const result = await instance.query(
-    `INSERT INTO ${table} VALUES (${object})`,
-  );
+  try {
+    const instance = new Singleton();
+    const result = await instance.query(
+      `INSERT INTO ${table} VALUES (${object})`,
+    );
 
-  console.log(result);
-
-  return result;
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const update = async (object, ToBEObject, table, where = '') => {
