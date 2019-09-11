@@ -30,7 +30,7 @@
     </nav>
 
     <!-- USER PAGE -->
-    <div id="mypage_info" class="container">
+    <div data-aos="fade-left" id="mypage_info" class="container">
         <h1>마이페이지</h1>
         <div id="mypage_row_wrapper">
             <div id="profile_wrap">
@@ -55,13 +55,16 @@
                     </tr>
                 </table>
                 <button onclick="location.href='/auth/logout'">로그아웃</button>
-                <button>회원 탈퇴</button>
+                <form action="">
+                    <button>회원 탈퇴</button>
+                </form>
+                
             </div>
         </div>
     </div>
     
     <h2 style="text-align: center;">작성 요청 목록</h2>
-    <div class="container mypage_request_list">
+    <div data-aos="fade-left" class="container mypage_request_list">
         <table>
             <tr>
                 <th>제목</th>
@@ -78,7 +81,13 @@
         </table>
         <button>요청 내리기</button>
     </div>
-
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/aos/aos.js"></script>
+    <script>
+    $( document ).ready( function() {
+        AOS.init();
+    });
+    </script>
 </body>
 
 </html>

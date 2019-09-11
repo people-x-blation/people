@@ -16,3 +16,4 @@ router.get('/:location', boardCtrl.boardlist);
 // router.get('/upload', boardCtrl.upload);
 
 export default router;
+

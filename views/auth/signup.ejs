@@ -32,24 +32,19 @@
     <!-- SIGNUP FORM -->
     <div class="container">
         <h2>회원가입</h2>
-        <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
+        <form id="signup_form" action="../register" method="POST">
             <div class="signup_input_container">
                 <label for="signup_nickname">닉네임</label> : <input type="text" class="signup_input" name="nickname"
                     id="signup_nickname">
             </div>
             <div class="signup_input_container">
-                <label for="signup_profile">프로필 사진</label> : <input type="file" class="signup_input" name="profile"
-                    id="signup_profile">
-            </div>
-            <div class="signup_input_container">
-                <label for="signup_email">전화번호</label> : <input type="text" class="signup_input" name="phone"
+                <label for="signup_phone">전화번호</label> : <input type="text" class="signup_input" name="phone"
                     id="signup_phone">
                 <span id="signup_phone_notice">전화번호가 010-XXXX-XXXX인 경우 010XXXXXXXX 로 작성해주세요</span>
             </div>
             <div class="signup_input_container">
                 <label for="signup_blood">혈액형</label> :
                 <select name="blood" class="signup_input" id="signup_blood">
-                    <option>혈액형을 선택해 주십시오.</option>
                     <option value="RH+A">RH+ A형</option>
                     <option value="RH+B">RH+ B형</option>
                     <option value="RH+AB">RH+ AB형</option>
@@ -60,11 +55,50 @@
                     <option value="RH-O">RH- O형</option>
                 </select>
                 <span id="signup_blood_notice">수혈받을 분의 혈액형을 입력해 주세요.</span>
-                <button type="submit">회원가입</button>
+                <input type='hidden' name='email' value="<%=email%>" />
+                <button id="signup_submit_btn" type="submit">회원가입</button>
             </div>
         </form>
     </div>
+    <script src="/jquery/jquery.min.js"></script>
+    <script>
+    var nicknameInput = $('#signup_nickname');
+    var phoneInput = $('#signup_phone');
+    var signup = $('#signup_submit_btn');
+    if(<%=status%>) {
+        alert('회원 정보를 입력해야 회원가입 절차가 완료됩니다.');
+    }
 
+    signup.click(function(e){
+        let falg1 = false;
+        let flag2 = false;
+        e.preventDefault();
+        if(nicknameInput.val() === "") {
+            alert("닉네임을 입력해 주십시요.");
+        }else{
+            flag1 = true;
+        }
+        
+        if(phoneInput.val() === "") {
+            alert("전화번호를 입력해 주십시요.");
+            flag1 = false;
+        } else if(phoneInput.val().length >= 9 && phoneInput.val().length <= 11) {
+            // 집전화번호 ~ 핸드폰 전화번호
+            flag2 = true;
+        } else{
+            alert("전화번호를 정확하게 입력해 주십시오.");
+            flag2 = false;
+        }
+
+        if(flag1 && flag2) {
+            if(confirm("모든 정보를 정확하게 입력하셨습니까?")) {
+                $("#signup_form").submit();
+            }
+        }
+    })
+    
+    
+    </script>
 
 </body>
 

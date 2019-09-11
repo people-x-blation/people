@@ -20,7 +20,21 @@ const locationTable = {
   '16': '제주도',
 };
 
+// 혈액형 하이라이트 색상 매핑용
+const bloodColorTable = {
+  'RH+ A' : '#e56662',
+  'RH+ B' : '#e0514e',
+  'RH+ O' : '#da3d36',
+  'RH+ AB' : '#ed6b68',
+  'RH- A' : '#36bc9b',
+  'RH- B' : '#36bc9b',
+  'RH- AB' : '#36bc9b',
+  'RH- O' : '#36bc9b'
+}
+
 export const boardlist = async (req, res) => {
+  console.log('//////////////////세션 : ', req.session);
+
   // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
 
   try {
@@ -64,6 +78,7 @@ export const boardlist = async (req, res) => {
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
       board_object.blood = memberInfo.blood;
+      
       boardList.push(board_object);
     }
 
@@ -75,6 +90,7 @@ export const boardlist = async (req, res) => {
             ? 0
             : locationTable[req.params.location],
         locationTable: locationTable,
+        bloodColorTable: bloodColorTable
       });
     } else {
       res.json(boardList);
