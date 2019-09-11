@@ -6,7 +6,6 @@
     <title>피플</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css?ver=1" />
-    <script src="/javascript/base.js"></script>
 </head>
 
 <body>
@@ -37,7 +36,7 @@
         <div class="read_content_wrapper">
             <h2 id="read_title"><%=articleTable.board.title%></h2>
             <img id="read_content_image" src="https://via.placeholder.com/150x100" />
-            <p id="read_content_text"><%=articleTable.board.content%></p>
+            <p id="read_content_text"><%-articleTable.board.content%></p>
         </div>
         <div id="read_comment" class="read_content_wrapper">
             <div class="read_comment_write">
@@ -79,6 +78,9 @@
             <li onclick="read_comment_closeSetting()">닫기</li>
         </ul>
     </div>
+
+     <script src="/jquery/jquery.min.js"></script>
+     <script src="/javascript/base.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
-import { select, insert, update, findName } from '~/db/query';
+import { select, insert, update, findOne } from '~/db/query';
 import { board, comment } from '~/db/model';
+
 // 지역 매핑용
 const locationTable = {
   '1': '서울',
@@ -95,8 +96,8 @@ export const read = async (req, res) => {
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
       'order by r.commentnum desc',
     );
-    console.log(article);
     const detail = article.rows[0];
+    console.log(detail);
     const board_object = Object.create(board);
     board_object.boardnum = detail.boardnum;
     board_object.title = detail.title;
@@ -135,6 +136,24 @@ export const write = (req, res) => {
   res.render('board/write');
 };
 
-export const upload = (req, res) => {
+export const upload = async (req, res) => {
+  const email = req.user._json.kaccount_email;
+  const user = await findOne(email);
+  const new_board = Object.create(board);
+  new_board.title = req.body.title;
+  new_board.author = user.rows[0].usernum;
+  new_board.like_count = 0;
+  new_board.created_at = 'now()';
+  new_board.show_flag = '1';
+  new_board.locations = req.body.locations;
+  new_board.hospital = req.body.hospital;
+  new_board.contents = req.body.contents;
+
+  const result = await insert(
+    `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
+    'board',
+  );
+  console.log(result);
+
   res.redirect('/board');
 };
