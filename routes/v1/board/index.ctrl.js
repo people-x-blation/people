@@ -1,5 +1,6 @@
 import { select, insert, update, findOne } from '~/db/query';
 import { board, comment } from '~/db/model';
+import axios from 'axios';
 
 // 지역 매핑용
 const locationTable = {
@@ -23,15 +24,15 @@ const locationTable = {
 
 // 혈액형 하이라이트 색상 매핑용
 const bloodColorTable = {
-  'RH+ A' : '#e56662',
-  'RH+ B' : '#e0514e',
-  'RH+ O' : '#da3d36',
-  'RH+ AB' : '#ed6b68',
-  'RH- A' : '#36bc9b',
-  'RH- B' : '#36bc9b',
-  'RH- AB' : '#36bc9b',
-  'RH- O' : '#36bc9b'
-}
+  'RH+ A': '#e56662',
+  'RH+ B': '#e0514e',
+  'RH+ O': '#da3d36',
+  'RH+ AB': '#ed6b68',
+  'RH- A': '#36bc9b',
+  'RH- B': '#36bc9b',
+  'RH- AB': '#36bc9b',
+  'RH- O': '#36bc9b',
+};
 
 export const boardlist = async (req, res) => {
   console.log('//////////////////세션 : ', req.session);
@@ -79,7 +80,7 @@ export const boardlist = async (req, res) => {
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
       board_object.blood = memberInfo.blood;
-      
+
       boardList.push(board_object);
     }
 
@@ -91,7 +92,7 @@ export const boardlist = async (req, res) => {
             ? 0
             : locationTable[req.params.location],
         locationTable: locationTable,
-        bloodColorTable: bloodColorTable
+        bloodColorTable: bloodColorTable,
       });
     } else {
       res.json(boardList);
@@ -124,7 +125,7 @@ export const read = async (req, res) => {
     board_object.contents = detail.contents;
     board_object.nickname = detail.author;
     board_object.blood = detail.blood;
-    
+
     // 댓글
     const comments = [];
 
@@ -141,39 +142,56 @@ export const read = async (req, res) => {
     };
     console.log(articleTable);
     res.render('board/read', { articleTable: articleTable });
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
 };
 
-export const search = async(req, res) => {
+export const search = async (req, res) => {
   res.render('board/search');
 };
 
-export const write = async(req, res) => {
+export const write = async (req, res) => {
   res.render('board/write');
 };
 
-
 export const upload = async (req, res) => {
-  const email = req.user._json.kaccount_email;
-  const user = await findOne(email);
-  const new_board = Object.create(board);
-  new_board.title = req.body.title;
-  new_board.author = user.rows[0].usernum;
-  new_board.like_count = 0;
-  new_board.created_at = 'now()';
-  new_board.show_flag = '2';
-  new_board.locations = req.body.locations;
-  new_board.hospital = req.body.hospital;
-  new_board.contents = req.body.contents;
+  try {
+    const email = req.user._json.kaccount_email;
+    const user = await findOne(email);
+    const new_board = Object.create(board);
+    new_board.title = req.body.title;
+    new_board.author = user.rows[0].usernum;
+    new_board.like_count = 0;
+    new_board.created_at = 'now()';
+    new_board.show_flag = '2';
+    new_board.locations = req.body.locations;
+    new_board.hospital = req.body.hospital;
+    new_board.contents = req.body.contents;
 
-  const result = await insert(
-    `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
-    'board',
-  );
+    const result = await insert(
+      `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
+      'board',
+      'returning *',
+    );
 
-  res.redirect('/board');
+    if (result.rowCount > 0) {
+      const arr = [
+        new_board.title,
+        new_board.contents,
+        `게시글번호 : ${result.rows[0].boardnum}`,
+      ];
+      //slack webhook
+      const response = await axios.post(
+        'https://hooks.slack.com/services/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',
+        { text: arr.join('\n') },
+      );
+      console.log(response.data);
+      res.redirect('/board');
+    } else {
+      throw new Error('board insert 실패, rowcount ==0');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
-
-
