@@ -24,62 +24,80 @@ export const login = async (req, res) => {
   }
 };
 
-export const register = async(req,res) => {
+export const register = async (req, res) => {
   const user_input = {
     email: req.body.email,
     nickname: req.body.nickname,
     phone: req.body.phone,
     blood: req.body.blood,
-  }
-  try{
+  };
+  try {
     const update_member = await signupUpdate(user_input);
     res.redirect('../auth/mypage');
-  }catch(e){
+  } catch (e) {
     console.log(e);
   }
-}
+};
 
 export const logout = async (req, res) => {
-  req.logout();
-  console.log(req.session);
-  res.redirect('/');
+  // req.logout();
+  req.session.destroy(function(err) {
+    res.redirect('/');
+  });
 };
 
 export const mypage = async (req, res) => {
   const kakao_info = JSON.parse(req.session.passport.user._raw);
-  const member_db = await select('usernum, id, nickname, blood, phone, email', 'member', `email = '${kakao_info.kaccount_email}'`);
-  const board_db = await select('boardnum, title, like_count, create_at, show_flag, locations, hospital, contents', 'board', `author = ${member_db.rows[0].usernum}`);
+
+  const member_db = await select(
+    'usernum, id, nickname, blood, phone, email',
+    'member',
+    `email = '${kakao_info.kaccount_email}'`,
+  );
+
+  const board_db = await select(
+    'boardnum, title, like_count, create_at, show_flag, locations, hospital, contents',
+    'board',
+    `author = ${member_db.rows[0].usernum}`,
+  );
+
+  const participants_db = await select(
+    '*',
+    'participants as p',
+    `p.request_usernum = ${member_db.rows[0].usernum}`,
+    'LEFT JOIN public.member as m ON p.part_usernum = m.usernum',
+  );
+
+  let participants_count = 0;
+  for (let iter in participants_db.rows) {
+    if (participants_db.rows[iter].show_flag) participants_count++;
+  }
+
+  console.log(participants_db.rows);
 
   res.render('auth/mypage', {
     kakao_info: kakao_info,
-    member_db : member_db.rows[0],
-    board_db: board_db.rows
+    member_db: member_db.rows[0],
+    board_db: board_db.rows,
+    participants: participants_db.rows,
+    participants_count: participants_count,
   });
-}
+};
 
-// {
-//   "kaccount_email":"dawnst1128@naver.com",
-// "kaccount_email_verified":true,
-// "id":1143821603,
-// "properties":{
-//   "profile_image":"http://k.kakaocdn.net/dn/WqW2l/btqxmk8BEOl/BBJKEovXp6OdIKKCsyTbk1/profile_640x640s.jpg",
-//   "nickname":"○",
-//   "thumbnail_image":"http://k.kakaocdn.net/dn/WqW2l/btqxmk8BEOl/BBJKEovXp6OdIKKCsyTbk1/profile_110x110c.jpg"
-// }
-// }
+export const leave = async (req, res) => {};
 
-
-export const leave = async(req,res) => {
-
-}
-
-export const request_off = async(req,res) => {
+export const request_off = async (req, res) => {
   const boardnum = req.body.request_off;
   console.log(req.body);
-  try{
-    const showUpdate = await update('show_flag', '\'0\'::show_flag_t', 'board', `WHERE boardnum = ${boardnum}`);
-  }catch(e) {
-    console.log("상태변경 실패", e);
+  try {
+    const showUpdate = await update(
+      'show_flag',
+      "'0'::show_flag_t",
+      'board',
+      `WHERE boardnum = ${boardnum}`,
+    );
+  } catch (e) {
+    console.log('상태변경 실패', e);
   }
   res.redirect('../auth/mypage');
-}
+};

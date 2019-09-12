@@ -59,4 +59,24 @@ CREATE TABLE creport
 );
 
 
-
+CREATE TABLE public.participants
+(
+    boardnum integer NOT NULL,
+    request_usernum integer NOT NULL,
+    part_usernum integer NOT NULL,
+    CONSTRAINT participants_pkey PRIMARY KEY (boardnum, request_usernum, part_usernum),
+    CONSTRAINT participants_boardnum_fkey FOREIGN KEY (boardnum)
+        REFERENCES public.board (boardnum) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT participants_part_usernum_fkey FOREIGN KEY (part_usernum)
+        REFERENCES public.member (usernum) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT participants_request_usernum_fkey FOREIGN KEY (request_usernum)
+        REFERENCES public.member (usernum) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+);
+ALTER TABLE public.participants
+    ADD COLUMN show_flag boolean NOT NULL DEFAULT True;

@@ -1,116 +1,200 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>피플</title>
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <script src="/javascript/base.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Loading -->
     <div id="loading">
-        <img src="/images/logo.svg">
-        <span>로딩중 입니다...</span>
+      <img src="/images/logo.svg" />
+      <span>로딩중 입니다...</span>
     </div>
 
     <!-- NAVBAR -->
     <nav>
-        <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">리스트</span></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
-            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청</span></li>
-            <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
-            <li><a href="/auth/kakao/logout"><img id="nav_logout" src="/images/logout.svg" alt="로그아웃" /></a><span id="nav_logout_span">로그아웃</span></li>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
-            <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span id="nav_mypage_span">마이페이지</span></li>
-        </ul>
+      <ul>
+        <li>
+          <a href="/board"
+            ><img id="nav_home" src="/images/home.svg" alt="홈"/></a
+          ><span id="nav_home_span">리스트</span>
+        </li>
+        <li>
+          <a href="/board/search"
+            ><img id="nav_search" src="/images/search.svg" alt="검색"/></a
+          ><span id="nav_search_span">검색</span>
+        </li>
+        <li>
+          <a href="/board/write"
+            ><img id="nav_write" src="/images/write.svg" alt="글 작성"/></a
+          ><span id="nav_write_span">요청</span>
+        </li>
+        <li>
+          <a href="/auth/kakao"
+            ><img id="nav_login" src="/images/login.svg" alt="로그인"/></a
+          ><span id="nav_login_span">로그인</span>
+        </li>
+        <li>
+          <a href="/auth/kakao/logout"
+            ><img id="nav_logout" src="/images/logout.svg" alt="로그아웃"/></a
+          ><span id="nav_logout_span">로그아웃</span>
+        </li>
+        <li>
+          <a href="/auth/kakao?requestUrl=/board"
+            ><img id="nav_signup" src="/images/signup.svg" alt="회원가입"/></a
+          ><span id="nav_signup_span">회원가입</span>
+        </li>
+        <li>
+          <a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지"/></a><span id="nav_mypage_span">마이페이지</span>
+        </li>
+      </ul>
     </nav>
     <!-- USER PAGE -->
     <div data-aos="fade-left" id="mypage_info" class="container">
-        <h1>마이페이지</h1>
-        <div id="mypage_row_wrapper">
-            <div id="profile_wrap">
-                <img id="profile_pic" src="<%=kakao_info.properties.profile_image%>" />
-                <span id="mypage_nickname"><%=member_db.nickname%></span>
-                <span id="mypage_blood"><%=member_db.blood%> 형</span>
-            </div>
-            <div id="mypage_info_wrap">
-                
-                <table>
-                    <tr>
-                        <th>전화번호</th>
-                        <td><%=member_db.phone%></td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td><%=member_db.email%></td>
-                    </tr>                    
-                    <tr>
-                        <th>게시 요청 수</th>
-                        <td><%=board_db.length%></td>
-                    </tr>
-                </table>
-                <button onclick="location.href='/auth/logout'">로그아웃</button>
-                <form action="">
-                    <button>회원 탈퇴</button>
-                </form>
-                
-            </div>
+      <h1>마이페이지</h1>
+      <div id="mypage_row_wrapper">
+        <div id="profile_wrap">
+          <img id="profile_pic" src="<%=kakao_info.properties.profile_image%>"/>
+          <span id="mypage_nickname"><%=member_db.nickname%></span>
+          <span id="mypage_blood"><%=member_db.blood%> 형</span>
         </div>
+        <div id="mypage_info_wrap">
+          <table>
+            <tr>
+              <th>전화번호</th>
+              <td><%=member_db.phone%></td>
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td><%=member_db.email%></td>
+            </tr>
+            <tr>
+              <th>게시 요청 수</th>
+              <td><%=board_db.length%></td>
+            </tr>
+            <tr>
+                <th>헌혈 지원자 수</th>
+                <td><%=participants_count%></td>
+            </tr>
+          </table>
+
+          <button onclick="location.href='/auth/logout'">로그아웃</button>
+          <form action="">
+            <button>회원 탈퇴</button>
+          </form>
+        </div>
+      </div>
     </div>
+    <h2 style="text-align: center;">헌혈 지원자 정보</h2>
+    <% if(participants_count >= 3) { %>
+    <div id="mypage_donation">
+        <p>현재 <%=participants_count%>명이 헌혈에 동참해 주시겠다고 하십니다. <br />
+        저희 서비스가 앞으로도 지속적인 도움이 될 수 있도록, <br />
+        <em>든든한 피플의 후원자가 되어 주세요!</em></p>
+        <span>국민은행 466401-01-366890</span>
+        <button class="copy">계좌번호 복사</button>
+    </div>
+    <% } %>
+    <% for(let item in participants) { %>
+        <% if(participants[item].show_flag) { %>
+        <div data-aos="fade-left" class="container mypage_request_list">
+            <table>
+                <tr>
+                    <th>게시물 번호</th>
+                    <td><%=participants[item].boardnum%></td>
+                </tr>
+                <tr>
+                    <th>닉네임</th>
+                    <td><%=participants[item].nickname%></td>
+                </tr>
+                <tr>
+                    <th>혈액형</th>
+                    <td><%=participants[item].blood%></td>
+                </tr>
+                <tr>
+                    <th>연락처</th>
+                    <td><%=participants[item].phone%></td>
+                </tr>
+                <tr>
+                    <th>이메일</th>
+                    <td><%=participants[item].email%></td>
+                </tr>
+            </table>
+            <span class="participants_del_direction">*해당 게시물 번호에 해당하는 요청을 내리면 자동으로 지워집니다.</span>
+        </div>
+        <% } %>
+    <% } %>
     
-    <h2 style="text-align: center;">작성 요청 목록</h2>
+
+    <h2 style="text-align: center;">요청 목록</h2>
     <% for(let item in board_db) { %>
     <div data-aos="fade-left" class="container mypage_request_list">
-        <table>
-            <tr>
-                <th>요청번호</th>
-                <td><%=board_db[item].boardnum%></td>
-            </tr>
-            <tr>
-                <th>제목</th>
-                <td><%=board_db[item].title%></td>
-            </tr>
-            <tr>
-                <th>게시글 노출 여부</th>
-                <td style="color: <%=(board_db[item].show_flag == '1') ? 'black':'red'%>"><%=(board_db[item].show_flag == '1') ? '노출 중':'게시 종료(또는 게시 거부)'%></td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td><%=board_db[item].contents%></td>
-            </tr>
-            <tr>
-                <th>최초 작성일자</th>
-                <td><%=board_db[item].create_at.toLocaleString()%></td>
-            </tr>
-        </table>
-        <% if(board_db[item].show_flag == '1') { %>
-        <form class="mypage_request_off_form" action="../auth/request_off" method="POST">
-            <input type="hidden" name="request_off" value="<%=board_db[item].boardnum%>" />
-            <button class="mypage_request_off_btn">요청 내리기</button>
-        </form>
-        <% } %>
+      <table>
+        <tr>
+          <th>요청번호:</th>
+          <td>
+            <a href="../../board/read/<%=board_db[item].boardnum%>">
+              <%=board_db[item].boardnum%>
+            </a>
+            <small> ← 해당 게시물 이동</small>
+          </td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td><%=board_db[item].title%></td>
+        </tr>
+        <tr>
+          <th>게시글 노출 여부</th>
+          <td style="color: <%= (board_db[item].show_flag == '1')?'black':'red' %>" >
+            <%=(board_db[item].show_flag == '1') ? '노출 중':'게시 종료(또는 게시 거부)'%>
+          </td>
+        </tr>
+        <tr>
+          <th>최초 작성일자</th>
+          <td><%=board_db[item].create_at.toLocaleString()%></td>
+        </tr>
+      </table>
+
+      <% if(board_db[item].show_flag == '1') { %>
+      <form class="mypage_request_off_form" action="../auth/request_off" method="POST" >
+        <input type="hidden" name="request_off" value="<%=board_db[item].boardnum%>"/>
+        <button class="mypage_request_off_btn">요청 내리기</button>
+      </form>
+      <% } %>
     </div>
     <% } %>
     <script src="/jquery/jquery.min.js"></script>
     <script src="/aos/aos.js"></script>
     <script>
-    $( document ).ready( function() {
-        var mypageRequestOffForm = $('.mypage_request_off_form');
-        var mypageRequestOffBtn = $('.mypage_request_off_btn');
+      $(document).ready(function() {
         AOS.init();
-        mypageRequestOffBtn.click(function(e){
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            if(confirm("요청은 한번 내리면 다시 재개할 수 없습니다. 내리시겠습니까?")){
-                mypageRequestOffForm.submit(); 
-            }
-        })  
-    });
-    </script>
-</body>
+        var mypageRequestOffForm = $(".mypage_request_off_form");
+        var mypageRequestOffBtn = $(".mypage_request_off_btn");
+        mypageRequestOffBtn.click(function(e) {
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          if ( confirm( "요청은 한번 내리면 다시 재개할 수 없습니다. 내리시겠습니까?" )) {
+            mypageRequestOffForm.submit();
+          }
+        });
+        document.querySelector(".copy").addEventListener("click", function(){
+            var tempElem = document.createElement('textarea');
+            tempElem.value = '국민은행 466401-01-366890';  
+            document.body.appendChild(tempElem);
 
+            tempElem.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempElem);
+            alert('감사합니다. \n 세상을 구하는 붉은 인연 피플입니다.');
+        });
+      });
+    </script>
+  </body>
 </html>
