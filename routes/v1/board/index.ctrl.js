@@ -28,9 +28,11 @@ const bloodColorTable = {
   'RH+ B': '#e0514e',
   'RH+ O': '#da3d36',
   'RH+ AB': '#ed6b68',
+  'RH+AB': '#ed6b68',
   'RH- A': '#36bc9b',
   'RH- B': '#36bc9b',
   'RH- AB': '#36bc9b',
+  'RH-AB': '#36bc9b',
   'RH- O': '#36bc9b',
 };
 
@@ -103,10 +105,9 @@ export const boardlist = async (req, res) => {
 
 export const read = async (req, res) => {
   const boardnum = req.params.boardnum;
-  console.log(boardnum);
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author, u.nickname',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -118,6 +119,8 @@ export const read = async (req, res) => {
     const whoAmI = await findMe(req.session.passport.user._json.kaccount_email);
 
     console.log('디테일//////', detail);
+    console.log('세션////////////', req.session.passport);
+    console.log('나 누구?', whoAmI);
 
     const board_object = Object.create(board);
     board_object.boardnum = detail.boardnum;
@@ -127,8 +130,9 @@ export const read = async (req, res) => {
     board_object.location = locationTable[detail.locations];
     board_object.hospital = detail.hospital;
     board_object.contents = detail.contents;
-    board_object.nickname = detail.author;
+    board_object.nickname = detail.nickname;
     board_object.blood = detail.blood;
+    board_object.usernum = detail.author;
 
     // 댓글
     const comments = [];

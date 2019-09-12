@@ -144,7 +144,8 @@
                 </tr>
             </table>
             <p id="read_content_text"><%-articleTable.board.contents%></p>
-            <% if(kakao_info.id) { %>
+            <% if(articleTable.board.usernum != whoAmI) { %>
+
             <form id="read_like_button" action="../participate" method="POST">
                 <input type="hidden" name="boardnum" value="<%=participants.boardnum%>">
                 <input type="hidden" name="request_usernum" value="<%=participants.request_usernum%>">
