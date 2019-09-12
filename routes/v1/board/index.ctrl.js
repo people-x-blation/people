@@ -1,71 +1,72 @@
-import { select, insert, update, findOne, findMe, destroy } from "~/db/query";
-import { board, comment, memberm, participants } from "~/db/model";
+import { select, insert, update, findOne } from '~/db/query';
+import { board, comment } from '~/db/model';
+import axios from 'axios';
 
 // 지역 매핑용
 const locationTable = {
-  "1": "서울",
-  "2": "부산",
-  "3": "대구",
-  "4": "인천",
-  "5": "대전",
-  "6": "광주",
-  "7": "울산",
-  "8": "세종",
-  "9": "강원도",
-  "10": "경기도",
-  "11": "충청남도",
-  "12": "전라북도",
-  "13": "전라남도",
-  "14": "경상북도",
-  "15": "경상남도",
-  "16": "제주도"
+  '1': '서울',
+  '2': '부산',
+  '3': '대구',
+  '4': '인천',
+  '5': '대전',
+  '6': '광주',
+  '7': '울산',
+  '8': '세종',
+  '9': '강원도',
+  '10': '경기도',
+  '11': '충청남도',
+  '12': '전라북도',
+  '13': '전라남도',
+  '14': '경상북도',
+  '15': '경상남도',
+  '16': '제주도',
 };
 
 // 혈액형 하이라이트 색상 매핑용
 const bloodColorTable = {
-  "RH+ A": "#e56662",
-  "RH+ B": "#e0514e",
-  "RH+ O": "#da3d36",
-  "RH+ AB": "#ed6b68",
-  "RH- A": "#36bc9b",
-  "RH- B": "#36bc9b",
-  "RH- AB": "#36bc9b",
-  "RH- O": "#36bc9b"
+  'RH+ A': '#e56662',
+  'RH+ B': '#e0514e',
+  'RH+ O': '#da3d36',
+  'RH+ AB': '#ed6b68',
+  'RH- A': '#36bc9b',
+  'RH- B': '#36bc9b',
+  'RH- AB': '#36bc9b',
+  'RH- O': '#36bc9b',
 };
 
 export const boardlist = async (req, res) => {
-  console.log("//////////////////세션 : ", req.session);
+  console.log('//////////////////세션 : ', req.session);
 
   // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
 
   try {
     const locations = req.params.location;
-    let query = "";
-    if (locations == undefined) query = "TRUE";
+    let query = '';
+    if (locations == undefined) query = 'TRUE';
     else query = `locations = '${locations}'`;
     const page = req.query.page == undefined ? 1 : req.query.page;
     const size = 10;
     const begin = (page - 1) * size; // 시작 글
     const list = await select(
-      "*",
-      "board",
+      '*',
+      'board',
       `${query} and show_flag='1'`,
-      "",
-      `order by boardnum desc limit ${size} offset ${begin}`
+      '',
+      `order by boardnum desc limit ${size} offset ${begin}`,
     );
 
     const boardList = [];
     for (let item of list.rows) {
       let memberInfo = await select(
-        "usernum, nickname, blood, profile",
-        "member",
-        `usernum = ${item.author}`
+        'usernum, nickname, blood, profile',
+        'member',
+        `usernum = ${item.author}`,
       );
 
       let content = item.contents;
 
       if (item.contents.length > 25) {
-        content = content.substring(0, 24) + "...";
+        content = content.substring(0, 24) + '...';
       }
 
       memberInfo = memberInfo.rows[0];
@@ -84,15 +85,15 @@ export const boardlist = async (req, res) => {
     }
 
     if (page == 1) {
-      res.render("board/list", {
+      res.render('board/list', {
         list: boardList,
         location:
-          typeof locationTable[req.params.location] === "undefined"
+          typeof locationTable[req.params.location] === 'undefined'
             ? 0
             : locationTable[req.params.location],
         locationTable: locationTable,
         bloodColorTable: bloodColorTable,
-        is_logedin: typeof req.session.passport === "undefined" ? false : true
+        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
       });
     } else {
       res.json(boardList);
@@ -107,18 +108,18 @@ export const read = async (req, res) => {
   console.log(boardnum);
   try {
     const article = await select(
-      "b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author",
-      "board as b",
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author',
+      'board as b',
       `b.boardnum = ${boardnum} `,
-      "join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum",
-      "order by r.commentnum desc"
+      'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
+      'order by r.commentnum desc',
     );
     const detail = article.rows[0];
 
     //usernum 탐색
     const whoAmI = await findMe(req.session.passport.user._json.kaccount_email);
 
-    console.log("디테일//////", detail);
+    console.log('디테일//////', detail);
 
     const board_object = Object.create(board);
     board_object.boardnum = detail.boardnum;
@@ -144,16 +145,16 @@ export const read = async (req, res) => {
     }
     const articleTable = {
       board: board_object,
-      reply: comments
+      reply: comments,
     };
 
-    if (typeof req.session.passport.user !== "undefined") {
+    if (typeof req.session.passport.user !== 'undefined') {
       const kakao_info = JSON.parse(req.session.passport.user._raw);
 
       const participants_usernum = await select(
-        "usernum",
-        "member",
-        `id = '${kakao_info.id}'`
+        'usernum',
+        'member',
+        `id = '${kakao_info.id}'`,
       );
 
       // 참가 의사자
@@ -162,89 +163,66 @@ export const read = async (req, res) => {
       participantsTable.request_usernum = detail.author;
       participantsTable.part_usernum = participants_usernum.rows[0].usernum;
 
-      res.render("board/read", {
+      res.render('board/read', {
         articleTable: articleTable,
         kakao_info: kakao_info,
         whoAmI: whoAmI.rows[0].usernum,
-        participants: participantsTable
+        participants: participantsTable,
       });
     } else {
-      res.redirect("back");
+      res.redirect('back');
     }
   } catch (e) {
     console.log(e);
-    res.redirect("back");
+    res.redirect('back');
   }
 };
 
 export const search = async (req, res) => {
-  res.render("board/search");
+  res.render('board/search');
 };
 
 export const write = async (req, res) => {
-  res.render("board/write");
+  res.render('board/write');
 };
 
 export const upload = async (req, res) => {
-  const email = req.user._json.kaccount_email;
-  const user = await findOne(email);
-  const new_board = Object.create(board);
-  new_board.title = req.body.title;
-  new_board.author = user.rows[0].usernum;
-  new_board.like_count = 0;
-  new_board.created_at = "now()";
-  new_board.show_flag = "2";
-  new_board.locations = req.body.locations;
-  new_board.hospital = req.body.hospital;
-  new_board.contents = req.body.contents;
-
-  const result = await insert(
-    `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
-    "board"
-  );
-
-  res.redirect("/board");
-};
-
-export const comment_destroy = async (req, res) => {
-  const comment_num = req.body.comment_num;
-  const comment_d = await destroy("comment", `commentnum = ${comment_num}`);
-  res.redirect("back");
-};
-
-export const comment_upload = async (req, res) => {
-  const commentTable = Object.create(comment);
-  commentTable.boardnum = req.body.boardnum;
-  commentTable.content = req.body.contents;
-  commentTable.replier = req.body.usernum;
-
   try {
-    const uploading = await insert(
-      `DEFAULT,'${commentTable.boardnum}', '${commentTable.replier}', '${commentTable.content}'`,
-      "comment"
+    const email = req.user._json.kaccount_email;
+    const user = await findOne(email);
+    const new_board = Object.create(board);
+    new_board.title = req.body.title;
+    new_board.author = user.rows[0].usernum;
+    new_board.like_count = 0;
+    new_board.created_at = 'now()';
+    new_board.show_flag = '2';
+    new_board.locations = req.body.locations;
+    new_board.hospital = req.body.hospital;
+    new_board.contents = req.body.contents;
+
+    const result = await insert(
+      `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
+      'board',
+      'returning *',
     );
-  } catch (e) {
-    console.log(e);
+
+    if (result.rowCount > 0) {
+      const arr = [
+        new_board.title,
+        new_board.contents,
+        `게시글번호 : ${result.rows[0].boardnum}`,
+      ];
+      //slack webhook
+      const response = await axios.post(
+        'https://hooks.slack.com/services/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',
+        { text: arr.join('\n') },
+      );
+      console.log(response.data);
+      res.redirect('/board');
+    } else {
+      throw new Error('board insert 실패, rowcount ==0');
+    }
+  } catch (err) {
+    console.log(err);
   }
-
-  res.redirect("back");
-};
-
-export const participate = async (req, res) => {
-  const participantsTable = Object.create(participants);
-  participantsTable.boardnum = req.body.boardnum;
-  participantsTable.request_usernum = req.body.request_usernum;
-  participantsTable.part_usernum = req.body.part_usernum;
-
-  console.log("?????????", participantsTable);
-  try {
-    const parti_q = await insert(
-      `${participantsTable.boardnum}, ${participantsTable.request_usernum}, ${participantsTable.part_usernum}`,
-      "participants(boardnum, request_usernum, part_usernum)"
-    );
-  } catch (e) {
-    console.log(e);
-  }
-
-  res.redirect("back");
 };
