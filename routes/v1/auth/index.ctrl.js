@@ -24,20 +24,20 @@ export const login = async (req, res) => {
   }
 };
 
-export const register = async(req,res) => {
+export const register = async (req, res) => {
   const user_input = {
     email: req.body.email,
     nickname: req.body.nickname,
     phone: req.body.phone,
     blood: req.body.blood,
-  }
-  try{
+  };
+  try {
     const update_member = await signupUpdate(user_input);
     res.redirect('../auth/mypage');
-  }catch(e){
+  } catch (e) {
     console.log(e);
   }
-}
+};
 
 export const logout = async (req, res) => {
   req.logout();
@@ -47,15 +47,23 @@ export const logout = async (req, res) => {
 
 export const mypage = async (req, res) => {
   const kakao_info = JSON.parse(req.session.passport.user._raw);
-  const member_db = await select('usernum, id, nickname, blood, phone, email', 'member', `email = '${kakao_info.kaccount_email}'`);
-  const board_db = await select('boardnum, title, like_count, create_at, show_flag, locations, hospital, contents', 'board', `author = ${member_db.rows[0].usernum}`);
+  const member_db = await select(
+    'usernum, id, nickname, blood, phone, email',
+    'member',
+    `email = '${kakao_info.kaccount_email}'`,
+  );
+  const board_db = await select(
+    'boardnum, title, like_count, create_at, show_flag, locations, hospital, contents',
+    'board',
+    `author = ${member_db.rows[0].usernum}`,
+  );
 
   res.render('auth/mypage', {
     kakao_info: kakao_info,
-    member_db : member_db.rows[0],
-    board_db: board_db.rows
+    member_db: member_db.rows[0],
+    board_db: board_db.rows,
   });
-}
+};
 
 // {
 //   "kaccount_email":"dawnst1128@naver.com",
@@ -68,18 +76,20 @@ export const mypage = async (req, res) => {
 // }
 // }
 
+export const leave = async (req, res) => {};
 
-export const leave = async(req,res) => {
-
-}
-
-export const request_off = async(req,res) => {
+export const request_off = async (req, res) => {
   const boardnum = req.body.request_off;
   console.log(req.body);
-  try{
-    const showUpdate = await update('show_flag', '\'0\'::show_flag_t', 'board', `WHERE boardnum = ${boardnum}`);
-  }catch(e) {
-    console.log("상태변경 실패", e);
+  try {
+    const showUpdate = await update(
+      'show_flag',
+      "'0'::show_flag_t",
+      'board',
+      `WHERE boardnum = ${boardnum}`,
+    );
+  } catch (e) {
+    console.log('상태변경 실패', e);
   }
   res.redirect('../auth/mypage');
-}
+};
