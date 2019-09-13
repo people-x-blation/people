@@ -48,7 +48,7 @@ export const logout = async (req, res) => {
 
 export const mypage = async (req, res) => {
   const kakao_info = JSON.parse(req.session.passport.user._raw);
-
+  
   const member_db = await select(
     'usernum, id, nickname, blood, phone, email',
     'member',
@@ -83,6 +83,8 @@ export const mypage = async (req, res) => {
     participants_count: participants_count,
   });
 };
+
+export const leave = async (req, res) => {};
 
 export const leave = async (req, res) => {};
 
