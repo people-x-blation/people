@@ -135,7 +135,6 @@ export const read = async (req, res) => {
       board: board_object,
       reply: comments,
     };
-    console.log(articleTable);
     res.render('board/read', { articleTable: articleTable });
   } catch (err) {
     console.log(err);

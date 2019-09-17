@@ -1,24 +1,19 @@
 import { findOne } from '~/db/query';
-import { select, update, signupUpdate } from '../../../db/query';
+import { select, update, signupUpdate } from '~/db/query';
 
 export const successLogin = async (req, res) => {
-  console.log('success');
   const rurl = req.query.redirectUrl || req.session.redirectUrl;
-  console.log('rurl', rurl);
   res.redirect(rurl || '/');
 };
 
 export const login = async (req, res) => {
-  console.log('login', req.url);
   const email = req.user._json.kaccount_email;
   const result = await findOne(email);
   const data = result.rows[0];
-  console.log(data);
   //nickname 설정 안되어있으면 회원가입폼
   if (data.nickname == '') {
     res.render('auth/signup', { status: true, email: email });
   } else {
-    console.log('login callback');
     console.log(req.session.redirectUrl);
     res.redirect('/auth/kakao/success');
   }
@@ -86,8 +81,14 @@ export const request_off = async (req, res) => {
       'show_flag',
       "'0'::show_flag_t",
       'board',
-      `WHERE boardnum = ${boardnum}`,
+      `WHERE boardnum = ${boardnum} returning *`,
     );
+
+    if (showUpdate.rowCount > 0) {
+      res.redirect('../auth/mypage');
+    } else {
+      throw new Error('show_flag 게시중지 업데이트 실패, rowcount 0');
+    }
   } catch (e) {
     console.log('상태변경 실패', e);
   }
