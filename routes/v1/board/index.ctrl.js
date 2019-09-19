@@ -37,7 +37,6 @@ const bloodColorTable = {
 };
 
 export const boardlist = async (req, res) => {
-  // 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
 
   try {
     const locations = req.params.location;
@@ -177,6 +176,7 @@ export const read = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.redirect('back');
+
   }
 };
 
@@ -219,7 +219,6 @@ export const upload = async (req, res) => {
         'https://hooks.slack.com/services/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',
         { text: arr.join('\n') },
       );
-      console.log(response.data);
       res.redirect('/board');
     } else {
       throw new Error('board insert 실패, rowcount ==0');
@@ -259,7 +258,6 @@ export const participate = async (req, res) => {
   participantsTable.request_usernum = req.body.request_usernum;
   participantsTable.part_usernum = req.body.part_usernum;
 
-  console.log('?????????', participantsTable);
   try {
     const parti_q = await insert(
       `${participantsTable.boardnum}, ${participantsTable.request_usernum}, ${participantsTable.part_usernum}`,
