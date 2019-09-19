@@ -79,7 +79,6 @@ export const mypage = async (req, res) => {
   });
 };
 
-export const leave = async (req, res) => {};
 
 export const leave = async (req, res) => {};
 
