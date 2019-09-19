@@ -24,9 +24,22 @@ export const findOne = async (where) => {
   }
 };
 
+export const findMe = async (where) => {
+  try {
+    const instance = new Singleton();
+    const result = await instance.query(
+      `SELECT usernum FROM member WHERE email='${where}'`,
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const insert = async (object, table, add = '') => {
   try {
     const instance = new Singleton();
+    console.log('쿼리', `INSERT INTO ${table} VALUES (${object})`);
     const result = await instance.query(
       `INSERT INTO ${table} VALUES (${object}) ${add}`,
     );
@@ -42,6 +55,7 @@ export const update = async (object, ToBEObject, table, where = '') => {
   const result = await instance.query(
     `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
   );
+
   return result;
 };
 
@@ -51,4 +65,14 @@ export const signupUpdate = async (user_input) => {
   const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE email = '${user_input.email}'`;
   const result = await instance.query(query);
   return result;
+};
+
+export const destroy = async (table, where = '') => {
+  try {
+    const instance = new Singleton();
+    const result = await instance.query(`DELETE FROM ${table} WHERE ${where}`);
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
 };

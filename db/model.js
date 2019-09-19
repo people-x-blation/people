@@ -25,3 +25,10 @@ export const comment = {
   content: '',
   replier: '',
 };
+
+export const participants = {
+  boardnum: '',
+  request_usernum: '',
+  part_usernum: '',
+  show_flag: '',
+};

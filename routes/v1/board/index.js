@@ -15,4 +15,8 @@ router.get('/search', boardCtrl.search);
 router.get('/', boardCtrl.boardlist);
 router.get('/:location', boardCtrl.boardlist);
 
+router.post('/comment_upload', boardCtrl.comment_upload);
+router.post('/comment_destroy', boardCtrl.comment_destroy);
+router.post('/participate', boardCtrl.participate);
+
 export default router;

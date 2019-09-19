@@ -17,14 +17,15 @@
         <span>로딩중 입니다...</span>
     </div>
 
+    
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">리스트</span></li>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청 리스트</span></li>
             <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
             <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청</span></li>
             <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
-            <li><a href="/auth/kakao/logout"><img id="nav_logout" src="/images/logout.svg" alt="로그아웃" /></a><span id="nav_logout_span">로그아웃</span></li>
+            <li><a href="/auth/logout"><img id="nav_logout" src="/images/logout.svg" alt="로그아웃" /></a><span id="nav_logout_span">로그아웃</span></li>
             <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
             <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span id="nav_mypage_span">마이페이지</span></li>
         </ul>
@@ -52,6 +53,12 @@
     </section>
 
     <h2 id="list_header_location"><%=(location == 0) ? '전체보기' : location %></h2>
+    <% if(!is_logedin) { %>
+    <div data-aos="fade-left" id="list_header_pleaseLogin">
+        <h4>로그인 되지 않았습니다.</h4>
+        <p>무분별한 개인정보 노출을 막기 위해, 로그인 이후에 이용하실 수 있습니다.</p>
+    </div>
+    <% } %>
     <div id = "wrapper">
         <% if(list.length == 0) { %>
         <span data-aos="fade-left" id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>

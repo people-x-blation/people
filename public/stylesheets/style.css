@@ -9,7 +9,7 @@
 
 html {
   font-size: 13px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 @media screen and (min-width: 320px) {
@@ -38,6 +38,7 @@ html {
 
 body {
   background-color: #f9f9f9;
+  overflow-x: hidden !important;
 }
 
 /* Tag */
@@ -75,10 +76,10 @@ footer {
 
 a {
   text-decoration: none;
-  color: black
+  color: black;
 }
 
-button{
+button {
   cursor: pointer;
 }
 
@@ -136,16 +137,16 @@ button{
   font-size: 0.9rem;
 }
 
-.list_location_selection{
+.list_location_selection {
   /* display: flex;   */
 }
 
-.list_location_selection > ul{
+.list_location_selection > ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-.list_location_selection li{
+.list_location_selection li {
   display: block;
   padding: 10px 1px;
   border: 1px solid #8c8c8c;
@@ -154,17 +155,15 @@ button{
   display: none;
 }
 
-#location_toggle{
+#location_toggle {
   display: block;
 }
 
-.list_location_selection li > a{
+.list_location_selection li > a {
   display: block;
-  
+
   width: 100%;
 }
-
-
 
 .menu_container {
   background-color: rgba(0, 0, 0, 0.4);
@@ -177,7 +176,7 @@ button{
   display: none;
 }
 
-.menu_container>ul {
+.menu_container > ul {
   list-style-type: none;
   margin: 0;
   padding-left: 0;
@@ -188,7 +187,7 @@ button{
   left: calc(50% - 100px);
 }
 
-.menu_container>ul>li {
+.menu_container > ul > li {
   text-align: center;
   background-color: #efefef;
   border-radius: 10px;
@@ -196,23 +195,22 @@ button{
   cursor: pointer;
 }
 
-.menu_container>ul>li:nth-child(2n-1) {
+.menu_container > ul > li:nth-child(2n-1) {
   background-color: #e0e0e0;
 }
 
-.menu_container>ul>li:hover {
+.menu_container > ul > li:hover {
   background-color: beige;
 }
 
-.menu_container>ul>li:last-child {
+.menu_container > ul > li:last-child {
   background-color: black;
   color: white;
 }
 
-.search_container{
+.search_container {
   text-align: center;
 }
-
 
 #loading {
   background-color: white;
@@ -269,13 +267,13 @@ img#logo {
   width: 100%;
 }
 
-img#profile_pic{
+img#profile_pic {
   width: 90px;
   height: 90px;
   border-radius: 100%;
 }
 
-#logo_wrap{
+#logo_wrap {
   display: table-cell;
   vertical-align: middle;
   width: 20vw;
@@ -290,7 +288,7 @@ img#profile_pic{
   vertical-align: middle;
   text-align: center;
   width: 70vw;
-  color: #E23434;
+  color: #e23434;
 }
 
 #header_wrap h1 {
@@ -301,7 +299,6 @@ img#profile_pic{
 #header_wrap span {
   font-size: 0.95rem;
 }
-
 
 nav {
   position: fixed;
@@ -319,10 +316,9 @@ nav {
   background-color: #ffffff;
 }
 
-nav span{
+nav span {
   font-size: 0.7rem;
 }
-
 
 nav ul {
   list-style-type: none;
@@ -345,7 +341,6 @@ nav ul li a {
   text-decoration: none;
 }
 
-
 #nav_home,
 #nav_search,
 #nav_write,
@@ -358,31 +353,28 @@ nav ul li a {
 }
 
 .read_content_wrapper {
-
 }
 
 #read_top {
   text-align: right;
 }
 
-#read_like_button > button{
+#read_like_button > button {
   width: 80%;
   margin: 10px 10%;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
-#read_like_button > button:hover{
-  background-color: #E23434;
+#read_like_button > button:hover {
+  background-color: #e23434;
 }
 
-#read_comment{
+#read_comment {
   background-color: #f0f0f0;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 5px 5px;
 }
 
-#read_comment_label{
+#read_comment_label {
   font-size: 0.8rem;
 }
 
@@ -398,8 +390,8 @@ nav ul li a {
 }
 
 .read_comment_content {
-  display: inline-block;
-  width: 70%;
+  /* display: inline-block; */
+  flex-basis: 70%;
   word-break: break-all;
   margin: 0;
   white-space: pre-wrap;
@@ -426,123 +418,187 @@ nav ul li a {
   white-space: pre-wrap;
 }
 
+.read_comment_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 5px 2px 2px 2px;
+}
+
+.read_comment_wrapper > * {
+  align-self: center;
+}
+
 .read_comment_setting {
-  display: inline;
-
+  width: 50px;
 }
 
-.read_comment_setting>img {
-  width: 2vw;
-  min-width: 15px;
-  cursor: pointer;
+.read_comment_setting > form {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+.read_comment_setting > form button {
+  background-color: transparent !important;
+  padding: 0;
+  margin: 0;
+  color: black;
+  font-size: 0.8rem;
+}
+
+.read_comment_write {
+  display: block;
+}
 
 #read_comment_form {
-  width: 75%;
+  display: inline-block;
+  width: 80% !important;
   border-radius: 5px;
   padding: 8px;
 }
 
-#read_comment_write{
-  text-align: center;
-  margin: 5px auto;
-}
-
 #read_comment_submit {
-  width: 15%;
   display: inline-block;
-  vertical-align: middle;
+  width: 15% !important;
   font-size: 0.75rem;
   padding: 5px;
 }
 
-table.read_info_table{
+table.read_info_table {
   width: 100%;
   border: none;
   font-size: 0.8rem;
 }
 
-.read_info_table th{
+.read_info_table th {
   width: 30%;
 }
 
-.read_info_table th, .read_info_table td{
+.read_info_table th,
+.read_info_table td {
   border-bottom: 1px dotted #c2c2c2;
 }
 
-
 /* MYPAGE */
-#mypage_info{
+#mypage_info {
   display: flex;
   flex-direction: column;
 }
 
-#mypage_nickname, #mypage_blood{
+#mypage_nickname,
+#mypage_blood {
   display: block;
 }
 
-#mypage_row_wrapper{
+#mypage_row_wrapper {
   display: flex;
   flex-direction: row;
 }
-#profile_wrap{
+#profile_wrap {
   flex-grow: 1;
   text-align: center;
   border-right: 1px solid black;
 }
 
-#mypage_info_wrap{
+#mypage_info_wrap {
   flex-grow: 2;
   width: 50%;
   text-align: center;
 }
 
-
-
-#mypage_info_wrap > table{
+#mypage_info_wrap > table {
   width: 100%;
   border: none;
   font-size: 0.8rem;
 }
 
-#mypage_info_wrap > table th, #mypage_info_wrap > table td{
+#mypage_info_wrap > table th,
+#mypage_info_wrap > table td {
   border-bottom: 1px dotted #c2c2c2;
 }
 
-#mypage_info_wrap button, .mypage_request_list button{
-  background-color: #F76363;
+#mypage_info_wrap button,
+.mypage_request_list button {
+  background-color: #f76363;
   border: none;
   padding: 1vw;
   border-radius: 10px;
   color: white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   margin-top: 5px;
   font-size: 1rem;
 }
 
-.mypage_request_list{
+.mypage_request_list a {
+  background-color: #f76363;
+  color: white;
+  padding: 1px 10px;
+}
+
+.mypage_request_list {
   text-align: center;
 }
 
-.mypage_request_list > table{
+.mypage_request_list > table {
   width: 100%;
   text-align: left;
   font-size: 0.85rem;
 }
 
-.mypage_request_list > table th, .mypage_request_list > table td{
+.mypage_request_list > table th,
+.mypage_request_list > table td {
   border-bottom: 1px solid #c1c1c1;
 }
 
-.mypage_request_list > table th{
+.mypage_request_list > table th {
   width: 35%;
 }
 
+#mypage_donation{
+  text-align: center;
+  padding: 10px;
+  font-size: 0.7rem;
+  background-color: rgba(60,60,60,0.5);
+  border-bottom-right-radius: 30px;
+  color: white;
+  width: 60%;
+  margin: 0 auto;
+  box-shadow: 10px 10px 10px gray;
+}
+
+#mypage_donation p {
+  font-size: 0.8rem;
+}
+
+#mypage_donation p > em{
+  font-size: 1rem;
+}
+
+#mypage_donation span{
+  font-size: 1rem;
+}
+
+#mypage_donation  button.copy{
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+  background-color: none;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.participants_del_direction{
+  font-size: 0.7rem;
+  color: #8c8c8c;
+  display: block;
+  margin: 3px auto;
+}
+
 /* INPUT */
-input[type=text],
-input[type=password],
-input[type=email],
+input[type="text"],
+input[type="password"],
+input[type="email"],
 textarea,
 select {
   width: 90%;
@@ -550,7 +606,6 @@ select {
   border: none;
   box-shadow: 2px 2px 2px 2px #f0f0f0;
   padding: 2vw;
-  margin-bottom: 10px;
 }
 
 #signup_form {
@@ -578,17 +633,17 @@ select {
   text-align: center;
 }
 
-.signup_input_container>label {
+.signup_input_container > label {
   margin-right: 10px !important;
 }
 
-.signup_input_container>button {
-  background-color: #F76363;
+.signup_input_container > button {
+  background-color: #f76363;
   border: none;
   padding: 1vw;
   border-radius: 10px;
   color: white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   margin-top: 5px;
   font-size: 1rem;
 }
@@ -612,7 +667,6 @@ select#signup_blood {
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
 }
 
-
 textarea#write_content {
   height: 50vh;
   padding: 15px;
@@ -624,13 +678,13 @@ textarea#write_content {
   font-size: 0.7rem;
 }
 
-form>button {
-  background-color: #F76363;
+form > button {
+  background-color: #f76363;
   border: none;
   padding: 1vw;
   border-radius: 10px;
   color: white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   margin-top: 5px;
   font-size: 1rem;
 }
@@ -651,16 +705,16 @@ button#search_bar_icon {
   background-color: #efefef;
 }
 
-button#search_bar_icon>img {
+button#search_bar_icon > img {
   width: 5vw;
 }
 
 #login_form {
-  margin-top:20vh;
+  margin-top: 20vh;
   text-align: center;
 }
 
-#login_form button[type=submit] {
+#login_form button[type="submit"] {
   display: block;
   width: 50%;
   margin: 0 auto;
@@ -671,8 +725,8 @@ button#search_bar_icon>img {
   font-size: 0.7rem;
 }
 
-#login_form_span>a {
-  color: #F76363;
+#login_form_span > a {
+  color: #f76363;
 }
 
 /* TERMS */
@@ -695,15 +749,15 @@ button#search_bar_icon>img {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 #E23434;
+    box-shadow: 0 0 0 0 #e23434;
   }
 
   70% {
-    box-shadow: 0 0 0 20px #E23434;
+    box-shadow: 0 0 0 20px #e23434;
   }
 
   100% {
-    box-shadow: 0 0 0 0 #E23434;
+    box-shadow: 0 0 0 0 #e23434;
   }
 }
 
@@ -719,34 +773,44 @@ button#search_bar_icon>img {
 
 /* list */
 
-#list_header_location{
+#list_header_location {
   width: 100%;
   text-align: center;
 }
 
-#list_no_result{
+#list_header_pleaseLogin {
+  display: block;
+  font-size: 0.9rem;
+  text-align: center;
+  color: red;
+  padding: 10px;
+  border: 1px solid red;
+  background-color: rgba(255, 255, 255, 0.4);
+
+  margin: 0 auto;
+}
+
+#list_no_result {
   display: block;
   text-align: center;
 }
 
-#list_no_result_img{
+#list_no_result_img {
   width: 150px;
   display: block;
   margin: 10vh auto;
 }
 
-
-
-span#highlight_location,span#highlight_blood{
+span#highlight_location,
+span#highlight_blood {
   color: white;
   display: block;
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-
 /* write */
 
-.basic_input{
+.basic_input {
   border-radius: 5px !important;
 }
