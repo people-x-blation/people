@@ -39,6 +39,19 @@ window.onload = function() {
       });
     }
   });
+
+  $('#search_bar_icon').click(function(err) {
+    var locations = $('[name="locations"] option:selected').val();
+    var keyword = $('#search_bar').val();
+
+    locations = locations == '지역을 선택해 주십시오.' ? '' : locations;
+    if (locations != '' || keyword != '') {
+      var url = '/board/' + locations + '?keyword=' + keyword;
+      location.href = url;
+    } else {
+      alert('지역이나, 검색어 둘 중 하나는 입력해주십시오.');
+    }
+  });
 };
 
 function read_displaySetting() {
