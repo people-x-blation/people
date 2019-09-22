@@ -93,7 +93,5 @@ export const request_complete = async (req, res) => {
 };
 
 export const terms = async (req, res) => {
-  res.render('auth/terms', {
-    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
-  });
+  res.render('auth/terms');
 };

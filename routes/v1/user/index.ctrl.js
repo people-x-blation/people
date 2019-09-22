@@ -52,7 +52,6 @@ export const mypage = async (req, res) => {
     participation: participation_db.rows,
     participants_count: participants_count,
     participation_count: participation_count,
-    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
   });
 };
 

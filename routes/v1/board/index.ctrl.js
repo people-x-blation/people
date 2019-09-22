@@ -1,6 +1,7 @@
 import { select, insert, update, findOne, findMe, destroy } from '~/db/query';
 import { board, comment, participants } from '~/db/model';
 import axios from 'axios';
+import htmlToText from 'html-to-text';
 
 // 지역 매핑용
 const locationTable = {
@@ -117,7 +118,6 @@ export const boardlist = async (req, res) => {
             : locationTable[req.params.location],
         locationTable: locationTable,
         bloodColorTable: bloodColorTable,
-        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
       });
     } else {
       res.json(boardList);
@@ -205,14 +205,12 @@ export const read = async (req, res) => {
         kakao_info: kakao_info,
         whoAmI: whoAmI.rows[0].usernum,
         participants: participantsTable,
-        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
         alreay_part: alreay_part,
       });
     } else {
       res.render('board/read', {
         articleTable: articleTable,
         whoAmI: null,
-        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
         alreay_part: false,
       });
     }
@@ -222,19 +220,16 @@ export const read = async (req, res) => {
 };
 
 export const search = async (req, res) => {
-  res.render('board/search', {
-    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
-  });
+  res.render('board/search');
 };
 
 export const write = async (req, res) => {
-  res.render('board/write', {
-    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
-  });
+  res.render('board/write');
 };
 
 export const upload = async (req, res) => {
   try {
+    console.log(req.body);
     const email = req.user._json.kaccount_email;
     const user = await findOne(email);
     const new_board = Object.create(board);
@@ -242,10 +237,10 @@ export const upload = async (req, res) => {
     new_board.author = user.rows[0].usernum;
     new_board.like_count = 0;
     new_board.created_at = 'now()';
-    new_board.show_flag = '2';
     new_board.locations = req.body.locations;
     new_board.hospital = req.body.hospital;
     new_board.contents = req.body.contents;
+    new_board.show_flag = '2';
 
     const result = await insert(
       `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
@@ -253,11 +248,19 @@ export const upload = async (req, res) => {
       'returning *',
     );
 
+    const text = htmlToText.fromString(new_board.contents, {
+      wordwrap: 130,
+    });
+
     if (result.rowCount > 0) {
       const arr = [
         new_board.title,
-        new_board.contents,
+        text,
         `게시글번호 : ${result.rows[0].boardnum}`,
+        `비노출로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/0eeee`,
+        `노출로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/1e`,
+        `대기로 변경 :https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/2e`,
+        `모집완료로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/3e`,
       ];
       //slack webhook
       const response = await axios.post(
@@ -294,7 +297,7 @@ export const comment_upload = async (req, res) => {
     console.log(e);
   }
 
-  res.redirect('back');
+  res.redirect('/board');
 };
 
 export const participate = async (req, res) => {
