@@ -17,19 +17,37 @@
         <span>로딩중 입니다...</span>
     </div>
 
-    
+
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청 리스트</span></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span id="nav_search_span">검색</span></li>
-            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span id="nav_write_span">요청</span></li>
-            <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span id="nav_login_span">로그인</span></li>
-            <li><a href="/auth/logout"><img id="nav_logout" src="/images/logout.svg" alt="로그아웃" /></a><span id="nav_logout_span">로그아웃</span></li>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
-            <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span id="nav_mypage_span">마이페이지</span></li>
+            <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청
+                    리스트</span></li>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span
+                    id="nav_search_span">검색</span></li>
+            <% if(is_logedin) { %>
+            <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span
+                    id="nav_write_span">요청</span></li>
+            <% } %>
+            <% if(!is_logedin) { %>
+            <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span
+                    id="nav_login_span">로그인</span></li>
+            <% } %>
+            <% if(is_logedin) { %>
+            <li><a href="/auth/logout"><img id="nav_logout" src="/images/logout.svg" alt="로그아웃" /></a><span
+                    id="nav_logout_span">로그아웃</span></li>
+            <% } %>
+            <% if(!is_logedin) { %>
+            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg"
+                        alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
+            <% } %>
+            <% if(is_logedin) { %>
+            <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
+                    id="nav_mypage_span">마이페이지</span></li>
+            <% } %>
         </ul>
     </nav>
+
     <section class="list_location_selection">
         <ul data-aos="fade-down">
             <li id="location_toggle">지역 보기 ▼</li>
@@ -59,10 +77,10 @@
         <p>무분별한 개인정보 노출을 막기 위해, 로그인 이후에 이용하실 수 있습니다.</p>
     </div>
     <% } %>
-    <div id = "wrapper">
+    <div id="wrapper">
         <% if(list.length == 0) { %>
         <span data-aos="fade-left" id="list_no_result">아직 해당 지역의 요청이 없습니다...</span>
-        <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음"/>
+        <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음" />
         <% } else { %>
         <% for(let item=0 ; item<list.length; item++){ %>
         <div data-aos="fade-left" data-aos-duration="1300" class="list_container">
@@ -71,91 +89,93 @@
                 <span id="highlight_blood"><%=list[item].blood%></span>
             </div>
             <div class="content_wrapper">
-                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden>
-                <span id="list_user_id"><%=list[item].nickname%></span>
-                <h2 id="list_title"><a href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a></h2>
-                <span id="list_like_likecount"><a href="board/read">지원 + 응원 : <%=list[item].like_count%></a></span>
+                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> <span id="list_user_id">
+                    <%=list[item].nickname%></span>
+                    <h2 id="list_title"><a
+                            href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
+                    </h2>
+                    <span id="list_like_likecount"><a href="board/read">지원 + 응원 : <%=list[item].like_count%></a></span>
             </div>
         </div>
         <%} }%>
     </div>
-  
+
 
 
 
     <script src="/jquery/jquery.min.js"></script>
     <script src="/aos/aos.js"></script>
     <script>
-        
-        $( document ).ready( function() {
-        AOS.init();
-        let renderList = function(vo){
-            const html = '<div class="list_container">'+
-                '<div class="img_wrapper"'+
-                    'style="background:url(\'https://i.imgur.com/4KyfXrZ.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center center;">'+
-                '</div>'+
-                '<div class="content_wrapper">'+
-                    '<hidden id="boardnum" value='+vo.boardnum+'</hidden>'+
-                    '<span id="list_user_id"> '+vo.nickname +'</span>'+
-                    '<h2 id="list_title"><a href="board/read"> '+ vo.title +'</a></h2>'+
-                    '<h2 id="list_like_likecount"><a href="board/read"> '+ vo.like_count +'</a></h2>'+
-                    '<span id="list_location"> '+$('list_location').text() +'</span> | <span id="list_blood_type"> '+ vo.blood +'</span>'+
-                '</div>'+
-                '<div class="content_wrapper">'+
-                    '<span id="list_content"> '+ vo.content +'</span>'+
-                '</div>'+
-            '</div>';
-            $("#wrapper").append(html);
-        }
-        let key = true;
-        let page = 2;
-        let isEnd = false;
-        
-        $(function(){
-            $(window).scroll(function(){
-                let $window = $(this);
-                let scrollTop = $window.scrollTop();
-                let windowHeight = $window.height();
-                let documentHeight = $(document).height();
 
-                if (scrollTop + windowHeight + 500 >= documentHeight && key) {
-                    key = false;
-                    fetchList();
-                    page++;
-                    
-
-                }
-            })
-        })
-
-        let fetchList = function(){
-        
-        if(isEnd == true){
-            return;
-        }
-        
-        $.ajax({
-            url:"/board/"+$('#list_location').text()+"?page=" + page ,
-            type: "GET",
-            dataType: "json",
-            success: function(result){
-                let length = result.length;
-                if( length < 10 ){
-                    isEnd = true;
-                }
-
-                key = true;
-
-                $.each(result, function(index, vo){
-                    renderList(vo);
-                })
-            },
-            error: function(err){
-                console.log(err)
+        $(document).ready(function () {
+            AOS.init();
+            let renderList = function (vo) {
+                const html = '<div class="list_container">' +
+                    '<div class="img_wrapper"' +
+                    'style="background:url(\'https://i.imgur.com/4KyfXrZ.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center center;">' +
+                    '</div>' +
+                    '<div class="content_wrapper">' +
+                    '<hidden id="boardnum" value=' + vo.boardnum + '</hidden>' +
+                    '<span id="list_user_id"> ' + vo.nickname + '</span>' +
+                    '<h2 id="list_title"><a href="board/read"> ' + vo.title + '</a></h2>' +
+                    '<h2 id="list_like_likecount"><a href="board/read"> ' + vo.like_count + '</a></h2>' +
+                    '<span id="list_location"> ' + $('list_location').text() + '</span> | <span id="list_blood_type"> ' + vo.blood + '</span>' +
+                    '</div>' +
+                    '<div class="content_wrapper">' +
+                    '<span id="list_content"> ' + vo.content + '</span>' +
+                    '</div>' +
+                    '</div>';
+                $("#wrapper").append(html);
             }
-        });
-    }
-    })
+            let key = true;
+            let page = 2;
+            let isEnd = false;
+
+            $(function () {
+                $(window).scroll(function () {
+                    let $window = $(this);
+                    let scrollTop = $window.scrollTop();
+                    let windowHeight = $window.height();
+                    let documentHeight = $(document).height();
+
+                    if (scrollTop + windowHeight + 500 >= documentHeight && key) {
+                        key = false;
+                        fetchList();
+                        page++;
+
+
+                    }
+                })
+            })
+
+            let fetchList = function () {
+
+                if (isEnd == true) {
+                    return;
+                }
+
+                $.ajax({
+                    url: "/board/" + $('#list_location').text() + "?page=" + page,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        let length = result.length;
+                        if (length < 10) {
+                            isEnd = true;
+                        }
+
+                        key = true;
+
+                        $.each(result, function (index, vo) {
+                            renderList(vo);
+                        })
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            }
+        })
 
     </script>
 </body>

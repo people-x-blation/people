@@ -18,27 +18,17 @@ html {
   }
 }
 
-@media screen and (min-width: 650px) {
-  body {
-    padding-left: 10vw;
-    padding-right: 10vw;
-  }
-}
-
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
-  }
-
-  body {
-    padding-left: 5vw;
-    padding-right: 5vw;
   }
 }
 
 body {
   background-color: #f9f9f9;
   overflow-x: hidden !important;
+  padding-left: calc(50vw - 350px);
+  padding-right: calc(50vw - 350px);
 }
 
 /* Tag */

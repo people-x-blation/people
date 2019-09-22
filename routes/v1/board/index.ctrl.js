@@ -25,15 +25,21 @@ const locationTable = {
 // 혈액형 하이라이트 색상 매핑용
 const bloodColorTable = {
   'RH+ A': '#e56662',
+  'RH+A': '#e56662',
   'RH+ B': '#e0514e',
+  'RH+B': '#e0514e',
   'RH+ O': '#da3d36',
+  'RH+O': '#da3d36',
   'RH+ AB': '#ed6b68',
   'RH+AB': '#ed6b68',
   'RH- A': '#36bc9b',
+  'RH-A': '#36bc9b',
   'RH- B': '#36bc9b',
+  'RH-B': '#36bc9b',
   'RH- AB': '#36bc9b',
   'RH-AB': '#36bc9b',
   'RH- O': '#36bc9b',
+  'RH-O': '#36bc9b',
 };
 
 export const boardlist = async (req, res) => {
@@ -150,7 +156,7 @@ export const read = async (req, res) => {
       reply: comments,
     };
 
-    if (typeof req.session.passport.user !== 'undefined') {
+    if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.session.passport.user._raw);
 
       const participants_usernum = await select(
@@ -170,6 +176,7 @@ export const read = async (req, res) => {
         kakao_info: kakao_info,
         whoAmI: whoAmI.rows[0].usernum,
         participants: participantsTable,
+        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
       });
     } else {
       res.redirect('back');
@@ -181,11 +188,17 @@ export const read = async (req, res) => {
 };
 
 export const search = async (req, res) => {
-  res.render('board/search');
+  res.render('board/search', {
+    kakao_info: kakao_info,
+    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
+  });
 };
 
 export const write = async (req, res) => {
-  res.render('board/write');
+  res.render('board/write', {
+    kakao_info: kakao_info,
+    is_logedin: typeof req.session.passport === 'undefined' ? false : true,
+  });
 };
 
 export const upload = async (req, res) => {
