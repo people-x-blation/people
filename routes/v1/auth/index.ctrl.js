@@ -25,7 +25,7 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-  const kakao_info = JSON.parse(req.session.passport.user._raw);
+  const kakao_info = JSON.parse(req.user._raw);
   const user_input = {
     email: req.body.email,
     nickname: req.body.nickname,
