@@ -60,6 +60,8 @@ export const leave = async (req, res) => {
   } else {
     res.json({ status: 'no user session' });
   }
+};
+
 export const mypage = async (req, res) => {
   const kakao_info = JSON.parse(req.session.passport.user._raw);
 
