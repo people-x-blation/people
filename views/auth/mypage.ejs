@@ -18,6 +18,7 @@
   </div>
 
 
+
   <!-- NAVBAR -->
   <nav>
     <ul>
@@ -47,7 +48,6 @@
       <% } %>
     </ul>
   </nav>
-
   <!-- USER PAGE -->
   <div data-aos="fade-left" id="mypage_info" class="container">
     <h1>마이페이지</h1>
@@ -135,6 +135,7 @@
 
   <h2 style="text-align: center;">지원한 지정헌혈 요청 목록</h2>
 
+
   <% if(participation.length == 0)  {%>
   <span data-aos="fade-left" id="list_no_result">아직 지원한 요청이 없습니다...</span>
   <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음" />
@@ -203,6 +204,7 @@
       <input type="hidden" name="request_complete" value="<%=board_db[item].boardnum%>" />
       <button class="mypage_request_complete_btn">헌혈자 모집 완료</button>
     </form>
+
     <% } %>
   </div>
   <% } %>
