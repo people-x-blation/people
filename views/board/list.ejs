@@ -38,14 +38,13 @@
                     id="nav_logout_span">로그아웃</span></li>
             <% } %>
             <% if(!is_logedin) { %>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg"
-                        alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
+            <li><a href="/auth/terms"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span
+                    id="nav_signup_span">회원가입</span></li>
             <% } %>
             <% if(is_logedin) { %>
-            <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
+            <li><a href="/user/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
                     id="nav_mypage_span">마이페이지</span></li>
             <% } %>
-
         </ul>
     </nav>
 
@@ -83,7 +82,7 @@
         <span data-aos="fade-left" id="list_no_result">사연글이 존재하지 않습니다.</span>
         <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음" />
         <% } else { %>
-        <% for(let item=0 ; item<list.length; item++){ %>
+        <% for(let item=0 ; item<list.length; item++) { %>
         <div data-aos="fade-left" data-aos-duration="1300" class="list_container">
             <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
                 <span id="highlight_location"><%=locationTable[list[item].location]%></span>
@@ -92,12 +91,16 @@
             <div class="content_wrapper">
                 <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> <span id="list_user_id">
                     <%=list[item].nickname%></span>
-                    <h2 id="list_title"><a
+                    <% if(list[item].show_flag == '1') { %>
+                    <h2 id="list_title">
+                        <a
                             href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
                     </h2>
-                    <% if(list[item].show_flag == '1') { %>
                     <span id="list_like_likecount">지원자 수 : <%=list[item].num_part%></span>
                     <% } else { %>
+                    <h2 id="list_title">
+                        <%=list[item].title%>
+                    </h2>
                     <span id="list_like_likecount" style="color: red">헌혈자가 모두 모집되었습니다. 감사합니다.</span>
                     <% } %>
             </div>

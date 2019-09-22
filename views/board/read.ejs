@@ -115,7 +115,6 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-
             <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청
                     리스트</span></li>
             <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span
@@ -133,17 +132,15 @@
                     id="nav_logout_span">로그아웃</span></li>
             <% } %>
             <% if(!is_logedin) { %>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg"
-                        alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
+            <li><a href="/auth/terms"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span
+                    id="nav_signup_span">회원가입</span></li>
             <% } %>
             <% if(is_logedin) { %>
-            <li><a href="/auth/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
+            <li><a href="/user/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
                     id="nav_mypage_span">마이페이지</span></li>
             <% } %>
-
         </ul>
     </nav>
-
 
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
@@ -176,13 +173,19 @@
             </table>
             <p id="read_content_text"><%-articleTable.board.contents%></p>
             <% if(is_logedin) { %>
+            <% if(!alreay_part) { %>
             <form id="read_like_button" action="../participate" method="POST">
                 <input type="hidden" name="boardnum" value="<%=participants.boardnum%>">
                 <input type="hidden" name="request_usernum" value="<%=participants.request_usernum%>">
                 <input type="hidden" name="part_usernum" value="<%=participants.part_usernum%>">
-                <button id="participation">참여할 의사가
-                    있습니다.<br />(현재<%=(articleTable.board.like_count == 0) ? "도움이 필요한 상황입니다." : articleTable.board.like_count + "명"%>)</button>
+                <button id="participation">현재 <%=articleTable.board.num_part%>명이 도움을 주고
+                    있습니다.<br />지정헌혈에 동참하시려면 이 버튼을 눌러주세요.</button>
             </form>
+            <% } else { %>
+            <form id="read_like_button">
+                <button id="participation" disabled>이미 참가하셨습니다.</button>
+            </form>
+            <% } %>
             <% } else { %>
             <span class="read_pls_login">로그인을 해야 해당 헌혈글에 참여의사를 표시할 수 있습니다.</span>
             <% } %>
