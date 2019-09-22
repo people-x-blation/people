@@ -111,8 +111,7 @@ button {
 .list_container .content_wrapper {
   display: table-cell;
   vertical-align: middle;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 3vw;
   /*width:calc(100vw - 175px);*/
 }
 
@@ -469,6 +468,16 @@ table.read_info_table {
   border-bottom: 1px dotted #c2c2c2;
 }
 
+.read_pls_login{
+  display: block;
+  font-size: 0.8rem;
+  background-color: #f76363;
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+  margin: 10px auto;
+}
+
 /* MYPAGE */
 #mypage_info {
   display: flex;
@@ -476,9 +485,16 @@ table.read_info_table {
 }
 
 #mypage_nickname,
-#mypage_blood {
+#mypage_blood,
+#mypage_pic_notice{
   display: block;
 }
+
+#mypage_pic_notice{
+  font-size: 0.58rem;
+  font-style: italic;
+}
+
 
 #mypage_row_wrapper {
   display: flex;
@@ -542,6 +558,10 @@ table.read_info_table {
 
 .mypage_request_list > table th {
   width: 35%;
+}
+
+.mypage_request_list form{
+  display: inline-block;
 }
 
 #mypage_donation{

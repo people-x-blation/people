@@ -80,3 +80,6 @@ CREATE TABLE public.participants
 );
 ALTER TABLE public.participants
     ADD COLUMN show_flag boolean NOT NULL DEFAULT True;
+
+
+ALTER TYPE show_flag_t ADD VALUE '3' AFTER '2'

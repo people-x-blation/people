@@ -1,4 +1,4 @@
-import { select, insert, update, findOne, findMe } from '~/db/query';
+import { select, insert, update, findOne, findMe, destroy } from '~/db/query';
 import { board, comment, participants } from '~/db/model';
 import axios from 'axios';
 
@@ -56,7 +56,7 @@ export const boardlist = async (req, res) => {
     const list = await select(
       '*',
       'board',
-      `${query} and show_flag='1'`,
+      `${query} and show_flag='1' or show_flag = '3'`,
       '',
       `order by boardnum desc limit ${size} offset ${begin}`,
     );
@@ -67,6 +67,13 @@ export const boardlist = async (req, res) => {
         'usernum, nickname, blood, profile',
         'member',
         `usernum = ${item.author}`,
+      );
+
+      let partInfo = await select(
+        'b.boardnum, request_usernum, part_usernum',
+        'public.board as b',
+        `b.boardnum = ${item.boardnum}`,
+        'INNER JOIN public.participants as p ON b.boardnum = p.boardnum',
       );
 
       let content = item.contents;
@@ -86,9 +93,13 @@ export const boardlist = async (req, res) => {
       board_object.content = content;
       board_object.nickname = memberInfo.nickname;
       board_object.blood = memberInfo.blood;
+      board_object.num_part = partInfo.rows.length;
+      board_object.show_flag = item.show_flag;
 
       boardList.push(board_object);
     }
+
+    console.log(boardList);
 
     if (page == 1) {
       res.render('board/list', {
@@ -113,20 +124,13 @@ export const read = async (req, res) => {
   const boardnum = req.params.boardnum;
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author, u.nickname',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author, u.nickname, r.usernum',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
       'order by r.commentnum desc',
     );
     const detail = article.rows[0];
-
-    //usernum 탐색
-    const whoAmI = await findMe(req.session.passport.user._json.kaccount_email);
-
-    console.log('디테일//////', detail);
-    console.log('세션////////////', req.session.passport);
-    console.log('나 누구?', whoAmI);
 
     const board_object = Object.create(board);
     board_object.boardnum = detail.boardnum;
@@ -156,16 +160,17 @@ export const read = async (req, res) => {
       reply: comments,
     };
 
+    console.log(articleTable);
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.session.passport.user._raw);
+      const whoAmI = await findMe(kakao_info.kaccount_email);
 
+      // 참가 의사자
       const participants_usernum = await select(
         'usernum',
         'member',
         `id = '${kakao_info.id}'`,
       );
-
-      // 참가 의사자
       const participantsTable = Object.create(participants);
       participantsTable.boardnum = detail.boardnum;
       participantsTable.request_usernum = detail.author;
@@ -179,11 +184,15 @@ export const read = async (req, res) => {
         is_logedin: typeof req.session.passport === 'undefined' ? false : true,
       });
     } else {
-      res.redirect('back');
+      res.render('board/read', {
+        articleTable: articleTable,
+        whoAmI: null,
+        is_logedin: typeof req.session.passport === 'undefined' ? false : true,
+      });
     }
   } catch (e) {
     console.log(e);
-    res.redirect('back');
+    // res.redirect('back');
   }
 };
 
