@@ -4,6 +4,6 @@ const router = new Router();
 import { mypage, terms } from './index.ctrl';
 
 router.get('/mypage', mypage);
-router.get('/terms', terms);
+router.post('/request_off', request_off);
 
 export default router;
