@@ -249,7 +249,7 @@ button {
 .form_wrapper {
   max-width: 90%;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 10vh auto;
 }
 
 img#logo {
@@ -351,7 +351,7 @@ nav ul li a {
 #read_like_button > button {
   width: 80%;
   margin: 10px 10%;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 #read_like_button > button:hover {
@@ -436,21 +436,28 @@ nav ul li a {
 }
 
 .read_comment_write {
-  display: block;
+  width: 100% !important;
+
+
+}
+
+.read_comment_write form{
+  display: flex;
 }
 
 #read_comment_form {
-  display: inline-block;
-  width: 80% !important;
-  border-radius: 5px;
-  padding: 8px;
+  border-radius: 3px;
+  /* height: 10px !important; */
+  padding: 2px 5px;
+  height: 40px;
 }
 
 #read_comment_submit {
-  display: inline-block;
-  width: 15% !important;
+  align-self: center;
   font-size: 0.75rem;
-  padding: 5px;
+  flex-basis: 10%;
+  margin: 0px 10px;
+  height: 40px;
 }
 
 table.read_info_table {
@@ -616,6 +623,7 @@ select {
   border: none;
   box-shadow: 2px 2px 2px 2px #f0f0f0;
   padding: 2vw;
+  margin: 10px auto;
 }
 
 #signup_form {
@@ -665,7 +673,7 @@ span#signup_blood_notice {
 }
 
 select {
-  width: 94%;
+  width: 96%;
 }
 
 select#signup_blood {
@@ -685,7 +693,31 @@ textarea#write_content {
 
 #write_info {
   display: block;
+}
+
+#write_direction{
+  background-color: white;
+  padding: 10px;
+  color: #8c8c8c;
+  text-align: center;
+}
+
+#write_direction > h3{
+  font-size: 1rem;
+}
+
+#write_direction > blockquote{
   font-size: 0.7rem;
+  text-align: left;
+  font-style: italic;
+  padding-left: 10px;
+  border: 1px solid #8c8c8c;
+}
+
+.direction_emp{
+  color: #f76363;
+  font-size: 0.8rem;
+  font-style: normal;
 }
 
 form > button {
@@ -706,6 +738,8 @@ select#locations {
   -moz-appearance: none;
   appearance: none;
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
+  margin: 10px auto;
+  background-color: white;
 }
 
 button#search_bar_icon {

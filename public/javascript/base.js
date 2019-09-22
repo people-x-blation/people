@@ -1,10 +1,6 @@
 window.onload = function() {
   fadeOutEffect('loading');
 
-  // $('#nav_home_span, #nav_search_span, #nav_write_span, #nav_login_span, #nav_mypage_span, #nav_logout_span, #nav_signup_span')
-  // .delay(2000)
-  // .hide(500);
-
   if ($('#location_toggle').length != 0) {
     $('#location_toggle').click(function(e) {
       $('.location_item').toggle();
@@ -82,8 +78,14 @@ function submit_check(CKEDITOR) {
     flag = false;
   }
   if (flag) {
-    $('#content').val(text);
-    document.getElementById('write_form').submit();
+    if (
+      confirm(
+        '요청글은 한번 작성되면 수정되지 않습니다.\n요청 보내기: 확인\n재검토 : 취소',
+      )
+    ) {
+      $('#content').val(text);
+      document.getElementById('write_form').submit();
+    }
   }
 }
 

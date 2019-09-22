@@ -91,3 +91,7 @@ export const request_complete = async (req, res) => {
   }
   res.redirect('../auth/mypage');
 };
+
+export const terms = async (req, res) => {
+  res.render('auth/terms');
+};

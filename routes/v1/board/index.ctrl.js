@@ -43,7 +43,6 @@ const bloodColorTable = {
 };
 
 export const boardlist = async (req, res) => {
-
   try {
     const locations = req.params.location;
     let query = '';
@@ -55,7 +54,7 @@ export const boardlist = async (req, res) => {
     const list = await select(
       '*',
       'board',
-      `${query} and show_flag='1' or show_flag = '3'`,
+      `${query} and (show_flag='1' or show_flag = '3')`,
       '',
       `order by boardnum desc limit ${size} offset ${begin}`,
     );
@@ -129,6 +128,16 @@ export const read = async (req, res) => {
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
       'order by r.commentnum desc',
     );
+
+    let partInfo = await select(
+      'part_usernum',
+      'public.board as b',
+      `b.boardnum = ${boardnum}`,
+      'INNER JOIN public.participants as p ON b.boardnum = p.boardnum',
+    );
+
+    console.log(partInfo.rows);
+
     const detail = article.rows[0];
 
     const board_object = Object.create(board);
@@ -142,6 +151,7 @@ export const read = async (req, res) => {
     board_object.nickname = detail.nickname;
     board_object.blood = detail.blood;
     board_object.usernum = detail.author;
+    board_object.num_part = partInfo.rows.length;
 
     // 댓글
     const comments = [];
@@ -159,10 +169,16 @@ export const read = async (req, res) => {
       reply: comments,
     };
 
-    console.log(articleTable);
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.session.passport.user._raw);
       const whoAmI = await findMe(kakao_info.kaccount_email);
+
+      let alreay_part = false;
+      for (let item in partInfo.rows) {
+        if (partInfo.rows[item].part_usernum == whoAmI.rows[0].usernum) {
+          alreay_part = true;
+        }
+      }
 
       // 참가 의사자
       const participants_usernum = await select(
@@ -181,12 +197,14 @@ export const read = async (req, res) => {
         whoAmI: whoAmI.rows[0].usernum,
         participants: participantsTable,
         is_logedin: typeof req.session.passport === 'undefined' ? false : true,
+        alreay_part: alreay_part,
       });
     } else {
       res.render('board/read', {
         articleTable: articleTable,
         whoAmI: null,
         is_logedin: typeof req.session.passport === 'undefined' ? false : true,
+        alreay_part: false,
       });
     }
   } catch (e) {
@@ -196,14 +214,12 @@ export const read = async (req, res) => {
 
 export const search = async (req, res) => {
   res.render('board/search', {
-    kakao_info: kakao_info,
     is_logedin: typeof req.session.passport === 'undefined' ? false : true,
   });
 };
 
 export const write = async (req, res) => {
   res.render('board/write', {
-    kakao_info: kakao_info,
     is_logedin: typeof req.session.passport === 'undefined' ? false : true,
   });
 };
