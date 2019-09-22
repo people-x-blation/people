@@ -1,0 +1,3 @@
+[submodule "scrap_engine"]
+    path = util/scrap_engine 
+    url = https://github.com/pple-link/scrap_engine.git
