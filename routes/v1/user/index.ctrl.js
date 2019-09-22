@@ -1,11 +1,8 @@
-export const mypage = (req, res) => {
-  res.render('auth/mypage');
-};
-export const terms = (req, res) => {
-  res.render('auth/terms');
-};
-
+import { select, update } from '~/db/query';
 export const mypage = async (req, res) => {
+  if (!req.user) {
+    res.redirect('/');
+  }
   const kakao_info = JSON.parse(req.session.passport.user._raw);
 
   const member_db = await select(
@@ -40,10 +37,10 @@ export const mypage = async (req, res) => {
     board_db: board_db.rows,
     participants: participants_db.rows,
     participants_count: participants_count,
-  }); 
- };
+  });
+};
 
- export const request_off = async (req, res) => {
+export const request_off = async (req, res) => {
   const boardnum = req.body.request_off;
   console.log(req.body);
   try {
@@ -64,6 +61,3 @@ export const mypage = async (req, res) => {
   }
   res.redirect('../user/mypage');
 };
-
-
- 

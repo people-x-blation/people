@@ -69,11 +69,11 @@
           <table>
             <tr>
               <th>전화번호</th>
-              <td><%=member_db.phone%></td>
+              <td id='phone'><%=member_db.phone%></td>
             </tr>
             <tr>
               <th>이메일</th>
-              <td><%=member_db.email%></td>
+              <td id='email'><%=member_db.email%></td>
             </tr>
             <tr>
               <th>게시 요청 수</th>
@@ -86,9 +86,7 @@
           </table>
 
           <button onclick="location.href='/auth/logout'">로그아웃</button>
-          <form action="">
-            <button>회원 탈퇴</button>
-          </form>
+          <button class='mypage_leave_btn'>회원 탈퇴</button>
         </div>
       </div>
     </div>

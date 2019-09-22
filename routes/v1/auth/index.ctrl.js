@@ -1,5 +1,5 @@
-import { findOne } from '~/db/query';
-import { select, update, signupUpdate } from '~/db/query';
+import { findOne, findMe } from '~/db/query';
+import { signupUpdate, destroy } from '~/db/query';
 
 export const successLogin = async (req, res) => {
   const rurl = req.query.redirectUrl || req.session.redirectUrl;
@@ -42,4 +42,21 @@ export const logout = async (req, res) => {
   });
 };
 
-export const leave = async (req, res) => {};
+export const leave = async (req, res) => {
+  if (req.user) {
+    const email = req.user._json.kaccount_email;
+    const result = await findMe(email);
+    const usernum = result.rows[0].usernum;
+    if (usernum) {
+      await destroy('member', `usernum=${usernum}`);
+      req.logout();
+      req.session.destroy(function(err) {
+        res.json({ status: 'ok' });
+      });
+    } else {
+      res.json({ status: 'no usernum' });
+    }
+  } else {
+    res.json({ status: 'no user session' });
+  }
+};
