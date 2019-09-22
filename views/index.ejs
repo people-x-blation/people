@@ -19,7 +19,6 @@
 
   <!-- NAVBAR -->
   <nav>
-
     <ul>
       <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청
           리스트</span></li>
@@ -38,7 +37,7 @@
           id="nav_logout_span">로그아웃</span></li>
       <% } %>
       <% if(!is_logedin) { %>
-      <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span
+      <li><a href="/auth/terms"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span
           id="nav_signup_span">회원가입</span></li>
       <% } %>
       <% if(is_logedin) { %>
@@ -46,7 +45,6 @@
           id="nav_mypage_span">마이페이지</span></li>
       <% } %>
     </ul>
-
   </nav>
 
   <!-- Header -->
@@ -57,21 +55,31 @@
       </div>
       <div id="header_wrap">
         <h1>P'ple</h1>
-        <span>안녕하세요! 피플입니다. <br />같이 피플이 되실래요?</span>
+        <span>세상을 구하는 붉은 인연 피플</span>
       </div>
     </div>
   </div>
 
   <!-- Introduce -->
-  <div data-aos="fade-left" class="container">
-    <h2>소개문</h2>
-    <p>생생하며, 우리 방황하였으며, 현저하게 인간은 피가 이것이다. 이상의 이성은 보는 목숨을 온갖 투명하되 없는 청춘의 이상, 힘있다. 고동을 소금이라 살았으며, 사막이다. 얼마나 것은 뼈 그러므로 원질이
-      것이다. 불어 구하지 품으며, 풍부하게 이것이다. 가슴이 기쁘며, 청춘이 우리 능히 없는 이것이다. 같이, 못할 뼈 사막이다. 꽃이 우리 새 피가 보는 끝에 인도하겠다는 따뜻한 말이다. 속잎나고, 끝까지
-      얼음 그들의 들어 우리 소금이라 부패뿐이다. 용기가 끓는 풀이 어디 심장은 용감하고 가치를 크고 있으랴? 유소년에게서 생생하며, 심장의 같이, 행복스럽고 풀밭에 황금시대다.</p>
-    <p>인간에 품에 타오르고 심장의 구하기 피는 긴지라 있으랴? 영원히 곧 우리의 지혜는 행복스럽고 노래하며 튼튼하며, 크고 봄바람이다. 용감하고 불어 사라지지 거선의 있는가? 품었기 아름답고 가지에 놀이 품에
-      이상의 것이다. 어디 쓸쓸한 얼음에 구하지 청춘에서만 밝은 대중을 끓는 아니다. 행복스럽고 용감하고 풀밭에 그들의 있으랴? 못할 유소년에게서 장식하는 피고 끓는다. 얼음과 피가 가슴이 사는가 동산에는
-      구하지 굳세게 아름답고 광야에서 것이다. 이상의 없으면 고행을 예가 심장은 하는 것이다. 위하여 방황하여도, 무엇을 풍부하게 풀이 생명을 교향악이다.</p>
+  <div id="landing_intro" class="container" data-aos="fade-left">
+    <h2>피플은 어떤 서비스 인가요?</h2>
+    <p>&nbsp;&nbsp;여러분, 혹시 '정말 피가 필요한 위급한 순간' 을 경험해 보신적이 있으신가요?<br />
+      누군가 에겐 경험해보지 못한 먼 이야기 입니다.<br />
+      하지만 지금 이순간, 누군가 에겐 예고 없이 찾아온 현실입니다.<br />
+      팀 ‘피플 ’은 지속되는 가슴 아픈 사례들을 방관할 수 없었습니다.<br />
+      그래서 현재와 미래의 누군가를 위한 행동을 결심했습니다.<br />
+      여러분의 헌혈 한번이 누군가의 위급한 시기와 맞아 떨어질 때<br />
+      생명을 수호할 엄청난 가치를 가진다는 것을 ‘피플 ’은 알리고 싶습니다.<br />
+      세상을 구하는 여러분과의 붉은 인연을 이어나가는 것이 저희의 희망입니다.<br />
+      저희는 전국민 헌혈 참여 플랫폼. 피플입니다.</p>
   </div>
+
+  <div class="slide">
+    <% for(let i = 1; i <= 8; i++) {%>
+    <img src="/images/landing_slide/<%=i%>.png" data-aos="zoom-in">
+    <% } %>
+  </div>
+
 
   <div class="container">
     <footer>

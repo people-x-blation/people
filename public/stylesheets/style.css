@@ -289,6 +289,24 @@ img#profile_pic {
   font-size: 0.95rem;
 }
 
+#landing_intro{
+  display: flex;
+  flex-direction: column;
+}
+
+#landing_intro h2{
+  text-align: center;
+}
+
+.slide img{
+  width: 100%;
+  display: block;
+}
+
+#landing_intro p{
+  padding: 5px 10px;
+}
+
 nav {
   position: fixed;
   left: 0;
@@ -341,8 +359,7 @@ nav ul li a {
   max-width: 25px;
 }
 
-.read_content_wrapper {
-}
+
 
 #read_top {
   text-align: right;
@@ -776,7 +793,6 @@ button#search_bar_icon > img {
 /* TERMS */
 #terms_text {
   height: 50vh;
-  white-space: pre-wrap;
   overflow: scroll;
   border-radius: 1vw;
   box-shadow: 2px 2px 2px 2px #c0c0c0;
@@ -787,6 +803,14 @@ button#search_bar_icon > img {
 
 #terms_form {
   text-align: center;
+}
+
+#terms_container{
+  text-align: center;
+}
+
+#terms_container div{
+  text-align: left;
 }
 
 /* Animation */

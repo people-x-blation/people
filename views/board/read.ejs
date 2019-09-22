@@ -115,7 +115,6 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-
             <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청
                     리스트</span></li>
             <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span
@@ -133,17 +132,15 @@
                     id="nav_logout_span">로그아웃</span></li>
             <% } %>
             <% if(!is_logedin) { %>
-            <li><a href="/auth/kakao?requestUrl=/board"><img id="nav_signup" src="/images/signup.svg"
-                        alt="회원가입" /></a><span id="nav_signup_span">회원가입</span></li>
+            <li><a href="/auth/terms"><img id="nav_signup" src="/images/signup.svg" alt="회원가입" /></a><span
+                    id="nav_signup_span">회원가입</span></li>
             <% } %>
             <% if(is_logedin) { %>
             <li><a href="/user/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
                     id="nav_mypage_span">마이페이지</span></li>
             <% } %>
-
         </ul>
     </nav>
-
 
     <div class="container">
         <div id="read_top" class="read_content_wrapper">
