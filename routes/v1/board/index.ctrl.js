@@ -43,7 +43,6 @@ const bloodColorTable = {
 };
 
 export const boardlist = async (req, res) => {
-
   try {
     const locations = req.params.location;
     let query = '';
@@ -52,10 +51,19 @@ export const boardlist = async (req, res) => {
     const page = req.query.page == undefined ? 1 : req.query.page;
     const size = 10;
     const begin = (page - 1) * size; // 시작 글
+
+    let where;
+    const keyword = req.query.keyword;
+    if (!keyword) {
+      where = `${query} and (show_flag='1' or show_flag = '3')`;
+    } else {
+      where = `${query} and (show_flag='1' or show_flag = '3') and strpos(title, '${keyword}') > 0 `;
+    }
+
     const list = await select(
       '*',
       'board',
-      `${query} and show_flag='1' or show_flag = '3'`,
+      where,
       '',
       `order by boardnum desc limit ${size} offset ${begin}`,
     );
@@ -196,7 +204,6 @@ export const read = async (req, res) => {
 
 export const search = async (req, res) => {
   res.render('board/search', {
-    kakao_info: kakao_info,
     is_logedin: typeof req.session.passport === 'undefined' ? false : true,
   });
 };
