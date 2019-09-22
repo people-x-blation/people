@@ -36,6 +36,7 @@ export const register = async (req, res) => {
 
 export const logout = async (req, res) => {
   // req.logout();
+  req.logout();
   req.session.destroy(function(err) {
     res.redirect('/');
   });
