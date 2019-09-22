@@ -26,4 +26,7 @@ router.get('/logout', authCtrl.logout);
 router.post('/register', authCtrl.register);
 router.get('/leave', authCtrl.leave);
 
+router.post('/request_off', authCtrl.request_off);
+router.post('/request_complete', authCtrl.request_complete);
+
 export default router;

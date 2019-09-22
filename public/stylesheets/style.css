@@ -18,27 +18,17 @@ html {
   }
 }
 
-@media screen and (min-width: 650px) {
-  body {
-    padding-left: 10vw;
-    padding-right: 10vw;
-  }
-}
-
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
-  }
-
-  body {
-    padding-left: 5vw;
-    padding-right: 5vw;
   }
 }
 
 body {
   background-color: #f9f9f9;
   overflow-x: hidden !important;
+  padding-left: calc(50vw - 350px);
+  padding-right: calc(50vw - 350px);
 }
 
 /* Tag */
@@ -121,8 +111,7 @@ button {
 .list_container .content_wrapper {
   display: table-cell;
   vertical-align: middle;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 3vw;
   /*width:calc(100vw - 175px);*/
 }
 
@@ -479,6 +468,16 @@ table.read_info_table {
   border-bottom: 1px dotted #c2c2c2;
 }
 
+.read_pls_login{
+  display: block;
+  font-size: 0.8rem;
+  background-color: #f76363;
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+  margin: 10px auto;
+}
+
 /* MYPAGE */
 #mypage_info {
   display: flex;
@@ -486,9 +485,16 @@ table.read_info_table {
 }
 
 #mypage_nickname,
-#mypage_blood {
+#mypage_blood,
+#mypage_pic_notice{
   display: block;
 }
+
+#mypage_pic_notice{
+  font-size: 0.58rem;
+  font-style: italic;
+}
+
 
 #mypage_row_wrapper {
   display: flex;
@@ -552,6 +558,10 @@ table.read_info_table {
 
 .mypage_request_list > table th {
   width: 35%;
+}
+
+.mypage_request_list form{
+  display: inline-block;
 }
 
 #mypage_donation{
