@@ -28,7 +28,7 @@ export const register = async (req, res) => {
   };
   try {
     const update_member = await signupUpdate(user_input);
-    res.redirect('../auth/mypage');
+    res.redirect('../user/mypage');
   } catch (e) {
     console.log(e);
   }
@@ -43,7 +43,7 @@ export const logout = async (req, res) => {
 
 export const mypage = async (req, res) => {
   const kakao_info = JSON.parse(req.session.passport.user._raw);
-  
+
   const member_db = await select(
     'usernum, id, nickname, blood, phone, email',
     'member',
@@ -79,7 +79,6 @@ export const mypage = async (req, res) => {
   });
 };
 
-
 export const leave = async (req, res) => {};
 
 export const request_off = async (req, res) => {
@@ -94,12 +93,12 @@ export const request_off = async (req, res) => {
     );
 
     if (showUpdate.rowCount > 0) {
-      res.redirect('../auth/mypage');
+      res.redirect('../user/mypage');
     } else {
       throw new Error('show_flag 게시중지 업데이트 실패, rowcount 0');
     }
   } catch (e) {
     console.log('상태변경 실패', e);
   }
-  res.redirect('../auth/mypage');
+  res.redirect('../user/mypage');
 };
