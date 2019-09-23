@@ -94,7 +94,7 @@
                     <% if(list[item].show_flag == '1') { %>
                     <h2 id="list_title">
                         <a
-                            href="<%=(location==0) ? "board" : "." %>/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
+                            href="/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
                     </h2>
                     <span id="list_like_likecount">지원자 수 : <%=list[item].num_part%></span>
                     <% } else { %>
