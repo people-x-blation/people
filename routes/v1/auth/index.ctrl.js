@@ -11,7 +11,8 @@ export const login = async (req, res) => {
   const result = await findOne(email);
   const data = result.rows[0];
   //nickname 설정 안되어있으면 회원가입폼
-  if (data.nickname == '') {
+  console.log('데이터', data);
+  if (typeof data === 'undefined') {
     res.render('auth/signup', { status: true, email: email });
   } else {
     console.log(req.session.redirectUrl);
