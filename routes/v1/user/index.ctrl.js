@@ -5,11 +5,16 @@ export const mypage = async (req, res) => {
   try {
     if (req.user) {
       const kakao_info = JSON.parse(req.user._raw);
-
+      const cipher = crypto.createCipher(
+        'aes-256-cbc',
+        process.env.CRYPTO_SECRETKEY,
+      );
+      let c_input = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
+      c_input += cipher.final('base64');
       const member_db = await select(
         'usernum, id, nickname, blood, phone, email',
         'member',
-        `email = '${kakao_info.kaccount_email}'`,
+        `email = '${c_input}'`,
       );
 
       const board_db = await select(
@@ -47,6 +52,7 @@ export const mypage = async (req, res) => {
       }
 
       console.log('참여 DB', participation_db.rows);
+
       res.render('user/mypage', {
         kakao_info: kakao_info,
         member_db: member_db.rows[0],

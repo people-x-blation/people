@@ -1,6 +1,7 @@
 import { select, insert, update, findOne, findMe, destroy } from '~/db/query';
 import { board, comment, participants } from '~/db/model';
 import axios from 'axios';
+import crypto from 'crypto';
 import htmlToText from 'html-to-text';
 
 // 지역 매핑용
@@ -184,7 +185,13 @@ export const read = async (req, res) => {
 
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.user._raw);
-      const whoAmI = await findMe(kakao_info.kaccount_email);
+      const cipher = crypto.createCipher(
+        'aes-256-cbc',
+        process.env.CRYPTO_SECRETKEY,
+      );
+      let result = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
+      result += cipher.final('base64');
+      const whoAmI = await findMe(result);
 
       let alreay_part = false;
       for (let item in partInfo.rows) {
@@ -239,7 +246,13 @@ export const upload = async (req, res) => {
   try {
     console.log(req.body);
     const email = req.user._json.kaccount_email;
-    const user = await findOne(email);
+    const cipher = crypto.createCipher(
+      'aes-256-cbc',
+      process.env.CRYPTO_SECRETKEY,
+    );
+    let c_input = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
+    c_input += cipher.final('base64');
+    const user = await findOne(c_input);
     const new_board = Object.create(board);
     new_board.title = req.body.title;
     new_board.author = user.rows[0].usernum;

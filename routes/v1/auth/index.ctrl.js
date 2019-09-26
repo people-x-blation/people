@@ -1,4 +1,7 @@
 import { findOne, findMe, update, signupUpdate, destroy } from '~/db/query';
+import { member } from '~/db/model';
+import axios from 'axios';
+import crypto from 'crypto';
 
 export const successLogin = async (req, res) => {
   const rurl = req.query.redirectUrl || req.session.redirectUrl;
@@ -25,24 +28,28 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-  const kakao_info = JSON.parse(req.user._raw);
-  const user_input = {
-    email: req.body.email,
-    nickname: req.body.nickname,
-    phone: req.body.phone,
-    blood: req.body.blood,
-  };
-
   try {
+    const user_input = Object.assign(member);
+    console.log(req.body);
+    for (let input in req.body) {
+      console.log(req.body[input]);
+      let cipher = crypto.createCipher(
+        'aes-256-cbc',
+        process.env.CRYPTO_SECRETKEY,
+      );
+      let result = cipher.update(input, 'utf8', 'base64');
+      result += cipher.final('base64');
+      user_input[input] = result;
+    }
+    console.log(user_input);
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth register', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
-    console.log(e);
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
+    console.log(err);
   }
 };
 
@@ -74,10 +81,10 @@ export const leave = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. leave', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
+    console.log(err);
   }
 };
 
@@ -92,10 +99,9 @@ export const request_off = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request off', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log('상태변경 실패', e);
   }
   res.redirect('../user/mypage');
@@ -112,10 +118,9 @@ export const request_complete = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request complete', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log('상태변경 실패', e);
   }
   res.redirect('../user/mypage');
