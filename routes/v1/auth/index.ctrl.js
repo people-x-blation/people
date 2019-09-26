@@ -18,7 +18,7 @@ export const login = async (req, res) => {
   ) {
     res.render('auth/signup', { status: true, email: email });
   } else {
-    res.redirect('back');
+    res.redirect('/');
   }
 };
 
