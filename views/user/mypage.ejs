@@ -63,8 +63,8 @@
       <div id="mypage_info_wrap">
         <table>
           <tr>
-            <th>전화번호</th>
-            <td><%=member_db.phone%></td>
+            <th >전화번호</th>
+            <td id="phone"><%=member_db.phone%></td>
           </tr>
           <tr>
             <th>이메일</th>
@@ -85,9 +85,7 @@
         </table>
 
         <button onclick="location.href='/auth/logout'">로그아웃</button>
-        <form action="">
-          <button>회원 탈퇴</button>
-        </form>
+        <button class='mypage_leave_btn'>회원 탈퇴</button>
       </div>
     </div>
   </div>

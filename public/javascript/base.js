@@ -12,6 +12,7 @@ window.onload = function() {
   });
 
   $('.mypage_leave_btn').click(function(e) {
+    e.preventDefault();
     var phone = prompt(
       '회원가입하셨을때 전화번호를 입력하여주세요. 전화번호가 일치하면 회원 탈퇴가 진행됩니다.',
     );
