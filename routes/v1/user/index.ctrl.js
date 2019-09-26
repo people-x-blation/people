@@ -1,16 +1,12 @@
 import { select, update } from '~/db/query';
 import axios from 'axios';
+import { aes, deaes } from '~/util/crypto';
 
 export const mypage = async (req, res) => {
   try {
     if (req.user) {
       const kakao_info = JSON.parse(req.user._raw);
-      const cipher = crypto.createCipher(
-        'aes-256-cbc',
-        process.env.CRYPTO_SECRETKEY,
-      );
-      let c_input = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
-      c_input += cipher.final('base64');
+      const c_input = aes(kakao_info.kaccount_email);
       const member_db = await select(
         'usernum, id, nickname, blood, phone, email',
         'member',
@@ -52,6 +48,7 @@ export const mypage = async (req, res) => {
       }
 
       console.log('참여 DB', participation_db.rows);
+      //복호화
 
       res.render('user/mypage', {
         kakao_info: kakao_info,

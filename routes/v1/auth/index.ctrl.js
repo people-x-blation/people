@@ -2,7 +2,7 @@ import { findOne, findMe, update, signupUpdate, destroy } from '~/db/query';
 import { member } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
-
+import { aes } from '~/util/crypto';
 export const successLogin = async (req, res) => {
   const rurl = req.query.redirectUrl || req.session.redirectUrl;
   res.redirect(rurl || '/');
@@ -10,7 +10,8 @@ export const successLogin = async (req, res) => {
 
 export const login = async (req, res) => {
   const email = req.user._json.kaccount_email;
-  const result = await findOne(email);
+  const c_input = aes(email);
+  const result = await findOne(c_input);
   const data = result.rows[0];
   //nickname 설정 안되어있으면 회원가입폼
   console.log('데이터', data);
@@ -30,15 +31,8 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
   try {
     const user_input = Object.assign(member);
-    console.log(req.body);
     for (let input in req.body) {
-      console.log(req.body[input]);
-      let cipher = crypto.createCipher(
-        'aes-256-cbc',
-        process.env.CRYPTO_SECRETKEY,
-      );
-      let result = cipher.update(input, 'utf8', 'base64');
-      result += cipher.final('base64');
+      let result = aes(input);
       user_input[input] = result;
     }
     console.log(user_input);
@@ -65,7 +59,8 @@ export const leave = async (req, res) => {
   try {
     if (req.user) {
       const email = req.user._json.kaccount_email;
-      const result = await findMe(email);
+      const c_input = aes(email);
+      const result = await findMe(c_input);
       const usernum = result.rows[0].usernum;
       if (usernum) {
         await destroy('member', `usernum=${usernum}`);

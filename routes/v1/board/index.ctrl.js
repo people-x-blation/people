@@ -3,6 +3,7 @@ import { board, comment, participants } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import htmlToText from 'html-to-text';
+import { aes } from '~/util/crypto';
 
 // 지역 매핑용
 const locationTable = {
@@ -92,6 +93,8 @@ export const boardlist = async (req, res) => {
       }
 
       memberInfo = memberInfo.rows[0];
+      //복호화
+
       const board_object = Object.create(board);
       board_object.boardnum = item.boardnum;
       board_object.title = item.title;
@@ -185,12 +188,7 @@ export const read = async (req, res) => {
 
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.user._raw);
-      const cipher = crypto.createCipher(
-        'aes-256-cbc',
-        process.env.CRYPTO_SECRETKEY,
-      );
-      let result = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
-      result += cipher.final('base64');
+      const result = aes(kakao_info.kaccount_email);
       const whoAmI = await findMe(result);
 
       let alreay_part = false;
@@ -246,12 +244,7 @@ export const upload = async (req, res) => {
   try {
     console.log(req.body);
     const email = req.user._json.kaccount_email;
-    const cipher = crypto.createCipher(
-      'aes-256-cbc',
-      process.env.CRYPTO_SECRETKEY,
-    );
-    let c_input = cipher.update(kakao_info.kaccount_email, 'utf8', 'base64');
-    c_input += cipher.final('base64');
+    const c_input = aes(email);
     const user = await findOne(c_input);
     const new_board = Object.create(board);
     new_board.title = req.body.title;
