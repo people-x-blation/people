@@ -138,6 +138,6 @@ export const destroy = async (table, where = '') => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(e);
+    console.log(err);
   }
 };

@@ -169,18 +169,22 @@ export const read = async (req, res) => {
     // 댓글
     const comments = [];
 
+    console.log('???', article.rows);
+
     for (let item of article.rows) {
       const repl = Object.create(comment);
       repl.usernum = item.usernum;
       repl.comment_num = item.commentnum;
       repl.content = item.comment;
-      repl.replier = deaes(item.replier);
+      repl.replier = item.replier === null ? null : deaes(item.replier);
       comments.push(repl);
     }
     const articleTable = {
       board: board_object,
       reply: comments,
     };
+
+    console.log('패스포트', req.session.passport);
 
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.user._raw);
@@ -317,7 +321,7 @@ export const comment_upload = async (req, res) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(e);
+    console.log(err);
   }
 
   res.redirect('/board');
@@ -339,7 +343,7 @@ export const participate = async (req, res) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(e);
+    console.log(err);
   }
 
   res.redirect('back');

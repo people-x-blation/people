@@ -173,6 +173,7 @@
             </table>
             <p id="read_content_text"><%-articleTable.board.contents%></p>
             <% if(user) { %>
+            <% if(articleTable.board.usernum !== whoAmI) {%>
             <% if(!alreay_part) { %>
             <form id="read_like_button" action="../participate" method="POST">
                 <input type="hidden" name="boardnum" value="<%=participants.boardnum%>">
@@ -185,7 +186,7 @@
             <form id="read_like_button">
                 <button id="participation" disabled>이미 참가하셨습니다.</button>
             </form>
-            <% } %>
+            <% } }%>
             <% } else { %>
             <span class="read_pls_login">로그인을 해야 해당 헌혈글에 참여의사를 표시할 수 있습니다.</span>
             <% } %>
@@ -227,6 +228,7 @@
     <script src="/jquery/jquery.min.js"></script>
     <script src="/javascript/base.js"></script>
     <script>
+
         $('#participation').click(function (e) {
             e.preventDefault();
 
