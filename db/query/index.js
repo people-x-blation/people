@@ -1,5 +1,5 @@
 import { Singleton } from '~/db';
-
+import axios from 'axios';
 export const select = async (object, table, where, add = '', add2 = '') => {
   try {
     const instance = new Singleton();
@@ -8,6 +8,11 @@ export const select = async (object, table, where, add = '', add2 = '') => {
     );
     return result;
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. select query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
@@ -20,6 +25,11 @@ export const findOne = async (where) => {
     );
     return result;
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. findone query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
@@ -32,6 +42,11 @@ export const findMe = async (where) => {
     );
     return result;
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. findMe query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
@@ -46,25 +61,46 @@ export const insert = async (object, table, add = '') => {
 
     return result;
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. insert query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
 
 export const update = async (object, ToBEObject, table, where = '') => {
-  const instance = new Singleton();
-  const result = await instance.query(
-    `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
-  );
+  try {
+    const instance = new Singleton();
+    const result = await instance.query(
+      `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
+    );
 
-  return result;
+    return result;
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. update query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
+  }
 };
 
 export const signupUpdate = async (user_input) => {
   // 추후 리팩토링 필요
-  const instance = new Singleton();
-  const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE email = '${user_input.email}'`;
-  const result = await instance.query(query);
-  return result;
+  try {
+    const instance = new Singleton();
+    const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE email = '${user_input.email}'`;
+    const result = await instance.query(query);
+    return result;
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. signupUpdate query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
+  }
 };
 
 export const destroy = async (table, where = '') => {
@@ -72,7 +108,12 @@ export const destroy = async (table, where = '') => {
     const instance = new Singleton();
     const result = await instance.query(`DELETE FROM ${table} WHERE ${where}`);
     return result;
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. destroy query', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(e);
   }
 };
