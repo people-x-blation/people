@@ -12,7 +12,12 @@ export const login = async (req, res) => {
   const data = result.rows[0];
   //nickname 설정 안되어있으면 회원가입폼
   console.log('데이터', data);
-  if (typeof data === 'undefined') {
+  if (
+    data.length == 0 ||
+    data.nickname === '' ||
+    data.blood === '' ||
+    data.phone === ''
+  ) {
     res.render('auth/signup', { status: true, email: email });
   } else {
     console.log(req.session.redirectUrl);
@@ -28,6 +33,7 @@ export const register = async (req, res) => {
     phone: req.body.phone,
     blood: req.body.blood,
   };
+
   try {
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
