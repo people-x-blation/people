@@ -5,7 +5,7 @@ export const aes = (input) => {
     'aes-256-cbc',
     process.env.CRYPTO_SECRETKEY,
   );
-  let c_input = cipher.update(email, 'utf8', 'base64');
+  let c_input = cipher.update(input, 'utf8', 'base64');
   c_input += cipher.final('base64');
   return c_input;
 };
