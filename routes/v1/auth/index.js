@@ -5,8 +5,6 @@ import isValidate from '~/lib/validate';
 
 const router = new Router();
 
-router.get('/kakao/success', authCtrl.successLogin);
-
 router.get(
   '/kakao',
   (req, res, next) => isValidate(req, res, next),

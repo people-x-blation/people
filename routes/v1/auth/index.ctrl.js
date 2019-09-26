@@ -3,10 +3,6 @@ import { member } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import { aes } from '~/util/crypto';
-export const successLogin = async (req, res) => {
-  const rurl = req.query.redirectUrl || req.session.redirectUrl;
-  res.redirect(rurl || '/');
-};
 
 export const login = async (req, res) => {
   const email = req.user._json.kaccount_email;
@@ -14,7 +10,6 @@ export const login = async (req, res) => {
   const result = await findOne(c_input);
   const data = result.rows[0];
   //nickname 설정 안되어있으면 회원가입폼
-  console.log('데이터', data);
   if (
     data.length == 0 ||
     data.nickname === '' ||
@@ -23,8 +18,7 @@ export const login = async (req, res) => {
   ) {
     res.render('auth/signup', { status: true, email: email });
   } else {
-    console.log(req.session.redirectUrl);
-    res.redirect('/auth/kakao/success');
+    res.redirect('back');
   }
 };
 
