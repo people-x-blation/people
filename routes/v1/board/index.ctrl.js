@@ -3,7 +3,7 @@ import { board, comment, participants } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import htmlToText from 'html-to-text';
-import { aes } from '~/util/crypto';
+import { aes, deaes } from '~/util/crypto';
 
 // 지역 매핑용
 const locationTable = {
@@ -94,6 +94,7 @@ export const boardlist = async (req, res) => {
 
       memberInfo = memberInfo.rows[0];
       //복호화
+      console.log(memberInfo);
 
       const board_object = Object.create(board);
       board_object.boardnum = item.boardnum;
@@ -103,8 +104,8 @@ export const boardlist = async (req, res) => {
       board_object.location = item.locations;
       board_object.hospital = item.hospital;
       board_object.content = content;
-      board_object.nickname = memberInfo.nickname;
-      board_object.blood = memberInfo.blood;
+      board_object.nickname = deaes(memberInfo.nickname);
+      board_object.blood = deaes(memberInfo.blood);
       board_object.num_part = partInfo.rows.length;
       board_object.show_flag = item.show_flag;
 
@@ -128,7 +129,7 @@ export const boardlist = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board list', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
@@ -165,8 +166,8 @@ export const read = async (req, res) => {
     board_object.location = locationTable[detail.locations];
     board_object.hospital = detail.hospital;
     board_object.contents = detail.contents;
-    board_object.nickname = detail.nickname;
-    board_object.blood = detail.blood;
+    board_object.nickname = deaes(detail.nickname);
+    board_object.blood = deaes(detail.blood);
     board_object.usernum = detail.author;
     board_object.num_part = partInfo.rows.length;
 
@@ -178,7 +179,7 @@ export const read = async (req, res) => {
       repl.usernum = item.usernum;
       repl.comment_num = item.commentnum;
       repl.content = item.comment;
-      repl.replier = item.replier;
+      repl.replier = deaes(item.replier);
       comments.push(repl);
     }
     const articleTable = {
@@ -225,7 +226,7 @@ export const read = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board read', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(e);
@@ -286,7 +287,7 @@ export const upload = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board upload', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
@@ -300,7 +301,7 @@ export const comment_destroy = async (req, res) => {
     res.redirect('back');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment_destroy ', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
   }
@@ -319,7 +320,7 @@ export const comment_upload = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment upload', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(e);
@@ -341,7 +342,7 @@ export const participate = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. participate', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(e);

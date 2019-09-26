@@ -32,15 +32,14 @@ export const register = async (req, res) => {
   try {
     const user_input = Object.assign(member);
     for (let input in req.body) {
-      let result = aes(input);
+      let result = aes(req.body[input]);
       user_input[input] = result;
     }
-    console.log(user_input);
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth register', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
@@ -76,7 +75,7 @@ export const leave = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. leave', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
@@ -94,7 +93,7 @@ export const request_off = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request off', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);
@@ -113,7 +112,7 @@ export const request_complete = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request complete', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);

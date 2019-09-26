@@ -49,10 +49,15 @@ export const mypage = async (req, res) => {
 
       console.log('참여 DB', participation_db.rows);
       //복호화
+      const member_info = member_db.rows[0];
+      member_info.nickname = deaes(member_info.nickname);
+      member_info.blood = deaes(member_info.blood);
+      member_info.phone = deaes(member_info.phone);
+      member_info.email = deaes(member_info.email);
 
       res.render('user/mypage', {
         kakao_info: kakao_info,
-        member_db: member_db.rows[0],
+        member_db: member_info,
         board_db: board_db.rows,
         participants: participants_db.rows,
         participation: participation_db.rows,
@@ -64,7 +69,7 @@ export const mypage = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. mypage', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
   }
@@ -88,7 +93,7 @@ export const request_off = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. request_off', err];
-    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);
