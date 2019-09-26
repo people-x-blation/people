@@ -4,12 +4,12 @@ CREATE TYPE admin_t as enum('0','1');
 CREATE TABLE member
 (
     id        VARCHAR(20)     NOT NULL    , 
-    nickname  VARCHAR(20)     NOT NULL    , 
+    nickname  VARCHAR(100)     NOT NULL    , 
     password  VARCHAR(45)     NOT NULL    , 
-    blood     VARCHAR(12)     NOT NULL    , 
+    blood     VARCHAR(50)     NOT NULL    , 
     profile   VARCHAR(100)    NOT NULL    , 
-    phone     VARCHAR(30)     NOT NULL    , 
-    email	VARCHAR(45)     NOT NULL    , 
+    phone     VARCHAR(100)     NOT NULL    , 
+    email	VARCHAR(100)     NOT NULL    , 
     usernum SERIAL , 
 	
     PRIMARY KEY (usernum), UNIQUE(nickname), UNIQUE(email)
@@ -19,8 +19,7 @@ CREATE TABLE member
 CREATE TYPE show_flag_t as enum('0', '1', '2','3');
 
 -- 1 서울특별시   2 부산광역시   3 대구광역시   4 인천광역시   5 대전광역시   6 광주광역시   7 울산광역시   8 세종특별자치시   9 강원도  10  경기도  11 충청남도  12 충청북도  13 전라북도  14 전라남도  15 경상북도  16 경상남도  17 제주특별자치도
-CREATE TYPE location_t as enum('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17');
-
+ 
 CREATE TABLE board
 (
     boardnum SERIAL , 
