@@ -29,6 +29,7 @@ body {
   overflow-x: hidden !important;
   padding-left: calc(50vw - 350px);
   padding-right: calc(50vw - 350px);
+  margin-bottom: 10vh;
 }
 
 /* Tag */
@@ -310,6 +311,7 @@ img#profile_pic {
 
 #landing_intro p{
   padding: 5px 10px;
+  margin: 0;
 }
 
 nav {
@@ -353,6 +355,7 @@ nav ul li a {
   text-decoration: none;
 }
 
+#nav_landing,
 #nav_home,
 #nav_search,
 #nav_write,
@@ -513,18 +516,6 @@ table.read_info_table {
   flex-direction: column;
 }
 
-#mypage_nickname_update{
-  
-}
-
-#mypage_nickname_update input{
-  display: block;
-}
-
-#mypage_nickname_update button{
-  padding: 2px 2px;
-}
-
 #mypage_nickname,
 #mypage_blood,
 #mypage_pic_notice{
@@ -541,10 +532,14 @@ table.read_info_table {
   display: flex;
   flex-direction: row;
 }
+
+
+
+
+
 #profile_wrap {
   flex-grow: 1;
   text-align: center;
-  border-right: 1px solid black;
 }
 
 #mypage_info_wrap {
@@ -559,9 +554,24 @@ table.read_info_table {
   font-size: 0.8rem;
 }
 
+@media (max-width: 430px) {
+  #mypage_row_wrapper{
+    flex-direction: column;
+  }
+  #mypage_info_wrap{
+    width: 100%;
+  }
+  #mypage_info_wrap > table {
+    width: 100%;
+    border: none;
+    font-size: 0.8rem;
+  }
+}
+
 #mypage_info_wrap > table th,
 #mypage_info_wrap > table td {
   border-bottom: 1px dotted #c2c2c2;
+  letter-spacing: -0.01em;
 }
 
 #mypage_info_wrap button,
