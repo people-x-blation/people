@@ -124,10 +124,9 @@ export const boardlist = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board list', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log(err);
   }
 };
@@ -184,7 +183,7 @@ export const read = async (req, res) => {
     };
 
     if (typeof req.session.passport !== 'undefined') {
-      const kakao_info = JSON.parse(req.session.passport.user._raw);
+      const kakao_info = JSON.parse(req.user._raw);
       const whoAmI = await findMe(kakao_info.kaccount_email);
 
       let alreay_part = false;
@@ -221,10 +220,9 @@ export const read = async (req, res) => {
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board read', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log(e);
   }
 };
@@ -273,20 +271,18 @@ export const upload = async (req, res) => {
         `모집완료로 변경 : /pc ${result.rows[0].boardnum} 3`,
       ];
       //slack webhook
-      const response = await axios.post(
-        'https://hooks.slack.com/services/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',
-        { text: arr.join('\n') },
-      );
+      const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+        text: arr.join('\n'),
+      });
       res.redirect('/board');
     } else {
       throw new Error('board insert 실패, rowcount ==0');
     }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. board upload', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log(err);
   }
 };
@@ -298,10 +294,9 @@ export const comment_destroy = async (req, res) => {
     res.redirect('back');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment_destroy ', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
   }
 };
 
@@ -318,10 +313,9 @@ export const comment_upload = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment upload', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log(e);
   }
 
@@ -341,10 +335,9 @@ export const participate = async (req, res) => {
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. participate', err];
-    const response = await axios.post(
-      'https://hooks.slack.com/services/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',
-      { text: arr.join('\n') },
-    );
+    const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+      text: arr.join('\n'),
+    });
     console.log(e);
   }
 
