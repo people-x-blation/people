@@ -16,7 +16,6 @@ window.onload = function() {
     var phone = prompt(
       '회원가입하셨을때 전화번호를 입력하여주세요. 전화번호가 일치하면 회원 탈퇴가 진행됩니다.',
     );
-
     if ($('#phone').text() == phone) {
       $.ajax({
         url: '/auth/leave',
@@ -31,7 +30,7 @@ window.onload = function() {
             alert(
               '회원 탈퇴에 실패했습니다. 로그인 상태나 부적절한 접근인지 확인해주세요.',
             );
-            location.href = 'back';
+            location.href = '/';
           }
         },
         error: function(err) {
