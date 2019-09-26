@@ -1,5 +1,4 @@
-import { findOne, findMe } from '~/db/query';
-import { signupUpdate, destroy } from '~/db/query';
+import { findOne, findMe, update, signupUpdate, destroy } from '~/db/query';
 
 export const successLogin = async (req, res) => {
   const rurl = req.query.redirectUrl || req.session.redirectUrl;
@@ -30,7 +29,12 @@ export const register = async (req, res) => {
   try {
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. auth register', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(e);
   }
 };
@@ -44,21 +48,29 @@ export const logout = async (req, res) => {
 };
 
 export const leave = async (req, res) => {
-  if (req.user) {
-    const email = req.user._json.kaccount_email;
-    const result = await findMe(email);
-    const usernum = result.rows[0].usernum;
-    if (usernum) {
-      await destroy('member', `usernum=${usernum}`);
-      req.logout();
-      req.session.destroy(function(err) {
-        res.json({ status: 'ok' });
-      });
+  try {
+    if (req.user) {
+      const email = req.user._json.kaccount_email;
+      const result = await findMe(email);
+      const usernum = result.rows[0].usernum;
+      if (usernum) {
+        await destroy('member', `usernum=${usernum}`);
+        req.logout();
+        req.session.destroy(function(err) {
+          res.json({ status: 'ok' });
+        });
+      } else {
+        res.json({ status: 'no usernum' });
+      }
     } else {
-      res.json({ status: 'no usernum' });
+      res.json({ status: 'no user session' });
     }
-  } else {
-    res.json({ status: 'no user session' });
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. leave', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
   }
 };
 
@@ -71,10 +83,15 @@ export const request_off = async (req, res) => {
       'board',
       `WHERE boardnum = ${boardnum}`,
     );
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. auth/request off', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log('상태변경 실패', e);
   }
-  res.redirect('../auth/mypage');
+  res.redirect('../user/mypage');
 };
 
 export const request_complete = async (req, res) => {
@@ -86,10 +103,15 @@ export const request_complete = async (req, res) => {
       'board',
       `WHERE boardnum = ${boardnum}`,
     );
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. auth/request complete', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log('상태변경 실패', e);
   }
-  res.redirect('../auth/mypage');
+  res.redirect('../user/mypage');
 };
 
 export const terms = async (req, res) => {

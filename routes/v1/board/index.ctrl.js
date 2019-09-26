@@ -123,6 +123,11 @@ export const boardlist = async (req, res) => {
       res.json(boardList);
     }
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. board list', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
@@ -214,7 +219,12 @@ export const read = async (req, res) => {
         alreay_part: false,
       });
     }
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. board read', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(e);
   }
 };
@@ -257,10 +267,10 @@ export const upload = async (req, res) => {
         new_board.title,
         text,
         `게시글번호 : ${result.rows[0].boardnum}`,
-        `비노출로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/0eeee`,
-        `노출로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/1e`,
-        `대기로 변경 :https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/2e`,
-        `모집완료로 변경 : https://asia-northeast1-people-slack-bot.cloudfunctions.net/webHook/edit/${result.rows[0].boardnum}/3e`,
+        `비노출로 변경 : /pc ${result.rows[0].boardnum} 0`,
+        `노출로 변경 : /pc ${result.rows[0].boardnum} 1`,
+        `대기로 변경 : /pc ${result.rows[0].boardnum} 2`,
+        `모집완료로 변경 : /pc ${result.rows[0].boardnum} 3`,
       ];
       //slack webhook
       const response = await axios.post(
@@ -272,14 +282,27 @@ export const upload = async (req, res) => {
       throw new Error('board insert 실패, rowcount ==0');
     }
   } catch (err) {
+    const arr = ['에러가 발생하였습니다. board upload', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(err);
   }
 };
 
 export const comment_destroy = async (req, res) => {
-  const comment_num = req.body.comment_num;
-  const comment_d = await destroy('comment', `commentnum = ${comment_num}`);
-  res.redirect('back');
+  try {
+    const comment_num = req.body.comment_num;
+    const comment_d = await destroy('comment', `commentnum = ${comment_num}`);
+    res.redirect('back');
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. comment_destroy ', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
+  }
 };
 
 export const comment_upload = async (req, res) => {
@@ -293,7 +316,12 @@ export const comment_upload = async (req, res) => {
       `DEFAULT,'${commentTable.boardnum}', '${commentTable.replier}', '${commentTable.content}'`,
       'comment',
     );
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. comment upload', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(e);
   }
 
@@ -311,7 +339,12 @@ export const participate = async (req, res) => {
       `${participantsTable.boardnum}, ${participantsTable.request_usernum}, ${participantsTable.part_usernum}`,
       'participants(boardnum, request_usernum, part_usernum)',
     );
-  } catch (e) {
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. participate', err];
+    const response = await axios.post(
+      'https://hooks.slack.com/services/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',
+      { text: arr.join('\n') },
+    );
     console.log(e);
   }
 
