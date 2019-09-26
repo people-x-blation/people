@@ -94,7 +94,6 @@ export const boardlist = async (req, res) => {
 
       memberInfo = memberInfo.rows[0];
       //복호화
-      console.log(memberInfo);
 
       const board_object = Object.create(board);
       board_object.boardnum = item.boardnum;
@@ -111,8 +110,6 @@ export const boardlist = async (req, res) => {
 
       boardList.push(board_object);
     }
-
-    console.log(boardList);
 
     if (page == 1) {
       res.render('board/list', {
@@ -153,8 +150,6 @@ export const read = async (req, res) => {
       `b.boardnum = ${boardnum}`,
       'INNER JOIN public.participants as p ON b.boardnum = p.boardnum',
     );
-
-    console.log(partInfo.rows);
 
     const detail = article.rows[0];
 
@@ -243,7 +238,6 @@ export const write = async (req, res) => {
 
 export const upload = async (req, res) => {
   try {
-    console.log(req.body);
     const email = req.user._json.kaccount_email;
     const c_input = aes(email);
     const user = await findOne(c_input);

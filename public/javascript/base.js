@@ -22,7 +22,6 @@ window.onload = function() {
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-          console.log(result);
           if (result.status == 'ok') {
             alert('회원 탈퇴가 성공적으로 진행되었습니다.');
             location.href = '/';
