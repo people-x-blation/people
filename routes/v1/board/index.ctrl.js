@@ -169,8 +169,6 @@ export const read = async (req, res) => {
     // 댓글
     const comments = [];
 
-    console.log('???', article.rows);
-
     for (let item of article.rows) {
       const repl = new Comment();
       repl.usernum = item.usernum;
@@ -183,8 +181,6 @@ export const read = async (req, res) => {
       board: board_object,
       reply: comments,
     };
-
-    console.log('패스포트', req.session.passport);
 
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.user._raw);
