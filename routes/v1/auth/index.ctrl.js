@@ -1,5 +1,5 @@
 import { findOne, findMe, update, signupUpdate, destroy } from '~/db/query';
-import { member } from '~/db/model';
+import { Member } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import { aes } from '~/util/crypto';
@@ -24,7 +24,7 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    const user_input = Object.assign(member);
+    const user_input = new Member();
     for (let input in req.body) {
       let result = aes(req.body[input]);
       user_input[input] = result;
