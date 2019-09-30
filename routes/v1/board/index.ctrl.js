@@ -321,8 +321,7 @@ export const comment_upload = async (req, res) => {
     });
     console.log(err);
   }
-
-  res.redirect('/board');
+  res.redirect('back');
 };
 
 export const participate = async (req, res) => {

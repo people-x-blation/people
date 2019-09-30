@@ -51,6 +51,14 @@ window.onload = function() {
       alert('지역이나, 검색어 둘 중 하나는 입력해주십시오.');
     }
   });
+
+  $('#read_comment_submit').click(function(err) {
+    var comment = $('#read_comment_form').val();
+    if (comment == '') {
+      alert('댓글을 입력해주세요.');
+      return false;
+    }
+  });
 };
 
 function read_displaySetting() {
