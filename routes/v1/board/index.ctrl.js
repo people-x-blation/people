@@ -1,5 +1,5 @@
 import { select, insert, update, findOne, findMe, destroy } from '~/db/query';
-import { board, comment, participants } from '~/db/model';
+import { Board, Comment, participants } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import htmlToText from 'html-to-text';
@@ -95,7 +95,7 @@ export const boardlist = async (req, res) => {
       memberInfo = memberInfo.rows[0];
       //복호화
 
-      const board_object = Object.create(board);
+      const board_object = new Board();
       board_object.boardnum = item.boardnum;
       board_object.title = item.title;
       board_object.like_count = item.like_count;
@@ -153,7 +153,7 @@ export const read = async (req, res) => {
 
     const detail = article.rows[0];
 
-    const board_object = Object.create(board);
+    const board_object = new Board();
     board_object.boardnum = detail.boardnum;
     board_object.title = detail.title;
     board_object.like_count = detail.like_count;
@@ -172,7 +172,7 @@ export const read = async (req, res) => {
     console.log('???', article.rows);
 
     for (let item of article.rows) {
-      const repl = Object.create(comment);
+      const repl = new Comment();
       repl.usernum = item.usernum;
       repl.comment_num = item.commentnum;
       repl.content = item.comment;
@@ -245,20 +245,22 @@ export const upload = async (req, res) => {
     const email = req.user._json.kaccount_email;
     const c_input = aes(email);
     const user = await findOne(c_input);
-    const new_board = Object.create(board);
+    const new_board = new Board();
     new_board.title = req.body.title;
     new_board.author = user.rows[0].usernum;
     new_board.like_count = 0;
-    new_board.created_at = 'now()';
+    new_board.create_at = 'now()';
     new_board.locations = req.body.locations;
     new_board.hospital = req.body.hospital;
     new_board.contents = req.body.contents;
     new_board.show_flag = '2';
 
+    //object 순서보장 x
     const result = await insert(
-      `DEFAULT,'${Object.values(new_board).join(`', '`)}'`,
+      `'${Object.values(new_board).join(`', '`)}'`,
       'board',
       'returning *',
+      `(${Object.keys(new_board).join(',')})`,
     );
 
     const text = htmlToText.fromString(new_board.contents, {
@@ -306,7 +308,7 @@ export const comment_destroy = async (req, res) => {
 };
 
 export const comment_upload = async (req, res) => {
-  const commentTable = Object.create(comment);
+  const commentTable = new Comment();
   commentTable.boardnum = req.body.boardnum;
   commentTable.content = req.body.contents;
   commentTable.replier = req.body.usernum;
