@@ -50,6 +50,7 @@ export const mypage = async (req, res) => {
       console.log('참여 DB', participation_db.rows);
       //복호화
       const member_info = member_db.rows[0];
+      member_info.usernum = deaes(member_info.usernum);
       member_info.nickname = deaes(member_info.nickname);
       member_info.blood = deaes(member_info.blood);
       member_info.phone = deaes(member_info.phone);

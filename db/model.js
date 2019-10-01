@@ -3,6 +3,7 @@ export const member = {
   nickname: '',
   password: 'kakao',
   blood: '',
+  my_blood: '',
   profile: '',
   phone: '',
   email: '',

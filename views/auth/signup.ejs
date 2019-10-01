@@ -63,7 +63,7 @@
                 <span id="signup_phone_notice">전화번호가 010-XXXX-XXXX인 경우 010XXXXXXXX 로 작성해주세요</span>
             </div>
             <div class="signup_input_container">
-                <label for="signup_blood">혈액형</label> :
+                <label for="signup_blood">수혈자 혈액형</label> :
                 <select name="blood" class="signup_input" id="signup_blood">
                     <option value="RH+A">RH+ A형</option>
                     <option value="RH+B">RH+ B형</option>
@@ -74,10 +74,22 @@
                     <option value="RH-AB">RH- AB형</option>
                     <option value="RH-O">RH- O형</option>
                 </select>
-                <span id="signup_blood_notice">수혈받을 분의 혈액형을 입력해 주세요.</span>
-                <input type='hidden' name='email' value="<%=email%>" />
-                <button id="signup_submit_btn" type="submit">회원가입</button>
             </div>
+            <div class="signup_input_container">
+                <label for="signup_blood">본인 혈액형</label> :
+                <select name="my_blood" class="signup_input" id="signup_blood">
+                    <option value="RH+A">RH+ A형</option>
+                    <option value="RH+B">RH+ B형</option>
+                    <option value="RH+AB">RH+ AB형</option>
+                    <option value="RH+O">RH+ O형</option>
+                    <option value="RH-A">RH- A형</option>
+                    <option value="RH-B">RH- B형</option>
+                    <option value="RH-AB">RH- AB형</option>
+                    <option value="RH-O">RH- O형</option>
+                </select>
+                <input type='hidden' name='email' value="<%=email%>" />
+            </div>
+            <button id="signup_submit_btn" type="submit">회원가입</button>
         </form>
     </div>
     <script src="/jquery/jquery.min.js"></script>

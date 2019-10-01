@@ -699,14 +699,17 @@ select {
   margin-right: 10px !important;
 }
 
-.signup_input_container > button {
+button#signup_submit_btn {
+  display: block;
   background-color: #f76363;
   border: none;
-  padding: 1vw;
+  padding: 0.4vw;
   border-radius: 10px;
   color: white;
   font-family: "Noto Sans KR", sans-serif;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 1rem;
 }
 
