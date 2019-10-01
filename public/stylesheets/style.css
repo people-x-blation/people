@@ -750,6 +750,7 @@ select#signup_blood {
   -moz-appearance: none;
   appearance: none;
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
+  
 }
 
 textarea#write_content {
@@ -807,6 +808,8 @@ select#locations {
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
   margin: 10px auto;
   background-color: white;
+  height: 45px !important;
+  background-size: 24px;
 }
 
 button#search_bar_icon {
@@ -931,4 +934,6 @@ span#highlight_blood {
 
 .basic_input {
   border-radius: 5px !important;
+  height: 35px !important;
+  padding: 1px 21px !important;
 }

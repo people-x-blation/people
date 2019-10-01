@@ -77,7 +77,6 @@
 
         <div class="form_wrapper">
                 <form action="/board/upload" method="post" id="write_form">
-                        <input class="basic_input" type="text" placeholder="제목" name="title" id="write_title">
                         <select name="locations" id="locations">
                                 <option>지역을 선택해 주십시오.</option>
                                 <option value="1">서울특별시</option>
@@ -98,10 +97,9 @@
                                 <option value="16">경상남도</option>
                                 <option value="17">제주특별자치도</option>
                         </select>
-
+                        <input class="basic_input" type="text" placeholder="제목" name="title" id="write_title">
                         <input class="basic_input" type="text" placeholder="지정헌혈 대상 병원이름" name="hospital"
                                 id="write_hospital">
-
                         <textarea id="write_content" name="contents" placeholder="게시글작성"></textarea>
                         <hidden id="content"></hidden>
                         <br />
