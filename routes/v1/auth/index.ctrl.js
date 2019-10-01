@@ -5,9 +5,7 @@ import crypto from 'crypto';
 import { aes } from '~/util/crypto';
 
 export const login = async (req, res) => {
-  const email = req.user._json.kaccount_email;
-  const c_input = aes(email);
-  const result = await findOne(c_input);
+  const result = await findOne(req.user.id);
   const data = result.rows[0];
   //nickname 설정 안되어있으면 회원가입폼
   if (
@@ -29,6 +27,7 @@ export const register = async (req, res) => {
       let result = aes(req.body[input]);
       user_input[input] = result;
     }
+    user_input.id = req.user.id;
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
   } catch (err) {
@@ -51,9 +50,8 @@ export const logout = async (req, res) => {
 export const leave = async (req, res) => {
   try {
     if (req.user) {
-      const email = req.user._json.kaccount_email;
-      const c_input = aes(email);
-      const result = await findMe(c_input);
+      const id = req.user.id;
+      const result = await findOne(id);
       const usernum = result.rows[0].usernum;
       if (usernum) {
         await destroy('member', `usernum=${usernum}`);

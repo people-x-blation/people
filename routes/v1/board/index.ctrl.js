@@ -184,8 +184,8 @@ export const read = async (req, res) => {
 
     if (typeof req.session.passport !== 'undefined') {
       const kakao_info = JSON.parse(req.user._raw);
-      const result = aes(kakao_info.kaccount_email);
-      const whoAmI = await findMe(result);
+      const uid = req.user.id;
+      const whoAmI = await findOne(uid);
 
       let alreay_part = false;
       for (let item in partInfo.rows) {
@@ -238,9 +238,7 @@ export const write = async (req, res) => {
 
 export const upload = async (req, res) => {
   try {
-    const email = req.user._json.kaccount_email;
-    const c_input = aes(email);
-    const user = await findOne(c_input);
+    const user = await findOne(req.user.id);
     const new_board = new Board();
     new_board.title = req.body.title;
     new_board.author = user.rows[0].usernum;

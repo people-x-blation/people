@@ -1,4 +1,4 @@
-import { select, update } from '~/db/query';
+import { select, update, findOne } from '~/db/query';
 import axios from 'axios';
 import { aes, deaes } from '~/util/crypto';
 import _ from 'lodash';
@@ -7,12 +7,7 @@ export const mypage = async (req, res) => {
   try {
     if (req.user) {
       const kakao_info = JSON.parse(req.user._raw);
-      const c_input = aes(kakao_info.kaccount_email);
-      const member_db = await select(
-        'usernum, id, nickname, blood, phone, email',
-        'member',
-        `email = '${c_input}'`,
-      );
+      const member_db = await findOne(req.user.id);
 
       const board_db = await select(
         'boardnum, title, like_count, create_at, show_flag, locations, hospital, contents',
@@ -57,13 +52,16 @@ export const mypage = async (req, res) => {
       for (let iter in participation_db.rows) {
         if (participation_db.rows[iter].show_flag == '1') participation_count++;
       }
-
       //복호화
       const member_info = member_db.rows[0];
+      console.log(member_info);
       member_info.nickname = deaes(member_info.nickname);
       member_info.blood = deaes(member_info.blood);
       member_info.phone = deaes(member_info.phone);
-      member_info.email = deaes(member_info.email);
+      member_info.email =
+        member_info.email == '' || '카카오톡에 연동된 email 없음'
+          ? member_info.email
+          : deaes(member_info.email);
 
       res.render('user/mypage', {
         kakao_info: kakao_info,
