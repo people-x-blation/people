@@ -1,6 +1,7 @@
 import { select, update } from '~/db/query';
 import axios from 'axios';
 import { aes, deaes } from '~/util/crypto';
+import _ from 'lodash';
 
 export const mypage = async (req, res) => {
   try {
@@ -26,7 +27,6 @@ export const mypage = async (req, res) => {
         `p.request_usernum = ${member_db.rows[0].usernum}`,
         'LEFT JOIN public.member as m ON p.part_usernum = m.usernum',
       );
-
       // 참여한 요청
       const participation_db = await select(
         'boardnum, title, author, locations, hospital, contents, show_flag',
@@ -34,20 +34,30 @@ export const mypage = async (req, res) => {
         `p.part_usernum = ${member_db.rows[0].usernum} AND p.show_flag = '1'`,
         'LEFT JOIN public.member as m ON p.part_usernum = m.usernum NATURAL JOIN public.board as b',
       );
-
       // 참여자 수 카운트
-      let participants_count = 0;
-      for (let iter in participants_db.rows) {
-        if (participants_db.rows[iter].show_flag == '1') participants_count++;
-      }
-
+      const participants_list = participants_db.rows;
+      _.map(participants_db.rows, (row, iter) => {
+        _.map(row, (input, key) => {
+          if (
+            key == 'blood' ||
+            key == 'nickname' ||
+            key == 'phone' ||
+            key == 'email'
+          ) {
+            participants_list[iter][key] = deaes(input);
+          } else {
+            participants_list[iter][key] = input;
+          }
+        });
+      });
+      //}
+      //console.log(participants_count);
       // 참여 한 게시물 수 카운트
       let participation_count = 0;
       for (let iter in participation_db.rows) {
         if (participation_db.rows[iter].show_flag == '1') participation_count++;
       }
 
-      console.log('참여 DB', participation_db.rows);
       //복호화
       const member_info = member_db.rows[0];
       member_info.usernum = deaes(member_info.usernum);
@@ -60,9 +70,9 @@ export const mypage = async (req, res) => {
         kakao_info: kakao_info,
         member_db: member_info,
         board_db: board_db.rows,
-        participants: participants_db.rows,
+        participants: participants_list,
         participation: participation_db.rows,
-        participants_count: participants_count,
+        participants_count: participants_list.length,
         participation_count: participation_count,
       });
     } else {
@@ -73,12 +83,12 @@ export const mypage = async (req, res) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
   }
 };
 
 export const request_off = async (req, res) => {
   const boardnum = req.body.request_off;
-  console.log(req.body);
   try {
     const showUpdate = await update(
       'show_flag',

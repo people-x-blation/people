@@ -60,12 +60,12 @@ export const findMe = async (where) => {
   }
 };
 
-export const insert = async (object, table, add = '') => {
+export const insert = async (object, table, add = '', order = '') => {
   try {
     const instance = new Singleton();
-    console.log('쿼리', `INSERT INTO ${table} VALUES (${object})`);
+    console.log('쿼리', `INSERT INTO ${table}${order}  VALUES (${object})`);
     const result = await instance.query(
-      `INSERT INTO ${table} VALUES (${object}) ${add}`,
+      `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
     );
 
     return result;
@@ -73,7 +73,7 @@ export const insert = async (object, table, add = '') => {
     const arr = [
       '에러가 발생하였습니다. insert query',
       err,
-      `INSERT INTO ${table} VALUES (${object}) ${add}`,
+      `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),

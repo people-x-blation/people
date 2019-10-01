@@ -22,7 +22,6 @@ window.onload = function() {
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-          console.log(result);
           if (result.status == 'ok') {
             alert('회원 탈퇴가 성공적으로 진행되었습니다.');
             location.href = '/';
@@ -50,6 +49,14 @@ window.onload = function() {
       location.href = url;
     } else {
       alert('지역이나, 검색어 둘 중 하나는 입력해주십시오.');
+    }
+  });
+
+  $('#read_comment_submit').click(function(err) {
+    var comment = $('#read_comment_form').val();
+    if (comment == '') {
+      alert('댓글을 입력해주세요.');
+      return false;
     }
   });
 };
