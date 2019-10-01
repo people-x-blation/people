@@ -483,6 +483,7 @@ nav ul li a {
   flex-basis: 10%;
   margin: 0px 10px;
   height: 40px;
+  padding: 0;
 }
 
 table.read_info_table {
