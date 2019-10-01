@@ -12,7 +12,7 @@ CREATE TABLE member
     email	VARCHAR(100)     NOT NULL    , 
     usernum SERIAL , 
 	
-    PRIMARY KEY (usernum), UNIQUE(nickname), UNIQUE(email)
+    PRIMARY KEY (usernum), UNIQUE(nickname)
 );
 
 -- show 1 notshow 0 pending 2 request_finish 3
