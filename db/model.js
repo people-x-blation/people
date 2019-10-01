@@ -1,31 +1,36 @@
-export const member = {
-  id: '',
-  nickname: '',
-  password: 'kakao',
-  blood: '',
-  my_blood: '',
-  profile: '',
-  phone: '',
-  email: '',
-};
+export class member {
+  constructor() {
+    this.id = '';
+    this.nickname = '';
+    this.password = 'kakao';
+    this.blood = '';
+    this.my_blood = '';
+    this.profile = '';
+    this.phone = '';
+    this.email = '';
+  }
+}
 
-export const board = {
-  board_num: '',
-  title: '',
-  author: '',
-  like_count: '',
-  create_at: '',
-  show_flag: '',
-  locations: '',
-  hospital: '',
-  contents: '',
-};
+export class Board {
+  constructor() {
+    this.title = '';
+    this.author = '';
+    this.like_count = '';
+    this.create_at = '';
+    this.show_flag = '';
+    this.locations = '';
+    this.hospital = '';
+    this.contents = '';
+  }
+}
 
-export const comment = {
-  comment_num: '',
-  content: '',
-  replier: '',
-};
+export class Comment {
+  constructor() {
+    this.comment_num = '';
+    this.content = '';
+    this.replier = '';
+  }
+}
 
 export const participants = {
   boardnum: '',
