@@ -16,7 +16,7 @@ export const login = async (req, res) => {
     data.blood === '' ||
     data.phone === ''
   ) {
-    res.render('auth/signup', { status: true, email: email });
+    res.render('auth/terms', { status: true });
   } else {
     res.redirect('/');
   }
@@ -115,5 +115,5 @@ export const request_complete = async (req, res) => {
 };
 
 export const terms = async (req, res) => {
-  res.render('auth/terms');
+  res.render('auth/signup', { email: req.user._json.kaccount_email });
 };

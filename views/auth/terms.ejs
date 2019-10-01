@@ -378,10 +378,13 @@
 
     <script src="/jquery/jquery.min.js"></script>
     <script>
+        if (<%=status%>) {
+            alert('약관에 동의 후 회원 정보를 입력해야 회원가입 절차가 완료됩니다.');
+        }
         $('#terms_agree_btn').click(function (e) {
             e.preventDefault();
             if ($('#terms_agree').is(':checked') == true) {
-                location.href = "/auth/kakao?requestUrl=/board";
+                location.href = "/auth/terms";
             }
             else {
                 alert("약관에 동의해야 회원가입이 가능합니다.");
