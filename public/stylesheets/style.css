@@ -63,6 +63,25 @@ body {
 
 footer {
   text-align: center;
+  font-size: 0.8rem;
+}
+
+footer ul{
+  list-style-type: none;
+  padding-left: 0;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+}
+
+footer a{
+  color: #f76363;
+  text-decoration: underline;
+}
+
+footer span{
+  display: block;
 }
 
 a {
