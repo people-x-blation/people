@@ -1,4 +1,4 @@
-export class member {
+export class Member {
   constructor() {
     this.id = '';
     this.nickname = '';
