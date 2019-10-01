@@ -1,4 +1,4 @@
-import { findOne, findMe, update, signupUpdate, destroy } from '~/db/query';
+import { findOne, update, signupUpdate, destroy } from '~/db/query';
 import { Member } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';

@@ -40,26 +40,6 @@ export const findOne = async (where) => {
   }
 };
 
-export const findMe = async (where) => {
-  try {
-    const instance = new Singleton();
-    const result = await instance.query(
-      `SELECT usernum FROM member WHERE email='${where}'`,
-    );
-    return result;
-  } catch (err) {
-    const arr = [
-      '에러가 발생하였습니다. findMe query',
-      err,
-      `SELECT usernum FROM member WHERE email='${where}'`,
-    ];
-    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
-      text: arr.join('\n'),
-    });
-    console.log(err);
-  }
-};
-
 export const insert = async (object, table, add = '', order = '') => {
   try {
     const instance = new Singleton();
