@@ -832,15 +832,30 @@ select#locations {
   background-size: 24px;
 }
 
+select#search_locations{
+  display: block;
+  width: 60%;
+  margin: 10px auto !important;
+}
+
 button#search_bar_icon {
   display: block;
   width: 20%;
   margin: 10px auto;
   background-color: #efefef;
+  border: none;
+  background-color: transparent;
 }
 
 button#search_bar_icon > img {
   width: 5vw;
+}
+
+input#search_bar{
+  display: block;
+  width: 58%;
+  padding: 1vw;
+  margin: 10px auto !important;
 }
 
 #login_form {
