@@ -178,9 +178,7 @@ export const read = async (req, res, next) => {
       repl.comment_num = item.commentnum;
       repl.content = item.comment;
       repl.replier =
-        typeof item.replier == null || item.replier == ''
-          ? null
-          : deaes(item.replier);
+        item.replier == null || item.replier == '' ? null : deaes(item.replier);
       comments.push(repl);
     }
     const articleTable = {
