@@ -554,7 +554,24 @@ table.read_info_table {
 }
 
 
+form#signup_blood_form{
+  display: block;
+  font-size: 0.7rem;
+}
 
+form#signup_blood_form > select{
+  font-size: 0.7rem !important;
+  padding: 1px;
+  border-radius: 1px;
+  background-size: 0.5rem;
+  width: 50%;
+}
+
+form#signup_blood_form > button{
+  font-size: 0.7rem;
+  padding: 1px;
+  border-radius: 2px;
+}
 
 
 #profile_wrap {
@@ -686,7 +703,7 @@ select {
   border-radius: 10vw;
   border: none;
   box-shadow: 2px 2px 2px 2px #f0f0f0;
-  padding: 2vw;
+  padding: 1vw;
   margin: 10px auto;
 }
 
@@ -808,7 +825,7 @@ select#locations {
   background: url("/images/down-arrow.svg") no-repeat 95% 50%;
   margin: 10px auto;
   background-color: white;
-  height: 45px !important;
+  height: 50px !important;
   background-size: 24px;
 }
 

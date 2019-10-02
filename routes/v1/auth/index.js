@@ -27,5 +27,6 @@ router.get('/terms', authCtrl.terms);
 
 router.post('/request_off', authCtrl.request_off);
 router.post('/request_complete', authCtrl.request_complete);
+router.post('/blood_change', authCtrl.blood_change);
 
 export default router;

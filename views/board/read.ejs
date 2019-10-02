@@ -168,7 +168,8 @@
                 </tr>
                 <tr>
                     <th>혈액형</th>
-                    <td><%=articleTable.board.blood%></td>
+                    <td><%=(articleTable.board.blood === 'none') ? `미지정 혈액형(요청자 본인 : ${articleTable.board.my_blood})` : articleTable.board.blood%>
+                    </td>
                 </tr>
                 <tr>
                     <th>지역</th>

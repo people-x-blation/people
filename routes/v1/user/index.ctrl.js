@@ -56,12 +56,17 @@ export const mypage = async (req, res) => {
       const member_info = member_db.rows[0];
       console.log(member_info);
       member_info.nickname = deaes(member_info.nickname);
-      member_info.blood = deaes(member_info.blood);
+      member_info.my_blood = deaes(member_info.my_blood);
+      member_info.blood =
+        member_info.blood === aes('none')
+          ? '지정하지 않음'
+          : deaes(member_info.blood);
       member_info.phone = deaes(member_info.phone);
       member_info.email =
         member_info.email == '' || '카카오톡에 연동된 email 없음'
           ? member_info.email
           : deaes(member_info.email);
+      console.log('??????', member_info.my_blood);
 
       res.render('user/mypage', {
         kakao_info: kakao_info,

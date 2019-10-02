@@ -99,7 +99,7 @@
         <div data-aos="fade-left" data-aos-duration="1300" class="list_container">
             <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
                 <span id="highlight_location"><%=locationTable[list[item].location]%></span>
-                <span id="highlight_blood"><%=list[item].blood%></span>
+                <span id="highlight_blood"><%=(list[item].blood === 'none') ? '미지정' : list[item].blood%></span>
             </div>
             <div class="content_wrapper">
                 <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> <span id="list_user_id">
@@ -128,6 +128,7 @@
     <script>
         $(document).ready(function () {
             const bloodColorTable = {
+                'none': '#acada8',
                 'RH+ A': '#e56662',
                 'RH+A': '#e56662',
                 'RH+ B': '#e0514e',
@@ -150,7 +151,7 @@
                 const html = '<div data-aos="fade-left" data-aos-duration="1300" class="list_container">' +
                     `<div class="highlight_wrapper" style="background-color:${bloodColorTable[vo.blood]}">` +
                     '<span id="highlight_location"><%=locationTable[' + vo.location + ']%></span>' +
-                    '<span id="highlight_blood">' + vo.blood + '</span>' +
+                    '<span id="highlight_blood">' + ((vo.blood == 'none') ? '미지정' : vo.blood) + '</span>' +
                     '</div>' +
                     '<div class="content_wrapper">' +
                     '<hidden id="boardnum" value=' + vo.boardnum + '</hidden>' +

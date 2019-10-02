@@ -86,7 +86,7 @@ export const signupUpdate = async (user_input) => {
   // 추후 리팩토링 필요
   try {
     const instance = new Singleton();
-    const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE id = '${user_input.id}'`;
+    const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}',phone = '${user_input.phone}', my_blood = '${user_input.my_blood}' WHERE id = '${user_input.id}'`;
     const result = await instance.query(query);
     console.log(
       `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE id = '${user_input.id}'`,

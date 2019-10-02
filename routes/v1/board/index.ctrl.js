@@ -27,6 +27,7 @@ const locationTable = {
 
 // 혈액형 하이라이트 색상 매핑용
 const bloodColorTable = {
+  none: '#acada8',
   'RH+ A': '#e56662',
   'RH+A': '#e56662',
   'RH+ B': '#e0514e',
@@ -137,7 +138,7 @@ export const read = async (req, res) => {
   const boardnum = req.params.boardnum;
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, b.author, u.nickname, r.usernum',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -163,6 +164,7 @@ export const read = async (req, res) => {
     board_object.contents = detail.contents;
     board_object.nickname = deaes(detail.nickname);
     board_object.blood = deaes(detail.blood);
+    board_object.my_blood = deaes(detail.my_blood);
     board_object.usernum = detail.author;
     board_object.num_part = partInfo.rows.length;
 
