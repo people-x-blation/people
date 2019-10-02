@@ -10,13 +10,15 @@ export const select = async (object, table, where, add = '', add2 = '') => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. select query',
-      err,
+      err.stack,
       `SELECT ${object} FROM ${table} ${add} WHERE ${where} ${add2}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };
 
@@ -30,13 +32,15 @@ export const findOne = async (where) => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. findone query',
-      err,
+      err.stack,
       `SELECT * FROM member WHERE id='${where}'`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };
 
@@ -52,13 +56,15 @@ export const insert = async (object, table, add = '', order = '') => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. insert query',
-      err,
+      err.stack,
       `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };
 
@@ -73,12 +79,14 @@ export const update = async (object, ToBEObject, table, where = '') => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. update query',
-      err,
+      err.stack,
       `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };
 
@@ -92,12 +100,14 @@ export const signupUpdate = async (user_input) => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. signupUpdate query',
-      err,
+      err.stack,
       `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}', phone = '${user_input.phone}' WHERE id = '${user_input.id}'`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };
 
@@ -109,12 +119,14 @@ export const destroy = async (table, where = '') => {
   } catch (err) {
     const arr = [
       '에러가 발생하였습니다. destroy query',
-      err,
+      err.stack,
       `DELETE FROM ${table} WHERE ${where}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    err.message = arr.join('\n');
+    throw new Error(err);
   }
 };

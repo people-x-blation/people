@@ -46,7 +46,7 @@ const bloodColorTable = {
   'RH-O': '#36bc9b',
 };
 
-export const boardlist = async (req, res) => {
+export const boardlist = async (req, res, next) => {
   try {
     const locations = req.params.location;
     let query = '';
@@ -126,15 +126,16 @@ export const boardlist = async (req, res) => {
       res.json(boardList);
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. board list', err];
+    const arr = ['에러가 발생하였습니다. board list', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
-export const read = async (req, res) => {
+export const read = async (req, res, next) => {
   const boardnum = req.params.boardnum;
   try {
     const article = await select(
@@ -222,11 +223,12 @@ export const read = async (req, res) => {
       });
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. board read', err];
+    const arr = ['에러가 발생하였습니다. board read', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
@@ -238,7 +240,7 @@ export const write = async (req, res) => {
   res.render('board/write');
 };
 
-export const upload = async (req, res) => {
+export const upload = async (req, res, next) => {
   try {
     const user = await findOne(req.user.id);
     const new_board = new Board();
@@ -282,28 +284,30 @@ export const upload = async (req, res) => {
       throw new Error('board insert 실패, rowcount ==0');
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. board upload', err];
+    const arr = ['에러가 발생하였습니다. board upload', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
-export const comment_destroy = async (req, res) => {
+export const comment_destroy = async (req, res, next) => {
   try {
     const comment_num = req.body.comment_num;
     const comment_d = await destroy('comment', `commentnum = ${comment_num}`);
     res.redirect('back');
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. comment_destroy ', err];
+    const arr = ['에러가 발생하였습니다. comment_destroy ', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    next(err);
   }
 };
 
-export const comment_upload = async (req, res) => {
+export const comment_upload = async (req, res, next) => {
   const commentTable = new Comment();
   commentTable.boardnum = req.body.boardnum;
   commentTable.content = req.body.contents;
@@ -315,16 +319,17 @@ export const comment_upload = async (req, res) => {
       'comment',
     );
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. comment upload', err];
+    const arr = ['에러가 발생하였습니다. comment upload', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
   res.redirect('back');
 };
 
-export const participate = async (req, res) => {
+export const participate = async (req, res, next) => {
   const participantsTable = Object.create(participants);
   participantsTable.boardnum = req.body.boardnum;
   participantsTable.request_usernum = req.body.request_usernum;
@@ -336,10 +341,11 @@ export const participate = async (req, res) => {
       'participants(boardnum, request_usernum, part_usernum)',
     );
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. participate', err];
+    const arr = ['에러가 발생하였습니다. participate', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    next(err);
     console.log(err);
   }
 

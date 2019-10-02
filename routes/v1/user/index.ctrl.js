@@ -3,7 +3,7 @@ import axios from 'axios';
 import { aes, deaes } from '~/util/crypto';
 import _ from 'lodash';
 
-export const mypage = async (req, res) => {
+export const mypage = async (req, res, next) => {
   try {
     if (req.user) {
       const kakao_info = JSON.parse(req.user._raw);
@@ -76,15 +76,16 @@ export const mypage = async (req, res) => {
       res.redirect('/');
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. mypage', err];
+    const arr = ['에러가 발생하였습니다. mypage', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
-export const request_off = async (req, res) => {
+export const request_off = async (req, res, next) => {
   const boardnum = req.body.request_off;
   try {
     const showUpdate = await update(
@@ -100,16 +101,17 @@ export const request_off = async (req, res) => {
       throw new Error('show_flag 게시중지 업데이트 실패, rowcount 0');
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. request_off', err];
+    const arr = ['에러가 발생하였습니다. request_off', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);
+    next(err);
   }
   res.redirect('../user/mypage');
 };
 
-export const blood_change = async (req, res) => {
+export const blood_change = async (req, res, next) => {
   console.log(req.body);
   try {
     const bloodUpdateValue = aes(req.body.blood);
@@ -121,10 +123,11 @@ export const blood_change = async (req, res) => {
       `WHERE usernum = ${usernum}`,
     );
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. auth/blood change', err];
+    const arr = ['에러가 발생하였습니다. auth/blood change', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    next(err);
   }
   res.redirect('back');
 };

@@ -25,7 +25,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
   try {
     const user_input = new Member();
     for (let input in req.body) {
@@ -37,11 +37,12 @@ export const register = async (req, res) => {
     const update_member = await signupUpdate(user_input);
     res.redirect('../user/mypage');
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. auth register', err];
+    const arr = ['에러가 발생하였습니다. auth register', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
@@ -58,7 +59,7 @@ export const logout = async (req, res) => {
   });
 };
 
-export const leave = async (req, res) => {
+export const leave = async (req, res, next) => {
   try {
     if (req.user) {
       const id = req.user.id;
@@ -77,15 +78,16 @@ export const leave = async (req, res) => {
       res.json({ status: 'no user session' });
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. leave', err];
+    const arr = ['에러가 발생하였습니다. leave', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log(err);
+    next(err);
   }
 };
 
-export const request_off = async (req, res) => {
+export const request_off = async (req, res, next) => {
   const boardnum = req.body.request_off;
   try {
     const showUpdate = await update(
@@ -95,16 +97,17 @@ export const request_off = async (req, res) => {
       `WHERE boardnum = ${boardnum}`,
     );
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. auth/request off', err];
+    const arr = ['에러가 발생하였습니다. auth/request off', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);
+    next(err);
   }
   res.redirect('../user/mypage');
 };
 
-export const request_complete = async (req, res) => {
+export const request_complete = async (req, res, next) => {
   const boardnum = req.body.request_complete;
   try {
     const showUpdate = await update(
@@ -114,11 +117,12 @@ export const request_complete = async (req, res) => {
       `WHERE boardnum = ${boardnum}`,
     );
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. auth/request complete', err];
+    const arr = ['에러가 발생하였습니다. auth/request complete', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
     console.log('상태변경 실패', e);
+    next(err);
   }
   res.redirect('../user/mypage');
 };
