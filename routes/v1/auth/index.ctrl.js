@@ -16,7 +16,13 @@ export const login = async (req, res) => {
   ) {
     res.render('auth/terms', { status: true });
   } else {
-    res.redirect('/');
+    console.log('로그인 됨');
+    res.send(
+      '<script type="text/javascript"> \
+      alert("정상적으로 로그인 되었습니다.");\
+      location.href="/board"\
+      </script>',
+    );
   }
 };
 
