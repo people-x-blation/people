@@ -62,10 +62,7 @@ export const mypage = async (req, res) => {
           ? '지정하지 않음'
           : deaes(member_info.blood);
       member_info.phone = deaes(member_info.phone);
-      member_info.email =
-        member_info.email == '' || '카카오톡에 연동된 email 없음'
-          ? member_info.email
-          : deaes(member_info.email);
+      member_info.email = deaes(member_info.email);
       console.log('??????', member_info.my_blood);
 
       res.render('user/mypage', {

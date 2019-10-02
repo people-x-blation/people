@@ -751,9 +751,12 @@ button#signup_submit_btn {
 }
 
 span#signup_phone_notice,
-span#signup_blood_notice {
+span#signup_blood_notice,
+span#signup_email_notice {
   font-size: 0.55rem;
   display: block;
+  color: #5e5e5e;
+  margin-bottom: 5px;
 }
 
 select {

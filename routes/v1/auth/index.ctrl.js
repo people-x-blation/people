@@ -115,6 +115,7 @@ export const request_complete = async (req, res) => {
 };
 
 export const terms = async (req, res) => {
+  console.log('유저 세션 정보', req.user._json);
   res.render('auth/signup', { email: req.user._json.kaccount_email });
 };
 
