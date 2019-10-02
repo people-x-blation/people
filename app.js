@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import createError from 'http-errors';
 import passportConfig from 'lib/kakao';
+import { findOne } from 'db/query';
 
 const app = express();
 
@@ -45,10 +46,19 @@ app.use(bodyParser.json());
 app.use(passport.session());
 passportConfig(app, passport);
 // route
-app.use(function(req, res, next) {
+app.use(async (req, res, next) => {
   res.locals.user = req.user;
+  if (req.user) {
+    const isSignup = await findOne(req.user.id);
+    if (!isSignup.rows[0].nickname) {
+      if (!req.url.includes('auth')) {
+        res.redirect('/auth/kakao');
+      }
+    }
+  }
   next();
 });
+
 app.use('/', router);
 
 // catch 404 and forward to error handler
