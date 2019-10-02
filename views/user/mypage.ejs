@@ -85,7 +85,7 @@
             <th>수혈자 혈액형</th>
             <td>
               <%=member_db.blood%>
-              <form action="/auth/blood_change" method="POST" id="signup_blood_form">
+              <form action="/user/blood_change" method="POST" id="signup_blood_form">
                 <select name="blood">
                   <option value="none">없음</option>
                   <option value="RH+A">RH+ A형</option>
@@ -238,7 +238,7 @@
     <% if(board_db[item].show_flag == '1') { %>
     <form class="mypage_request_off_form" action="../auth/request_off" method="POST">
       <input type="hidden" name="request_off" value="<%=board_db[item].boardnum%>" />
-      <button class="mypage_request_off_btn">요청 내리기</button>
+      <button class="mypage_request_off_btn">요청 삭제</button>
     </form>
     <form class="mypage_request_off_form" action="../auth/request_complete" method="POST">
       <input type="hidden" name="request_complete" value="<%=board_db[item].boardnum%>" />
