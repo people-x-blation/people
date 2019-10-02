@@ -217,31 +217,31 @@
             <% if(user) { %>
             <span id="read_comment_label">참여 / 응원 댓글 작성</span>
             <div class="read_comment_write">
-                <form action="../comment_upload" method="POST">
-                    <input type="hidden" name="boardnum" value="<%=articleTable.board.boardnum%>" />
-                    <input type="hidden" name="usernum" value="<%=whoAmI%>" />
-                    <input id="read_comment_form" type="text" name="contents" />
-                    <button id="read_comment_submit">작성</button>
-                </form>
+                <input type="hidden" id="read_comment_boardnum" name="boardnum" value="<%=articleTable.board.boardnum%>" />
+                <input type="hidden" id="read_comment_usernum" name="usernum" value="<%=whoAmI%>" />
+                <input id="read_comment_form" type="text" name="contents" />
+                <button id="read_comment_submit">작성</button>
             </div>
             <% } %>
             <% if(articleTable.reply.length > 0){ %>
-            <% for(let item=0; item<articleTable.reply.length; item++ ){ %>
-            <div class="read_comment_wrapper">
-                <div class="read_comment_user"><%=articleTable.reply[item].replier %></div>
-                <p class="read_comment_content"><%=articleTable.reply[item].content %></p>
+            <div id='wrapper'>
+                <% for(let item=0; item<articleTable.reply.length; item++ ){ %>
+                <div class="read_comment_wrapper">
+                    <div class="read_comment_user"><%=articleTable.reply[item].replier %></div>
+                    <p class="read_comment_content"><%=articleTable.reply[item].content %></p>
 
-                <div class="read_comment_setting">
-                    <% if(whoAmI != null && articleTable.reply[item].usernum == whoAmI) { %>
-                    <form action="../comment_destroy" method="POST">
-                        <input type="hidden" name="comment_num" value="<%=articleTable.reply[item].comment_num%>">
-                        <button>삭제</button>
-                    </form>
-                    <% } %>
+                    <div class="read_comment_setting">
+                        <% if(whoAmI != null && articleTable.reply[item].usernum == whoAmI) { %>
+                        <form action="../comment_destroy" method="POST">
+                            <input type="hidden" name="comment_num" value="<%=articleTable.reply[item].comment_num%>">
+                            <button>삭제</button>
+                        </form>
+                        <% } %>
+                    </div>
+
                 </div>
-
+                <% }}%>
             </div>
-            <% }}%>
         </div>
     </div>
 

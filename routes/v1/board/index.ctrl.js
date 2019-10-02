@@ -177,7 +177,10 @@ export const read = async (req, res, next) => {
       repl.usernum = item.usernum;
       repl.comment_num = item.commentnum;
       repl.content = item.comment;
-      repl.replier = item.replier === null ? null : deaes(item.replier);
+      repl.replier =
+        typeof item.replier == null || item.replier == ''
+          ? null
+          : deaes(item.replier);
       comments.push(repl);
     }
     const articleTable = {
@@ -314,10 +317,21 @@ export const comment_upload = async (req, res, next) => {
   commentTable.replier = req.body.usernum;
 
   try {
-    const uploading = await insert(
-      `DEFAULT,'${commentTable.boardnum}', '${commentTable.replier}', '${commentTable.content}'`,
-      'comment',
-    );
+    const isSignup = await findOne(req.user.id);
+    if (isSignup.rows[0].nickname == '') {
+      res.json({ status: 'error' });
+    } else {
+      const uploading = await insert(
+        `DEFAULT,'${commentTable.boardnum}', '${commentTable.replier}', '${commentTable.content}'`,
+        'comment',
+        'returning *',
+      );
+      res.json({
+        status: 'ok',
+        replier: deaes(isSignup.rows[0].nickname),
+        comment: uploading.rows[0],
+      });
+    }
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment upload', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
@@ -326,7 +340,6 @@ export const comment_upload = async (req, res, next) => {
     console.log(err);
     next(err);
   }
-  res.redirect('back');
 };
 
 export const participate = async (req, res, next) => {

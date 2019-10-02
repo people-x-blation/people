@@ -40,12 +40,12 @@ window.onload = function() {
   });
 
   $('#search_bar_icon').click(function(err) {
-    var locations = $('[name="locations"] option:selected').val();
-    var keyword = $('#search_bar').val();
+    const locations = $('[name="locations"] option:selected').val();
+    const keyword = $('#search_bar').val();
 
     locations = locations == '지역을 선택해 주십시오.' ? '' : locations;
     if (locations != '' || keyword != '') {
-      var url = '/board/' + locations + '?keyword=' + keyword;
+      const url = '/board/' + locations + '?keyword=' + keyword;
       location.href = url;
     } else {
       alert('지역이나, 검색어 둘 중 하나는 입력해주십시오.');
@@ -53,11 +53,43 @@ window.onload = function() {
   });
 
   $('#read_comment_submit').click(function(err) {
-    var comment = $('#read_comment_form').val();
+    const comment = $('#read_comment_form').val();
     if (comment == '') {
       alert('댓글을 입력해주세요.');
       return false;
     }
+    $.ajax({
+      url: '/board/comment_upload',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        boardnum: $('#read_comment_boardnum').val(),
+        usernum: $('#read_comment_usernum').val(),
+        contents: comment,
+      },
+      success: function(result) {
+        if (result.status == 'ok') {
+          console.log(1);
+          const html =
+            '<div class="read_comment_wrapper"><div class="read_comment_user">' +
+            result.replier +
+            '</div><p class="read_comment_content">' +
+            comment +
+            '</p><div class="read_comment_setting"><form action="../comment_destroy" method="POST"><input type="hidden" name="comment_num" value="' +
+            result.comment.commentnum +
+            '"><button>삭제</button></form></div></div>';
+          $('#wrapper').prepend(html);
+        } else {
+          alert(
+            '댓글 작성에 실패했습니다. 로그인 상태나 부적절한 접근인지 확인해주세요.',
+          );
+          location.href = '/auth/kakao';
+        }
+      },
+      error: function(err) {
+        console.log(err);
+      },
+    });
   });
 };
 
