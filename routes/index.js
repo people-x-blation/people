@@ -10,5 +10,8 @@ router.use('/', mainRouter);
 router.use('/board', boardRouter);
 router.use('/user', userRouter);
 router.use('/auth', authRouter);
+router.use('/error', (req, res) => {
+  res.render('error');
+});
 
 export default router;
