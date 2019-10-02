@@ -54,7 +54,6 @@ export const mypage = async (req, res) => {
       }
       //복호화
       const member_info = member_db.rows[0];
-      console.log(member_info);
       member_info.nickname = deaes(member_info.nickname);
       member_info.my_blood = deaes(member_info.my_blood);
       member_info.blood =
@@ -63,7 +62,6 @@ export const mypage = async (req, res) => {
           : deaes(member_info.blood);
       member_info.phone = deaes(member_info.phone);
       member_info.email = deaes(member_info.email);
-      console.log('??????', member_info.my_blood);
 
       res.render('user/mypage', {
         kakao_info: kakao_info,
@@ -109,4 +107,24 @@ export const request_off = async (req, res) => {
     console.log('상태변경 실패', e);
   }
   res.redirect('../user/mypage');
+};
+
+export const blood_change = async (req, res) => {
+  console.log(req.body);
+  try {
+    const bloodUpdateValue = aes(req.body.blood);
+    const usernum = req.body.usernum;
+    const blood_changer = await update(
+      'blood',
+      `'${bloodUpdateValue}'`,
+      'member',
+      `WHERE usernum = ${usernum}`,
+    );
+  } catch (err) {
+    const arr = ['에러가 발생하였습니다. auth/blood change', err];
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
+      text: arr.join('\n'),
+    });
+  }
+  res.redirect('back');
 };

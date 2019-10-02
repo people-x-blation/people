@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
 const router = new Router();
-import { mypage, request_off } from './index.ctrl';
+import { mypage, request_off, blood_change } from './index.ctrl';
 
 router.get('/mypage', mypage);
 router.post('/request_off', request_off);
-
+router.post('/blood_change', blood_change);
 export default router;

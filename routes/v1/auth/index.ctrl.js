@@ -16,7 +16,6 @@ export const login = async (req, res) => {
   ) {
     res.render('auth/terms', { status: true });
   } else {
-    console.log('로그인 됨');
     res.send(
       '<script type="text/javascript"> \
       alert("정상적으로 로그인 되었습니다.");\
@@ -28,7 +27,6 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    console.log('레지스터 과정', req.body);
     const user_input = new Member();
     for (let input in req.body) {
       let result = aes(req.body[input]);
@@ -126,26 +124,5 @@ export const request_complete = async (req, res) => {
 };
 
 export const terms = async (req, res) => {
-  console.log('유저 세션 정보', req.user._json);
   res.render('auth/signup', { email: req.user._json.kaccount_email });
-};
-
-export const blood_change = async (req, res) => {
-  console.log(req.body);
-  try {
-    const bloodUpdateValue = aes(req.body.blood);
-    const usernum = req.body.usernum;
-    const blood_changer = await update(
-      'blood',
-      `'${bloodUpdateValue}'`,
-      'member',
-      `WHERE usernum = ${usernum}`,
-    );
-  } catch (err) {
-    const arr = ['에러가 발생하였습니다. auth/blood change', err];
-    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
-      text: arr.join('\n'),
-    });
-  }
-  res.redirect('back');
 };
