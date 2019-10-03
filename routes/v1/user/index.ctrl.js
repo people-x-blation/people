@@ -34,10 +34,11 @@ export const mypage = async (req, res, next) => {
       _.map(participants_db.rows, (row, iter) => {
         _.map(row, (input, key) => {
           if (
-            key == 'blood' ||
+            key == 'my_blood' ||
             key == 'nickname' ||
             key == 'phone' ||
-            key == 'email'
+            key == 'email' ||
+            key == 'blood'
           ) {
             participants_list[iter][key] = deaes(input);
           } else {
@@ -45,6 +46,7 @@ export const mypage = async (req, res, next) => {
           }
         });
       });
+
       //}
       //console.log(participants_count);
       // 참여 한 게시물 수 카운트

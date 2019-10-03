@@ -1,9 +1,8 @@
-import { findOne, update, signupUpdate, destroy } from '~/db/query';
+import { findOne, update, signupUpdate, destroy, insert } from '~/db/query';
 import { Member, NoticeDB } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import { aes } from '~/util/crypto';
-import { insert } from '../../../db/query';
 
 export const login = async (req, res) => {
   const result = await findOne(req.user.id);
@@ -133,19 +132,22 @@ export const terms = async (req, res) => {
 };
 
 export const notice_write = async (req, res) => {
-  console.log(req.body);
   const noticeTable = new NoticeDB();
   noticeTable.title = req.body.title;
   noticeTable.contents = req.body.contents;
-  console.log(noticeTable);
-  try{
+  try {
+    const isAdmin = await findOne(req.user.id);
+    if (!isAdmin.rows[0].is_admin) {
+      throw new Error('관리자가 아닙니다.');
+    }
+
     const write = await insert(
       `'${noticeTable.title}', '${noticeTable.contents}'`,
       'notice',
       'returning *',
       `(title, contents)`,
     );
-  }catch(err){
+  } catch (err) {
     const arr = ['에러가 발생하였습니다. notice upload', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
@@ -154,17 +156,21 @@ export const notice_write = async (req, res) => {
     next(err);
   }
   res.redirect('/notice');
-}
+};
 
 export const notice_delete = async (req, res) => {
-  try{
+  try {
+    const isAdmin = await findOne(req.user.id);
+    if (!isAdmin.rows[0].is_admin) {
+      throw new Error('관리자가 아닙니다.');
+    }
     const deleteUpdate = update(
       'show_flag',
       'false',
       'notice',
-      `WHERE notinum = ${req.body.notinum}`
+      `WHERE notinum = ${req.body.notinum}`,
     );
-  }catch(err){
+  } catch (err) {
     const arr = ['에러가 발생하였습니다. notice delete', err.stack];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
@@ -172,6 +178,6 @@ export const notice_delete = async (req, res) => {
     console.log(err);
     next(err);
   }
-  
+
   res.redirect('/notice');
-}
+};
