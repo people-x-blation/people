@@ -17,6 +17,7 @@ export const select = async (object, table, where, add = '', add2 = '') => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -38,6 +39,7 @@ export const findOne = async (where) => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -60,6 +62,7 @@ export const insert = async (object, table, add = '', order = '') => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -82,6 +85,7 @@ export const update = async (object, ToBEObject, table, where = '') => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -103,6 +107,7 @@ export const signupUpdate = async (user_input) => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -122,6 +127,7 @@ export const destroy = async (table, where = '') => {
       text: arr.join('\n'),
     });
     err.message = arr.join('\n');
+    console.log(err);
     throw new Error(err);
   }
 };
