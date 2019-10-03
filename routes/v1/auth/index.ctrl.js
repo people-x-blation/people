@@ -7,7 +7,7 @@ import { aes } from '~/util/crypto';
 export const login = async (req, res) => {
   const result = await findOne(req.user.id);
   const data = result.rows[0];
-  //nickname 설정 안되어있으면 회원가입폼
+  
   if (
     data.length == 0 ||
     data.nickname === '' ||
@@ -41,14 +41,13 @@ export const register = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(err);
     next(err);
   }
 };
 
 export const logout = async (req, res) => {
-  // req.logout();
   req.logout();
+  
   req.session.destroy(function(err) {
     res.send(
       '<script type="text/javascript"> \
@@ -82,7 +81,6 @@ export const leave = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(err);
     next(err);
   }
 };
@@ -101,7 +99,6 @@ export const request_off = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log('상태변경 실패', e);
     next(err);
   }
   res.redirect('../user/mypage');
@@ -121,7 +118,6 @@ export const request_complete = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log('상태변경 실패', e);
     next(err);
   }
   res.redirect('../user/mypage');
@@ -135,12 +131,13 @@ export const notice_write = async (req, res) => {
   const noticeTable = new NoticeDB();
   noticeTable.title = req.body.title;
   noticeTable.contents = req.body.contents;
+
   try {
     const isAdmin = await findOne(req.user.id);
     if (!isAdmin.rows[0].is_admin) {
       throw new Error('관리자가 아닙니다.');
     }
-
+    
     const write = await insert(
       `'${noticeTable.title}', '${noticeTable.contents}'`,
       'notice',
@@ -152,7 +149,6 @@ export const notice_write = async (req, res) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(err);
     next(err);
   }
   res.redirect('/notice');
@@ -175,7 +171,6 @@ export const notice_delete = async (req, res) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(err);
     next(err);
   }
 

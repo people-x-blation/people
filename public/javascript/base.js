@@ -69,7 +69,6 @@ window.onload = function() {
       },
       success: function(result) {
         if (result.status == 'ok') {
-          console.log(1);
           const html =
             '<div class="read_comment_wrapper"><div class="read_comment_user">' +
             result.replier +
