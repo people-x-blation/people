@@ -26,8 +26,6 @@ export const notice = async(req,res) => {
     'show_flag = true',
   );
 
-  // console.log(article.rows.reverse());
-
   if(typeof req.user !== 'undefined') {
     const is_admin = await select(
       'is_admin',

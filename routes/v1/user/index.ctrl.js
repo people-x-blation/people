@@ -45,8 +45,7 @@ export const mypage = async (req, res, next) => {
           }
         });
       });
-      //}
-      //console.log(participants_count);
+      
       // 참여 한 게시물 수 카운트
       let participation_count = 0;
       for (let iter in participation_db.rows) {
@@ -80,7 +79,6 @@ export const mypage = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log(err);
     next(err);
   }
 };
@@ -105,14 +103,12 @@ export const request_off = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
-    console.log('상태변경 실패', e);
     next(err);
   }
   res.redirect('../user/mypage');
 };
 
 export const blood_change = async (req, res, next) => {
-  console.log(req.body);
   try {
     const bloodUpdateValue = aes(req.body.blood);
     const usernum = req.body.usernum;
