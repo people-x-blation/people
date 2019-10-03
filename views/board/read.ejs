@@ -234,7 +234,6 @@
                 <div class="read_comment_wrapper">
                     <div class="read_comment_user"><%=articleTable.reply[item].replier %></div>
                     <p class="read_comment_content"><%=articleTable.reply[item].content %></p>
-
                     <div class="read_comment_setting">
                         <% if(whoAmI != null && articleTable.reply[item].usernum == whoAmI) { %>
                         <form action="../comment_destroy" method="POST">
@@ -243,7 +242,6 @@
                         </form>
                         <% } %>
                     </div>
-
                 </div>
                 <% }}%>
             </div>

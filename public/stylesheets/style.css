@@ -515,29 +515,30 @@ nav ul li a {
 
 .read_comment_write {
   width: 100% !important;
-
-
 }
 
 .read_comment_write form{
   display: flex;
+  flex-direction: column !important;
+  justify-content: center;
 }
 
-#read_comment_form {
-  border-radius: 3px;
-  /* height: 10px !important; */
-  padding: 2px 5px;
-  height: 40px;
+#read_comment_form{
+  display: block;
+  width: 80%;
 }
 
-#read_comment_submit {
-  align-self: center;
-  font-size: 0.75rem;
-  flex-basis: 10%;
-  margin: 0px 10px;
-  height: 40px;
-  padding: 0;
+#read_comment_submit{
+  display: block;
+  width: 20%;
+  margin: 0 10% 0 auto;
+  border: none;
+  background-color: #f76363;
+  color: white;
+  padding: 1px 3px;
+  border-radius: 5px;
 }
+
 
 table.read_info_table {
   width: 100%;
