@@ -21,9 +21,9 @@ export const notice = async (req, res) => {
 
   const article = await select('*', 'notice', 'show_flag = true');
 
+  // console.log(article.rows.reverse());
 
-  if(typeof req.user !== 'undefined') {
-
+  if (typeof req.user !== 'undefined') {
     const is_admin = await select(
       'is_admin',
       'member',
