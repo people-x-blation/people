@@ -1,7 +1,8 @@
 import { Router } from 'express';
 const router = new Router();
-import { index } from './index.ctrl';
+import { index, notice } from './index.ctrl';
 
 router.get('/', index);
+router.get('/notice', notice);
 
 export default router;

@@ -1,8 +1,9 @@
 import { findOne, update, signupUpdate, destroy } from '~/db/query';
-import { Member } from '~/db/model';
+import { Member, NoticeDB } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import { aes } from '~/util/crypto';
+import { insert } from '../../../db/query';
 
 export const login = async (req, res) => {
   const result = await findOne(req.user.id);
@@ -130,3 +131,47 @@ export const request_complete = async (req, res, next) => {
 export const terms = async (req, res) => {
   res.render('auth/signup', { email: req.user._json.kaccount_email });
 };
+
+export const notice_write = async (req, res) => {
+  console.log(req.body);
+  const noticeTable = new NoticeDB();
+  noticeTable.title = req.body.title;
+  noticeTable.contents = req.body.contents;
+  console.log(noticeTable);
+  try{
+    const write = await insert(
+      `'${noticeTable.title}', '${noticeTable.contents}'`,
+      'notice',
+      'returning *',
+      `(title, contents)`,
+    );
+  }catch(err){
+    const arr = ['에러가 발생하였습니다. notice upload', err.stack];
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
+      text: arr.join('\n'),
+    });
+    console.log(err);
+    next(err);
+  }
+  res.redirect('/notice');
+}
+
+export const notice_delete = async (req, res) => {
+  try{
+    const deleteUpdate = update(
+      'show_flag',
+      'false',
+      'notice',
+      `WHERE notinum = ${req.body.notinum}`
+    );
+  }catch(err){
+    const arr = ['에러가 발생하였습니다. notice delete', err.stack];
+    const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
+      text: arr.join('\n'),
+    });
+    console.log(err);
+    next(err);
+  }
+  
+  res.redirect('/notice');
+}

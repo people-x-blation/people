@@ -107,6 +107,7 @@
             <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
                 <span id="highlight_location"><%=locationTable[list[item].location]%></span>
                 <span id="highlight_blood"><%=(list[item].blood === 'none') ? '미지정' : list[item].blood%></span>
+                <span id="highlight_type"><%=(list[item].type === null) ? '' : typeTable[list[item].type]%></span>
             </div>
             <div class="content_wrapper">
                 <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> <span id="list_user_id">

@@ -27,5 +27,7 @@ router.get('/terms', authCtrl.terms);
 
 router.post('/request_off', authCtrl.request_off);
 router.post('/request_complete', authCtrl.request_complete);
+router.post('/notice_write', authCtrl.notice_write);
+router.post('/notice_delete', authCtrl.notice_delete);
 
 export default router;

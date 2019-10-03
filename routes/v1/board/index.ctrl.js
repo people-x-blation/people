@@ -46,6 +46,12 @@ const bloodColorTable = {
   'RH-O': '#36bc9b',
 };
 
+const typeTable = [
+  '전혈', 
+  '백혈구', 
+  '혈소판'
+];
+
 export const boardlist = async (req, res, next) => {
   try {
     const locations = req.params.location;
@@ -108,6 +114,7 @@ export const boardlist = async (req, res, next) => {
       board_object.blood = deaes(memberInfo.blood);
       board_object.num_part = partInfo.rows.length;
       board_object.show_flag = item.show_flag;
+      board_object.type = item.type;
 
       boardList.push(board_object);
     }
@@ -121,6 +128,7 @@ export const boardlist = async (req, res, next) => {
             : locationTable[req.params.location],
         locationTable: locationTable,
         bloodColorTable: bloodColorTable,
+        typeTable: typeTable,
       });
     } else {
       res.json(boardList);
@@ -139,7 +147,7 @@ export const read = async (req, res, next) => {
   const boardnum = req.params.boardnum;
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, b.type, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -168,6 +176,7 @@ export const read = async (req, res, next) => {
     board_object.my_blood = deaes(detail.my_blood);
     board_object.usernum = detail.author;
     board_object.num_part = partInfo.rows.length;
+    board_object.type = detail.type;
 
     // 댓글
     const comments = [];
@@ -211,6 +220,7 @@ export const read = async (req, res, next) => {
 
       res.render('board/read', {
         articleTable: articleTable,
+        typeTable: typeTable,
         kakao_info: kakao_info,
         whoAmI: whoAmI.rows[0].usernum,
         participants: participantsTable,
@@ -219,6 +229,7 @@ export const read = async (req, res, next) => {
     } else {
       res.render('board/read', {
         articleTable: articleTable,
+        typeTable: typeTable,
         whoAmI: null,
         alreay_part: false,
       });

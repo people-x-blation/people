@@ -174,8 +174,13 @@
                     <td><%=articleTable.board.nickname%></td>
                 </tr>
                 <tr>
-                    <th>혈액형</th>
+                    <th>수혈자 혈액형</th>
                     <td><%=(articleTable.board.blood === 'none') ? `미지정 혈액형(요청자 본인 : ${articleTable.board.my_blood})` : articleTable.board.blood%>
+                    </td>
+                </tr>
+                <tr>
+                    <th>필요 헌혈 종류</th>
+                    <td><%=(articleTable.board.type == null) ? '미지정' : typeTable[articleTable.board.type]%>
                     </td>
                 </tr>
                 <tr>

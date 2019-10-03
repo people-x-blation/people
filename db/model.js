@@ -1,3 +1,5 @@
+import { throws } from "assert";
+
 export class Member {
   constructor() {
     this.id = '';
@@ -8,6 +10,7 @@ export class Member {
     this.profile = '';
     this.phone = '';
     this.email = '';
+    this.is_admin = false;
   }
 }
 
@@ -21,6 +24,7 @@ export class Board {
     this.locations = '';
     this.hospital = '';
     this.contents = '';
+    this.type = ''; // 0 - 전혈, 1 - 백혈구, 2 - 혈소판, 3 - 향후 추가
   }
 }
 
@@ -38,3 +42,12 @@ export const participants = {
   part_usernum: '',
   show_flag: '',
 };
+
+export class NoticeDB {
+  constructor() {
+    this.notinum = '';
+    this.title = '';
+    this.contents = '';
+    this.create_at = '';
+  }
+}

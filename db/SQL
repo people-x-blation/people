@@ -11,6 +11,7 @@ CREATE TABLE member
     phone     VARCHAR(100)     NOT NULL    , 
     email	VARCHAR(100)     NOT NULL    , 
     usernum SERIAL , 
+    is_admin boolean NOT NULL DEFAULT false,
 	
     PRIMARY KEY (usernum), UNIQUE(nickname)
 );
@@ -31,8 +32,12 @@ CREATE TABLE board
 	locations location_t NOT NULL,
 	hospital VARCHAR(50) NOT NULL,
 	contents TEXT NOT NULL,
+    type integer
     PRIMARY KEY (boardnum)
 );
+
+COMMENT ON COLUMN public.board.type
+    IS '0 : 전혈 / 1 : 백혈구 / 2 : 혈소판 / 기타등등 다른 검사를 위해 남겨둠';
 
 CREATE TABLE comment
 (
@@ -79,3 +84,14 @@ CREATE TABLE public.participants
 );
 ALTER TABLE public.participants
     ADD COLUMN show_flag boolean NOT NULL DEFAULT True;
+
+
+CREATE TABLE public.notice
+(
+    notinum SERIAL,
+    title character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    contents text COLLATE pg_catalog."default" NOT NULL,
+    create_at   timestamp    NOT NULL default current_timestamp,
+    CONSTRAINT notice_pkey PRIMARY KEY (notinum)
+)
+
