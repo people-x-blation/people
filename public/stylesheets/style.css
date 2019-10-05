@@ -380,7 +380,7 @@ img#profile_pic {
 
   position: fixed;
   top: 5px;
-  right: 5px;
+  left: 5px;
   z-index: 99;
 }
 
