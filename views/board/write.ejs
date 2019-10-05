@@ -44,8 +44,6 @@
             </li>
             <li><a href="/board"><img id="nav_home" src="/images/home.svg" alt="홈" /></a><span id="nav_home_span">요청
                     리스트</span></li>
-            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span
-                    id="nav_search_span">검색</span></li>
             <% if(!user) { %>
             <li><a href="/auth/kakao"><img id="nav_login" src="/images/login.svg" alt="로그인" /></a><span
                     id="nav_login_span">로그인</span></li>
@@ -54,6 +52,8 @@
             <li><a href="/board/write"><img id="nav_write" src="/images/write.svg" alt="글 작성" /></a><span
                     id="nav_write_span">요청</span></li>
             <% } %>
+            <li><a href="/board/search"><img id="nav_search" src="/images/search.svg" alt="검색" /></a><span
+                id="nav_search_span">검색</span></li>
             <% if(user) { %>
             <li><a href="/user/mypage"><img id="nav_mypage" src="/images/mypage.svg" alt="마이페이지" /></a><span
                     id="nav_mypage_span">마이페이지</span></li>
@@ -69,7 +69,7 @@
 
     <aside id="write_direction">
         <h3>이렇게 작성해주세요!</h3>
-        <em class="direction_emp">많은 사람들의 참여를 유도하기 위해 구체적이고 자세한 사연 부탁드립니다.</em>
+        <em class="direction_emp">많은 사람들의 참여를 유도하기 위해<br/>구체적이고 자세한 사연 부탁드립니다.</em>
         <blockquote>안녕하세요<br />
             저희 ○○○를 도와주세요. 누구보다 자식을 위해 열심히 밤낮없이 사셨던 분입니다.<br />
             위중한 상태이며, 여러분의 도움이 꼭 필요합니다.<br />
@@ -82,7 +82,7 @@
     <div class="form_wrapper">
         <form action="/board/upload" method="post" id="write_form">
             <select name="locations" id="locations">
-                <option>지역을 선택해 주십시오.</option>
+                <option value="-1">지역을 선택해 주십시오.</option>
                 <option value="1">서울특별시</option>
                 <option value="2">부산광역시</option>
                 <option value="3">대구광역시</option>
@@ -115,7 +115,6 @@
             <br />
             <span id="write_info">모든 게시글은 승인후에 게시됩니다.</span>
             <button onclick="submit_check(CKEDITOR)" id="write_request_btn">게시요청</button>
-            <button onclick="write_cancel()">작성취소</button>
         </form>
     </div>
 

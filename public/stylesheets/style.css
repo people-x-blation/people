@@ -828,6 +828,9 @@ textarea#write_content {
   padding: 10px;
   color: #8c8c8c;
   text-align: center;
+  border: 1px solid #f76363;
+  border-radius: 15px;
+  margin: 20px 15px;
 }
 
 #write_direction > h3{
@@ -978,12 +981,13 @@ input#search_bar{
   display: block;
   font-size: 0.9rem;
   text-align: center;
-  color: red;
+  color: #f76363;
   padding: 10px;
-  border: 1px solid red;
+  border: 1px solid #f76363;
   background-color: rgba(255, 255, 255, 0.4);
 
-  margin: 0 auto;
+  margin: 10px 20px;
+  border-radius: 15px;
 }
 
 #list_no_result {

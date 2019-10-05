@@ -105,10 +105,6 @@ function read_comment_closeSetting() {
   document.getElementsByClassName('menu_container')[1].style.display = 'none';
 }
 
-function write_cancel() {
-  location.href = '/board';
-}
-
 function submit_check(CKEDITOR) {
   var text = CKEDITOR.instances.write_content.getData();
 
@@ -117,7 +113,7 @@ function submit_check(CKEDITOR) {
     alert('제목을 써주세요.');
     flag = false;
   } else if (
-    $('#locations option:selected').val() == '지역을 선택해 주십시오.'
+    $('#locations option:selected').val() == -1
   ) {
     alert('지역을 골라주세요.');
     flag = false;
