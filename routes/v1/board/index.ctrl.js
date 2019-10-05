@@ -46,13 +46,7 @@ const bloodColorTable = {
   'RH-O': '#36bc9b',
 };
 
-const typeTable = [
-  '전혈', 
-  '백혈구', 
-  '혈소판',
-  '적혈구',
-  '혈장'
-];
+const typeTable = ['전혈', '백혈구', '혈소판', '적혈구', '혈장'];
 
 export const boardlist = async (req, res, next) => {
   try {
@@ -77,7 +71,7 @@ export const boardlist = async (req, res, next) => {
       'board',
       where,
       '',
-      `order by boardnum desc limit ${size} offset ${begin}`,
+      `order by show_flag,boardnum desc limit ${size} offset ${begin}`,
     );
 
     const boardList = [];
@@ -266,7 +260,7 @@ export const upload = async (req, res, next) => {
     new_board.hospital = req.body.hospital;
     new_board.contents = req.body.contents;
     new_board.show_flag = '2';
-    new_board.type = (req.body.type == -1) ? null : req.body.type;
+    new_board.type = req.body.type == -1 ? null : req.body.type;
 
     console.log(req.body.type);
 
