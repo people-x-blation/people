@@ -37,7 +37,7 @@ CREATE TABLE board
 );
 
 COMMENT ON COLUMN public.board.type
-    IS '0 : 전혈 / 1 : 백혈구 / 2 : 혈소판 / 기타등등 다른 검사를 위해 남겨둠';
+    IS '0 : 전혈 / 1 : 백혈구 / 2 : 혈소판 / 3 : 적혈구 / 4: 혈장';
 
 CREATE TABLE comment
 (
