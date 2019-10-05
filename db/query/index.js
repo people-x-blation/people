@@ -16,6 +16,7 @@ export const select = async (object, table, where, add = '', add2 = '') => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     err.message = arr.join('\n');
     throw new Error(err);
   }
@@ -37,6 +38,7 @@ export const findOne = async (where) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     err.message = arr.join('\n');
     throw new Error(err);
   }
@@ -45,6 +47,7 @@ export const findOne = async (where) => {
 export const insert = async (object, table, add = '', order = '') => {
   try {
     const instance = new Singleton();
+    console.log('쿼리', `INSERT INTO ${table}${order}  VALUES (${object})`);
     const result = await instance.query(
       `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
     );
@@ -59,6 +62,7 @@ export const insert = async (object, table, add = '', order = '') => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     err.message = arr.join('\n');
     throw new Error(err);
   }
@@ -121,6 +125,7 @@ export const destroy = async (table, where = '') => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     err.message = arr.join('\n');
     throw new Error(err);
   }
