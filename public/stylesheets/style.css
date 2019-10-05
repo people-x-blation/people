@@ -860,7 +860,7 @@ form > button {
 }
 
 select#search_locations,
-select#locations {
+select#locations, select#type {
   -webkit-appearance: none;
   /* 네이티브 외형 감추기 */
   -moz-appearance: none;
