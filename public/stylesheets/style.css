@@ -426,6 +426,10 @@ nav ul li a {
   text-align: right;
 }
 
+#read_content_wrapper{
+  word-break:break-all;
+}
+
 #read_like_button > button {
   width: 80%;
   margin: 10px 10%;
@@ -481,8 +485,9 @@ nav ul li a {
   height: 30vh;
 }
 
-#read_content_text {
+#read_content_text * {
   white-space: pre-wrap;
+  font-size: 0.5rem;
 }
 
 .read_comment_wrapper {

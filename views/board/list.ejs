@@ -103,26 +103,26 @@
         <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음" />
         <% } else { %>
         <% for(let item=0 ; item<list.length; item++) { %>
-        <div data-aos="fade-left" data-aos-duration="1300" class="list_container">
+        <div data-aos="fade-left" data-aos-duration="1300" class="list_container" style=" cursor: pointer;"  onclick="location.href='/board/read/<%=list[item].boardnum%>';">
             <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
                 <span id="highlight_location"><%=locationTable[list[item].location]%></span>
                 <span id="highlight_blood"><%=(list[item].blood === 'none') ? '미지정' : list[item].blood%></span>
                 <span id="highlight_type"><%=(list[item].type === null) ? '' : typeTable[list[item].type]%></span>
             </div>
             <div class="content_wrapper">
-                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> <span id="list_user_id">
-                    <%=list[item].nickname%></span>
-                    <% if(list[item].show_flag == '1') { %>
-                    <h2 id="list_title">
-                        <a href="/board/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
-                    </h2>
-                    <span id="list_like_likecount">지원자 수 : <%=list[item].num_part%></span>
-                    <% } else { %>
-                    <h2 id="list_title">
-                        <%=list[item].title%>
-                    </h2>
-                    <span id="list_like_likecount" style="color: red">헌혈자가 모두 모집되었습니다. 감사합니다.</span>
-                    <% } %>
+                <hidden id='boardnum' value=<%=list[item].boardnum%></hidden> 
+                <span id="list_user_id"><%=list[item].nickname%></span>
+                <% if(list[item].show_flag == '1') { %>
+                <h2 id="list_title">
+                    <a href="/board/read/<%=list[item].boardnum%>"><%=list[item].title%></a>
+                </h2>
+                <span id="list_like_likecount">지원자 수 : <%=list[item].num_part%></span>
+                <% } else { %>
+                <h2 id="list_title">
+                    <%=list[item].title%>
+                </h2>
+                <span id="list_like_likecount" style="color: red">헌혈자가 모두 모집되었습니다. 감사합니다.</span>
+                <% } %>
             </div>
         </div>
         <%} }%>
@@ -156,7 +156,7 @@
             };
             AOS.init();
             let renderList = function (vo) {
-                const html = '<div data-aos="fade-left" data-aos-duration="1300" class="list_container">' +
+                const html = '<div data-aos="fade-left" data-aos-duration="1300" class="list_container" style=" cursor: pointer;"  onclick="location.href=\'./read/' + vo.boardnum + '\'";>' +
                     `<div class="highlight_wrapper" style="background-color:${bloodColorTable[vo.blood]}">` +
                     '<span id="highlight_location"><%=locationTable[' + vo.location + ']%></span>' +
                     '<span id="highlight_blood">' + ((vo.blood == 'none') ? '미지정' : vo.blood) + '</span>' +
