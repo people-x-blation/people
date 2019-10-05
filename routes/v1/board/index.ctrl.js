@@ -138,6 +138,7 @@ export const boardlist = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     next(err);
   }
 };
@@ -238,6 +239,7 @@ export const read = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     next(err);
   }
 };
@@ -301,6 +303,7 @@ export const upload = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     next(err);
   }
 };
@@ -346,6 +349,7 @@ export const comment_upload = async (req, res, next) => {
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
+    console.log(err);
     next(err);
   }
 };
@@ -367,6 +371,7 @@ export const participate = async (req, res, next) => {
       text: arr.join('\n'),
     });
     next(err);
+    console.log(err);
   }
 
   res.redirect('back');
