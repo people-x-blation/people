@@ -426,6 +426,10 @@ nav ul li a {
   text-align: right;
 }
 
+#read_content_wrapper{
+  word-break:break-all;
+}
+
 #read_like_button > button {
   width: 80%;
   margin: 10px 10%;
@@ -481,8 +485,9 @@ nav ul li a {
   height: 30vh;
 }
 
-#read_content_text {
+#read_content_text * {
   white-space: pre-wrap;
+  font-size: 0.5rem;
 }
 
 .read_comment_wrapper {
@@ -823,6 +828,9 @@ textarea#write_content {
   padding: 10px;
   color: #8c8c8c;
   text-align: center;
+  border: 1px solid #f76363;
+  border-radius: 15px;
+  margin: 20px 15px;
 }
 
 #write_direction > h3{
@@ -855,7 +863,7 @@ form > button {
 }
 
 select#search_locations,
-select#locations {
+select#locations, select#type {
   -webkit-appearance: none;
   /* 네이티브 외형 감추기 */
   -moz-appearance: none;
@@ -973,12 +981,13 @@ input#search_bar{
   display: block;
   font-size: 0.9rem;
   text-align: center;
-  color: red;
+  color: #f76363;
   padding: 10px;
-  border: 1px solid red;
+  border: 1px solid #f76363;
   background-color: rgba(255, 255, 255, 0.4);
 
-  margin: 0 auto;
+  margin: 10px 20px;
+  border-radius: 15px;
 }
 
 #list_no_result {
