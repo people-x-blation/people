@@ -49,7 +49,9 @@ const bloodColorTable = {
 const typeTable = [
   '전혈', 
   '백혈구', 
-  '혈소판'
+  '혈소판',
+  '적혈구',
+  '혈장'
 ];
 
 export const boardlist = async (req, res, next) => {
