@@ -261,8 +261,7 @@ export const upload = async (req, res, next) => {
     new_board.contents = req.body.contents;
     new_board.show_flag = '2';
     new_board.type = req.body.type == -1 ? null : req.body.type;
-
-    console.log(req.body.type);
+    console.log(new_board);
 
     //object 순서보장 x
     const result = await insert(

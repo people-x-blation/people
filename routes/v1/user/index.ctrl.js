@@ -114,7 +114,6 @@ export const request_off = async (req, res, next) => {
 };
 
 export const blood_change = async (req, res, next) => {
-  console.log(req.body);
   try {
     const bloodUpdateValue = aes(req.body.blood);
     const usernum = req.body.usernum;
