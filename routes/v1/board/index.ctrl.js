@@ -110,7 +110,8 @@ export const boardlist = async (req, res, next) => {
       board_object.blood = deaes(memberInfo.blood);
       board_object.num_part = partInfo.rows.length;
       board_object.show_flag = item.show_flag;
-      board_object.type = item.type;
+      board_object.donation_type = item.donation_type;
+      board_object.donation_type2 = typeTable[item.donation_type];
 
       boardList.push(board_object);
     }
@@ -143,7 +144,7 @@ export const read = async (req, res, next) => {
   const boardnum = req.params.boardnum;
   try {
     const article = await select(
-      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, b.type, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
+      'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, b.donation_type, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
       'board as b',
       `b.boardnum = ${boardnum} `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
@@ -172,7 +173,7 @@ export const read = async (req, res, next) => {
     board_object.my_blood = deaes(detail.my_blood);
     board_object.usernum = detail.author;
     board_object.num_part = partInfo.rows.length;
-    board_object.type = detail.type;
+    board_object.donation_type = detail.donation_type;
 
     // 댓글
     const comments = [];
@@ -297,7 +298,11 @@ export const upload = async (req, res, next) => {
       throw new Error('board insert 실패, rowcount ==0');
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. board upload', err.stack];
+    const arr = [
+      '에러가 발생하였습니다. board upload',
+      err.stack,
+      `유저번호: ${req.user.id}`,
+    ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
