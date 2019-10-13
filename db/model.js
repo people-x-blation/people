@@ -1,5 +1,3 @@
-import { throws } from "assert";
-
 export class Member {
   constructor() {
     this.id = '';
@@ -24,7 +22,7 @@ export class Board {
     this.locations = '';
     this.hospital = '';
     this.contents = '';
-    this.type = ''; // 0 - 전혈, 1 - 백혈구, 2 - 혈소판, 3 - 향후 추가
+    this.donation_type = ''; // 0 - 전혈, 1 - 백혈구, 2 - 혈소판, 3 - 향후 추가
   }
 }
 
