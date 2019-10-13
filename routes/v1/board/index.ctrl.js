@@ -260,8 +260,7 @@ export const upload = async (req, res, next) => {
     new_board.hospital = req.body.hospital;
     new_board.contents = req.body.contents;
     new_board.show_flag = '2';
-    new_board.type = req.body.type == -1 ? null : req.body.type;
-    console.log(new_board);
+    new_board.donation_type = req.body.type == '' ? '-1' : req.body.type;
 
     //object 순서보장 x
     const result = await insert(
@@ -286,9 +285,13 @@ export const upload = async (req, res, next) => {
         `모집완료로 변경 : /pc ${result.rows[0].boardnum} 3`,
       ];
       //slack webhook
-      const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
-        text: arr.join('\n'),
-      });
+      try {
+        const response = await axios.post(process.env.SLACK_BOT_UPLOAD, {
+          text: arr.join('\n'),
+        });
+      } catch (err) {
+        throw new Error('axios 문제');
+      }
       res.redirect('/board');
     } else {
       throw new Error('board insert 실패, rowcount ==0');
