@@ -301,7 +301,7 @@ export const upload = async (req, res, next) => {
     const arr = [
       '에러가 발생하였습니다. board upload',
       err.stack,
-      `유저번호: ${req.user.id}`,
+      `유저카카오번호: ${req.user.id}`,
     ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
