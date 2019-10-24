@@ -164,8 +164,7 @@
             };
             AOS.init();
             let renderList = function (vo) {
-                
-                const html = (vo.show_flag ==1 ?'<div data-aos="fade-left" name="test" data-aos-duration="1300" class="list_container" style=" cursor: pointer;"  onclick="location.href=\'./read/' + vo.boardnum + '\'";>':'<div data-aos="fade-left" data-aos-duration="1300" class="list_container" >') +
+                const html = (vo.show_flag ==1 ?'<div data-aos="fade-left" name="test" data-aos-duration="1300" class="list_container" style=" cursor: pointer;"  onclick="location.href=\'/board/read/' + vo.boardnum + '\'";>':'<div data-aos="fade-left" data-aos-duration="1300" class="list_container" >') +
                     `<div class="highlight_wrapper" style="background-color:${bloodColorTable[vo.blood]}">` +
                     '<span id="highlight_location"><%=locationTable[' + vo.location + ']%></span>' +
                     '<span id="highlight_blood">' + ((vo.blood == 'none') ? '미지정' : vo.blood) + '</span>' +
