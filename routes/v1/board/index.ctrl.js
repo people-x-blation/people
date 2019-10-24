@@ -291,7 +291,12 @@ export const upload = async (req, res, next) => {
           text: arr.join('\n'),
         });
       } catch (err) {
-        throw new Error('axios 문제');
+        const arr = [
+          '에러가 발생하였습니다. slack url 변경되었다 확인해봐라!',
+        ];
+        const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
+          text: arr.join('\n'),
+        });
       }
       res.redirect('/board');
     } else {
