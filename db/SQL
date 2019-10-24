@@ -32,12 +32,15 @@ CREATE TABLE board
 	locations location_t NOT NULL,
 	hospital VARCHAR(50) NOT NULL,
 	contents TEXT NOT NULL,
-    type integer
+    donation_type donation_t
     PRIMARY KEY (boardnum)
 );
 
 COMMENT ON COLUMN public.board.type
-    IS '0 : 전혈 / 1 : 백혈구 / 2 : 혈소판 / 3 : 적혈구 / 4: 혈장';
+    IS '-1': 해당없음 '0 : 전혈 / 1 : 백혈구 / 2 : 혈소판 / 3 : 적혈구 / 4: 혈장';
+CREATE TYPE donation_t as enum('-1','0', '1', '2','3','4');
+alter table board alter COLUMN donation_type set data type donation_t using case when donation_type = 0 THEN '0'::donation_t WHEN donation_type = 1 THEN '1'::donation_t WHEN donation_type = 2 THEN '2'::donation_t WHEN donation_type = 3 THEN '3'::donation_t WHEN donation_type = 4 THEN '4'::donation_t END;
+
 
 CREATE TABLE comment
 (

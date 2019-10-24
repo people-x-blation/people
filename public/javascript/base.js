@@ -69,7 +69,6 @@ window.onload = function() {
       },
       success: function(result) {
         if (result.status == 'ok') {
-          console.log(1);
           const html =
             '<div class="read_comment_wrapper"><div class="read_comment_user">' +
             result.replier +
@@ -113,9 +112,7 @@ function submit_check(CKEDITOR) {
   if ($('#write_title').val() == '') {
     alert('제목을 써주세요.');
     flag = false;
-  } else if (
-    $('#locations option:selected').val() == -1
-  ) {
+  } else if ($('#locations option:selected').val() == -1) {
     alert('지역을 골라주세요.');
     flag = false;
   } else if ($('#write_hospital').val() == '') {

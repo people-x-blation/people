@@ -78,7 +78,11 @@ export const mypage = async (req, res, next) => {
       res.redirect('/');
     }
   } catch (err) {
-    const arr = ['에러가 발생하였습니다. mypage', err.stack];
+    const arr = [
+      '에러가 발생하였습니다. mypage',
+      err.stack,
+      `유저카카오번호:${req.user.id}`,
+    ];
     const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
       text: arr.join('\n'),
     });
@@ -114,7 +118,6 @@ export const request_off = async (req, res, next) => {
 };
 
 export const blood_change = async (req, res, next) => {
-  console.log(req.body);
   try {
     const bloodUpdateValue = aes(req.body.blood);
     const usernum = req.body.usernum;

@@ -115,7 +115,7 @@
             <div class="highlight_wrapper" style="background-color: <%=bloodColorTable[list[item].blood]%>">
                 <span id="highlight_location"><%=locationTable[list[item].location]%></span>
                 <span id="highlight_blood"><%=(list[item].blood === 'none') ? '미지정' : list[item].blood%></span>
-                <span id="highlight_type"><%=(list[item].type === null) ? '' : typeTable[list[item].type]%></span>
+                <span id="highlight_type"><%=(list[item].donation_type === null) ? '' : typeTable[list[item].donation_type]%></span>
             </div>
             <div class="content_wrapper">
                 <hidden id='boardnum' value='<%=list[item].boardnum%>'></hidden> 
@@ -169,6 +169,7 @@
                     `<div class="highlight_wrapper" style="background-color:${bloodColorTable[vo.blood]}">` +
                     '<span id="highlight_location"><%=locationTable[' + vo.location + ']%></span>' +
                     '<span id="highlight_blood">' + ((vo.blood == 'none') ? '미지정' : vo.blood) + '</span>' +
+                    '<span id="highlight_type">' + ((vo.donation_type2 == null) ? '미지정' : vo.donation_type2) + '</span>' +
                     '</div>' +
                     '<div class="content_wrapper">' +
                     '<hidden id="boardnum" value="' + vo.boardnum + '</hidden>' +
