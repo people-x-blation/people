@@ -131,15 +131,6 @@
   </div>
 
   <h2 style="text-align: center;">헌혈 지원자 정보</h2>
-  <% if(participants_count >= 2) { %>
-  <div id="mypage_donation">
-    <p>현재 <%=participants_count%>명이 헌혈에 동참해 주시겠다고 하십니다. <br />
-      저희 서비스가 앞으로도 지속적인 도움이 될 수 있도록, <br />
-      <em>든든한 피플의 후원자가 되어 주세요!</em></p>
-    <span>국민은행 466401-01-366890</span>
-    <button class="copy">계좌번호 복사</button>
-  </div>
-  <% } %>
   <% if(participants_count == 0) { %>
   <span data-aos="fade-left" id="list_no_result">아직 지원하신 분이 없습니다...</span>
   <img data-aos="fade-left" id="list_no_result_img" src="/images/empty.svg" alt="결과 없음" />
