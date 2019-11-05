@@ -25,9 +25,9 @@ export const select = async (object, table, where, add = '', add2 = '') => {
 export const findOne = async (where) => {
   try {
     const instance = new Singleton();
-    const result = await instance.query(
-      `SELECT * FROM member WHERE id='${where}'`,
-    );
+    const result = await instance.query(`SELECT * FROM member WHERE id=$1`, [
+      where,
+    ]);
     return result;
   } catch (err) {
     const arr = [
