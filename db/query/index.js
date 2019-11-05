@@ -94,8 +94,15 @@ export const signupUpdate = async (user_input) => {
   // 추후 리팩토링 필요
   try {
     const instance = new Singleton();
-    const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}',phone = '${user_input.phone}', my_blood = '${user_input.my_blood}', email = '${user_input.email}' WHERE id = '${user_input.id}'`;
-    const result = await instance.query(query);
+    const query = `UPDATE member SET nickname = $1, blood = $2,phone = $3, my_blood = $4, email = $5 WHERE id = $6`;
+    const result = await instance.query(query, [
+      user_input.nickname,
+      user_input.blood,
+      user_input.phone,
+      user_input.my_blood,
+      user_input.email,
+      user_input.id,
+    ]);
     return result;
   } catch (err) {
     const arr = [
