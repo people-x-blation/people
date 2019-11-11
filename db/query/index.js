@@ -1,10 +1,18 @@
 import { Singleton } from '~/db';
 import axios from 'axios';
-export const select = async (object, table, where, add = '', add2 = '') => {
+export const select = async (
+  object,
+  table,
+  where,
+  add = '',
+  add2 = '',
+  ps = '',
+) => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
       `SELECT ${object} FROM ${table} ${add} WHERE ${where} ${add2}`,
+      ps,
     );
     return result;
   } catch (err) {
@@ -44,12 +52,13 @@ export const findOne = async (where) => {
   }
 };
 
-export const insert = async (object, table, add = '', order = '') => {
+export const insert = async (object, table, add = '', order = '', ps = '') => {
   try {
     const instance = new Singleton();
     console.log('쿼리', `INSERT INTO ${table}${order}  VALUES (${object})`);
     const result = await instance.query(
       `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
+      ps,
     );
 
     return result;
@@ -68,11 +77,18 @@ export const insert = async (object, table, add = '', order = '') => {
   }
 };
 
-export const update = async (object, ToBEObject, table, where = '') => {
+export const update = async (
+  object,
+  ToBEObject,
+  table,
+  where = '',
+  ps = '',
+) => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
       `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
+      ps,
     );
 
     return result;
@@ -118,10 +134,13 @@ export const signupUpdate = async (user_input) => {
   }
 };
 
-export const destroy = async (table, where = '') => {
+export const destroy = async (table, where = '', ps = '') => {
   try {
     const instance = new Singleton();
-    const result = await instance.query(`DELETE FROM ${table} WHERE ${where}`);
+    const result = await instance.query(
+      `DELETE FROM ${table} WHERE ${where}`,
+      ps,
+    );
     return result;
   } catch (err) {
     const arr = [
