@@ -1,7 +1,6 @@
 import { aes, deaes } from '~/util/crypto';
 import crypto from 'crypto';
-import { search, insert, update } from '~/db/query';
-import { select } from '../../../db/query';
+import { select } from '~/db/query';
 
 export const index = async (req, res) => {
   const article = await select(
@@ -27,7 +26,10 @@ export const notice = async (req, res) => {
     const is_admin = await select(
       'is_admin',
       'member',
-      `id = '${req.user.id}'::character varying`,
+      `id = $1::character varying`,
+      '',
+      '',
+      [req.user.id],
     );
     admin = is_admin.rows[0].is_admin;
   }
