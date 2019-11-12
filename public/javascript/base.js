@@ -40,7 +40,7 @@ window.onload = function() {
   });
 
   $('#search_bar_icon').click(function(err) {
-    const locations = $('[name="locations"] option:selected').val();
+    let locations = $('[name="locations"] option:selected').val();
     const keyword = $('#search_bar').val();
 
     locations = locations == '지역을 선택해 주십시오.' ? '' : locations;

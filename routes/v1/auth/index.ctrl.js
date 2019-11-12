@@ -94,7 +94,8 @@ export const request_off = async (req, res, next) => {
       'show_flag',
       "'0'::show_flag_t",
       'board',
-      `WHERE boardnum = ${boardnum}`,
+      `WHERE boardnum = $1`,
+      [boardnum],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request off', err.stack];
@@ -114,7 +115,8 @@ export const request_complete = async (req, res, next) => {
       'show_flag',
       "'3'::show_flag_t",
       'board',
-      `WHERE boardnum = ${boardnum}`,
+      `WHERE boardnum = $1`,
+      [boardnum],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/request complete', err.stack];
@@ -142,10 +144,11 @@ export const notice_write = async (req, res) => {
     }
 
     const write = await insert(
-      `'${noticeTable.title}', '${noticeTable.contents}'`,
+      `$1, $2`,
       'notice',
       'returning *',
       `(title, contents)`,
+      [noticeTable.title, noticeTable.contents],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. notice upload', err.stack];
@@ -168,7 +171,8 @@ export const notice_delete = async (req, res) => {
       'show_flag',
       'false',
       'notice',
-      `WHERE notinum = ${req.body.notinum}`,
+      `WHERE notinum = $1`,
+      [req.body.notinum],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. notice delete', err.stack];

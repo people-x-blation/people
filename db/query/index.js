@@ -1,10 +1,18 @@
 import { Singleton } from '~/db';
 import axios from 'axios';
-export const select = async (object, table, where, add = '', add2 = '') => {
+export const select = async (
+  object,
+  table,
+  where,
+  add = '',
+  add2 = '',
+  ps = '',
+) => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
       `SELECT ${object} FROM ${table} ${add} WHERE ${where} ${add2}`,
+      ps,
     );
     return result;
   } catch (err) {
@@ -25,9 +33,9 @@ export const select = async (object, table, where, add = '', add2 = '') => {
 export const findOne = async (where) => {
   try {
     const instance = new Singleton();
-    const result = await instance.query(
-      `SELECT * FROM member WHERE id='${where}'`,
-    );
+    const result = await instance.query(`SELECT * FROM member WHERE id=$1`, [
+      where,
+    ]);
     return result;
   } catch (err) {
     const arr = [
@@ -44,12 +52,13 @@ export const findOne = async (where) => {
   }
 };
 
-export const insert = async (object, table, add = '', order = '') => {
+export const insert = async (object, table, add = '', order = '', ps = '') => {
   try {
     const instance = new Singleton();
     console.log('쿼리', `INSERT INTO ${table}${order}  VALUES (${object})`);
     const result = await instance.query(
       `INSERT INTO ${table}${order} VALUES (${object}) ${add}`,
+      ps,
     );
 
     return result;
@@ -68,11 +77,18 @@ export const insert = async (object, table, add = '', order = '') => {
   }
 };
 
-export const update = async (object, ToBEObject, table, where = '') => {
+export const update = async (
+  object,
+  ToBEObject,
+  table,
+  where = '',
+  ps = '',
+) => {
   try {
     const instance = new Singleton();
     const result = await instance.query(
       `UPDATE ${table} SET ${object} = ${ToBEObject} ${where}`,
+      ps,
     );
 
     return result;
@@ -94,8 +110,15 @@ export const signupUpdate = async (user_input) => {
   // 추후 리팩토링 필요
   try {
     const instance = new Singleton();
-    const query = `UPDATE member SET nickname = '${user_input.nickname}', blood = '${user_input.blood}',phone = '${user_input.phone}', my_blood = '${user_input.my_blood}', email = '${user_input.email}' WHERE id = '${user_input.id}'`;
-    const result = await instance.query(query);
+    const query = `UPDATE member SET nickname = $1, blood = $2,phone = $3, my_blood = $4, email = $5 WHERE id = $6`;
+    const result = await instance.query(query, [
+      user_input.nickname,
+      user_input.blood,
+      user_input.phone,
+      user_input.my_blood,
+      user_input.email,
+      user_input.id,
+    ]);
     return result;
   } catch (err) {
     const arr = [
@@ -111,10 +134,13 @@ export const signupUpdate = async (user_input) => {
   }
 };
 
-export const destroy = async (table, where = '') => {
+export const destroy = async (table, where = '', ps = '') => {
   try {
     const instance = new Singleton();
-    const result = await instance.query(`DELETE FROM ${table} WHERE ${where}`);
+    const result = await instance.query(
+      `DELETE FROM ${table} WHERE ${where}`,
+      ps,
+    );
     return result;
   } catch (err) {
     const arr = [

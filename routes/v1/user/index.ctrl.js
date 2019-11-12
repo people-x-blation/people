@@ -98,7 +98,8 @@ export const request_off = async (req, res, next) => {
       'show_flag',
       "'0'::show_flag_t",
       'board',
-      `WHERE boardnum = ${boardnum} returning *`,
+      `WHERE boardnum = $1 returning *`,
+      [boardnum],
     );
 
     if (showUpdate.rowCount > 0) {
@@ -123,9 +124,10 @@ export const blood_change = async (req, res, next) => {
     const usernum = req.body.usernum;
     const blood_changer = await update(
       'blood',
-      `'${bloodUpdateValue}'`,
+      `$1`,
       'member',
-      `WHERE usernum = ${usernum}`,
+      `WHERE usernum = $2`,
+      [bloodUpdateValue, usernum],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth/blood change', err.stack];
