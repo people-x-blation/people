@@ -53,17 +53,19 @@ export const boardlist = async (req, res, next) => {
     const locations = req.params.location;
     let query = '';
     if (locations == undefined) query = 'TRUE';
-    else query = `locations = '${locations}'`;
+    else query = `locations = '${locations}'::location_t`;
     const page = req.query.page == undefined ? 1 : req.query.page;
     const size = 10;
     const begin = (page - 1) * size; // 시작 글
 
     let where;
     const keyword = req.query.keyword;
+    let ps = [];
     if (!keyword) {
       where = `${query} and (show_flag='1' or show_flag = '3')`;
     } else {
-      where = `${query} and (show_flag='1' or show_flag = '3') and strpos(title, '${keyword}') > 0 `;
+      where = `${query} and (show_flag='1' or show_flag = '3') and strpos(title, $1) > 0 `;
+      ps.push(keyword);
     }
 
     const list = await select(
@@ -72,6 +74,7 @@ export const boardlist = async (req, res, next) => {
       where,
       '',
       `order by show_flag,boardnum desc limit ${size} offset ${begin}`,
+      ps,
     );
 
     const boardList = [];
@@ -146,16 +149,19 @@ export const read = async (req, res, next) => {
     const article = await select(
       'b.boardnum, b.title, b.like_count, b.create_at, b.show_flag, b.locations, b.hospital, b.contents, b.create_at, b.donation_type, u.nickname as author, r.commentnum,q.nickname as replier,r.contents as comment, u.blood, u.my_blood, b.author, u.nickname, r.usernum',
       'board as b',
-      `b.boardnum = ${boardnum} `,
+      `b.boardnum = $1 `,
       'join member as u on b.author = u.usernum left join comment as r using(boardnum) left join member as q on r.usernum= q.usernum',
       'order by r.commentnum desc',
+      [boardnum],
     );
 
     let partInfo = await select(
       'part_usernum',
       'public.board as b',
-      `b.boardnum = ${boardnum}`,
+      `b.boardnum = $1`,
       'INNER JOIN public.participants as p ON b.boardnum = p.boardnum',
+      '',
+      [boardnum],
     );
 
     const detail = article.rows[0];
@@ -265,10 +271,11 @@ export const upload = async (req, res, next) => {
 
     //object 순서보장 x
     const result = await insert(
-      `'${Object.values(new_board).join(`', '`)}'`,
+      `$1,$2,$3,$4,$5,$6,$7,$8,$9`,
       'board',
       'returning *',
       `(${Object.keys(new_board).join(',')})`,
+      Object.values(new_board),
     );
 
     const text = htmlToText.fromString(new_board.contents, {
@@ -291,9 +298,7 @@ export const upload = async (req, res, next) => {
           text: arr.join('\n'),
         });
       } catch (err) {
-        const arr = [
-          '에러가 발생하였습니다. slack url 변경되었다 확인해봐라!',
-        ];
+        const arr = ['에러가 발생하였습니다. slack url 변경되었다 확인해봐라!'];
         const response = await axios.post(process.env.SLACK_BOT_ERROR_URL, {
           text: arr.join('\n'),
         });
@@ -319,7 +324,9 @@ export const upload = async (req, res, next) => {
 export const comment_destroy = async (req, res, next) => {
   try {
     const comment_num = req.body.comment_num;
-    const comment_d = await destroy('comment', `commentnum = ${comment_num}`);
+    const comment_d = await destroy('comment', `commentnum = $1`, [
+      comment_num,
+    ]);
     res.redirect('back');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. comment_destroy ', err.stack];
@@ -342,9 +349,11 @@ export const comment_upload = async (req, res, next) => {
       res.json({ status: 'error' });
     } else {
       const uploading = await insert(
-        `DEFAULT,'${commentTable.boardnum}', '${commentTable.replier}', '${commentTable.content}'`,
+        `DEFAULT,$1,$2,$3`,
         'comment',
         'returning *',
+        '',
+        [commentTable.boardnum, commentTable.replier, commentTable.content],
       );
       res.json({
         status: 'ok',
@@ -370,8 +379,15 @@ export const participate = async (req, res, next) => {
 
   try {
     const parti_q = await insert(
-      `${participantsTable.boardnum}, ${participantsTable.request_usernum}, ${participantsTable.part_usernum}`,
+      `$1,$2,$3`,
       'participants(boardnum, request_usernum, part_usernum)',
+      '',
+      '',
+      [
+        participantsTable.boardnum,
+        participantsTable.request_usernum,
+        participantsTable.part_usernum,
+      ],
     );
   } catch (err) {
     const arr = ['에러가 발생하였습니다. participate', err.stack];
