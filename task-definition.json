@@ -94,7 +94,7 @@
   "cpu": "256",
   "inferenceAccelerators": [{"deviceName":"","deviceType":""}],
   "proxyConfiguration": {
-      "type": "",
+      "type": "APPMESH",
       "containerName":"",
       "properties":[
           {
