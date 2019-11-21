@@ -93,14 +93,5 @@
   "networkMode": "bridge",
   "cpu": "256",
   "inferenceAccelerators": [],
-  "proxyConfiguration": {
-      "containerName":"",
-      "properties":[
-          {
-              "name":"",
-              "value":""
-          }
-        ]
-   },
   "volumes": []
 }
