@@ -45,7 +45,7 @@
       "memory": 0,
       "memoryReservation": 512,
       "volumesFrom": [],
-      "stopTimeout": [],
+      "stopTimeout": 0,
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
       "startTimeout": 0,
       "firelensConfiguration": {		
@@ -73,7 +73,9 @@
       "pseudoTerminal": true,
       "user": "",
       "readonlyRootFilesystem": true,
-      "dockerLabels": "",
+      "dockerLabels": {
+                "KeyName": ""
+            },
       "systemControls": [
                 {
                     "namespace": "",
