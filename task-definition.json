@@ -1,5 +1,5 @@
 {
-  "ipcMode": "",
+  "ipcMode": "task",
   "executionRoleArn": "",
   "containerDefinitions": [
     {
@@ -86,7 +86,7 @@
   "memory": "512",
   "taskRoleArn": "",
   "family": "people",
-  "pidMode": "",
+  "pidMode": "task",
   "requiresCompatibilities": [
     "EC2"
   ],
