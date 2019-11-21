@@ -22,7 +22,6 @@
       ],
       "command": [],
       "linuxParameters": [],
-      "cpu": 256,
       "environment": [
         {
           "name": "NODE_ENV",
@@ -36,13 +35,13 @@
       "mountPoints": [],
       "secrets": [],
       "dockerSecurityOptions": [],
-      "memory": 512,
       "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": 2,
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
       "startTimeout": 2,
       "dependsOn": [],
+      "workingDirectory": "/usr/src/app",
       "disableNetworking": false,
       "interactive": true,
       "healthCheck": {
@@ -63,14 +62,12 @@
     }
   ],
   "placementConstraints": [],
-  "memory": "512",
   "family": "people",
   "pidMode": "task",
   "requiresCompatibilities": [
     "EC2"
   ],
   "networkMode": "bridge",
-  "cpu": "256",
   "inferenceAccelerators": [],
   "volumes": []
 }
