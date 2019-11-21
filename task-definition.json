@@ -92,7 +92,7 @@
   ],
   "networkMode": "bridge",
   "cpu": "256",
-  "inferenceAccelerators": [{"deviceName":"","deviceType":""}],
+  "inferenceAccelerators": [],
   "proxyConfiguration": {
       "type": "APPMESH",
       "containerName":"",
