@@ -64,8 +64,6 @@
             },
       "essential": true,
       "links": [],
-      "hostname": "",
-      "extraHosts": [],
       "pseudoTerminal": true,
       "user": "",
       "readonlyRootFilesystem": true,
