@@ -39,7 +39,7 @@
       "memory": 512,
       "memoryReservation": 512,
       "volumesFrom": [],
-      "stopTimeout": 0,
+      "stopTimeout": 2,
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
       "startTimeout": 2,
       "firelensConfiguration": {		
