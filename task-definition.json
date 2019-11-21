@@ -35,7 +35,6 @@
       "ulimits": [],
       "dnsServers": [],
       "mountPoints": [],
-      "workingDirectory": "",
       "secrets": [],
       "dockerSecurityOptions": [],
       "memory": 512,
