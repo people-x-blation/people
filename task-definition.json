@@ -1,19 +1,19 @@
 {
-  "ipcMode": null,
-  "executionRoleArn": null,
+  "ipcMode": "",
+  "executionRoleArn": "",
   "containerDefinitions": [
     {
-      "dnsSearchDomains": null,
+      "dnsSearchDomains": "",
       "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": null,
+        "secretOptions": "",
         "options": {
           "awslogs-group": "/ecs/people",
           "awslogs-region": "ap-northeast-2",
           "awslogs-stream-prefix": "ecs"
         }
       },
-      "entryPoint": null,
+      "entryPoint": "",
       "portMappings": [
         {
           "hostPort": 80,
@@ -21,8 +21,8 @@
           "containerPort": 3000
         }
       ],
-      "command": null,
-      "linuxParameters": null,
+      "command": "",
+      "linuxParameters": "",
       "cpu": 0,
       "environment": [
         {
@@ -30,40 +30,40 @@
           "value": "production"
         }
       ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
+      "resourceRequirements": "",
+      "ulimits": "",
+      "dnsServers": "",
       "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
+      "workingDirectory": "",
+      "secrets": "",
+      "dockerSecurityOptions": "",
+      "memory": "",
       "memoryReservation": 512,
       "volumesFrom": [],
-      "stopTimeout": null,
+      "stopTimeout": "",
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
+      "startTimeout": "",
+      "firelensConfiguration": "",
+      "dependsOn": "",
+      "disableNetworking": "",
+      "interactive": "",
+      "healthCheck": "",
       "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
+      "links": "",
+      "hostname": "",
+      "extraHosts": "",
+      "pseudoTerminal": "",
+      "user": "",
+      "readonlyRootFilesystem": "",
+      "dockerLabels": "",
+      "systemControls": "",
+      "privileged": "",
       "name": "people"
     }
   ],
   "placementConstraints": [],
-  "memory": null,
-  "taskRoleArn": null,
+  "memory": "",
+  "taskRoleArn": "",
   "compatibilities": [
     "EC2"
   ],
@@ -71,39 +71,39 @@
   "family": "people",
   "requiresAttributes": [
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+      "targetId": "",
+      "targetType": "",
+      "value": "",
       "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+      "targetId": "",
+      "targetType": "",
+      "value": "",
       "name": "com.amazonaws.ecs.capability.ecr-auth"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+      "targetId": "",
+      "targetType": "",
+      "value": "",
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+      "targetId": "",
+      "targetType": "",
+      "value": "",
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
     }
   ],
-  "pidMode": null,
+  "pidMode": "",
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": null,
-  "cpu": null,
+  "networkMode": "",
+  "cpu": "",
   "revision": 14,
   "status": "ACTIVE",
-  "inferenceAccelerators": null,
-  "proxyConfiguration": null,
+  "inferenceAccelerators": "",
+  "proxyConfiguration": "",
   "volumes": []
 }
