@@ -45,7 +45,7 @@
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
       "startTimeout": 0,
       "firelensConfiguration": {		
-                "type": "",		
+                "type": "fluentd",		
                 "options": {		
                     "KeyName": ""		
                 }		
