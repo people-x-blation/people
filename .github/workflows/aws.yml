@@ -37,6 +37,22 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: people
         IMAGE_TAG: ${{ github.sha }}
+        DB_HOST: ${{SECRETS.DB_HOST}}
+        DB_USER: ${{SECRETS.DB_USER}}
+        DB_PW: ${{SECRETS.DB_PW}}
+        PORT: ${{SECRETS.PORT}}
+        DB_PORT: ${{SECRETS.DB_PORT}}
+        DATABASE: ${{SECRETS.DATABASE}}
+        KAKAO_CLIENT_ID: ${{SECRETS.KAKAO_CLIENT_ID}}
+        KAKAO_CLIENT_SECRET: ${{SECRETS.KAKAO_CLIENT_SECRET}}
+        ACCESS_KEY: ${{SECRETS.ACCESS_KEY}}
+        SECRET_ACCESS_KEY: ${{SECRETS.ACCESS_KEY}}
+        REGION: ${{SECRETS.REGION}}
+        KAKAO_CALLBACK_URL: ${{SECRETS.KAKAO_CALLBACK_URL}}
+        SLACK_BOT_ERROR_URL: ${{SECRETS.SLACK_BOT_ERROR_URL}}
+        SLACK_BOT_UPLOAD: ${{SECRETS.SLACK_BOT_UPLOAD}}
+        CRYPTO_SECRETKEY: ${{SECRETS.CRYPTO_SECRETKEY}}
+
       run: |
         # Build a docker container and
         # push it to ECR so that it can
