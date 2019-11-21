@@ -41,7 +41,7 @@
       "volumesFrom": [],
       "stopTimeout": 0,
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
-      "startTimeout": 0,
+      "startTimeout": 2,
       "firelensConfiguration": {		
                 "type": "fluentd",		
                 "options": {		
