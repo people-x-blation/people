@@ -4,7 +4,15 @@
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
-      "logConfiguration": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/people",
+          "awslogs-region": "ap-northeast-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "entryPoint": null,
       "portMappings": [
         {
@@ -59,14 +67,26 @@
   "compatibilities": [
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:021866494832:task-definition/people:13",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:021866494832:task-definition/people:14",
   "family": "people",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "targetId": null,
@@ -81,7 +101,7 @@
   ],
   "networkMode": null,
   "cpu": null,
-  "revision": 13,
+  "revision": 14,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
