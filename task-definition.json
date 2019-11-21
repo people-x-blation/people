@@ -31,10 +31,6 @@
         }
       ],
       "resourceRequirements": [
-                {
-                    "value": "",
-                    "type": ""
-                }
             ],
       "ulimits": [],
       "dnsServers": [],
@@ -42,7 +38,7 @@
       "workingDirectory": "",
       "secrets": [],
       "dockerSecurityOptions": [],
-      "memory": 0,
+      "memory": 512,
       "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": 0,
@@ -87,7 +83,7 @@
     }
   ],
   "placementConstraints": [],
-  "memory": "",
+  "memory": "512",
   "taskRoleArn": "",
   "family": "people",
   "pidMode": "",
@@ -95,7 +91,7 @@
     "EC2"
   ],
   "networkMode": "",
-  "cpu": "",
+  "cpu": "256",
   "inferenceAccelerators": [{"deviceName":"","deviceType":""}],
   "proxyConfiguration": {
       "type": "",
