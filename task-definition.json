@@ -3,17 +3,17 @@
   "executionRoleArn": "",
   "containerDefinitions": [
     {
-      "dnsSearchDomains": "",
+      "dnsSearchDomains": [],
       "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": "",
+        "secretOptions": [],
         "options": {
           "awslogs-group": "/ecs/people",
           "awslogs-region": "ap-northeast-2",
           "awslogs-stream-prefix": "ecs"
         }
       },
-      "entryPoint": "",
+      "entryPoint": [],
       "portMappings": [
         {
           "hostPort": 80,
@@ -21,8 +21,8 @@
           "containerPort": 3000
         }
       ],
-      "command": "",
-      "linuxParameters": "",
+      "command": [],
+      "linuxParameters": [],
       "cpu": 0,
       "environment": [
         {
@@ -30,80 +30,80 @@
           "value": "production"
         }
       ],
-      "resourceRequirements": "",
-      "ulimits": "",
-      "dnsServers": "",
+      "resourceRequirements": [
+                {
+                    "value": "",
+                    "type": ""
+                }
+            ],
+      "ulimits": [],
+      "dnsServers": [],
       "mountPoints": [],
       "workingDirectory": "",
-      "secrets": "",
-      "dockerSecurityOptions": "",
-      "memory": "",
+      "secrets": [],
+      "dockerSecurityOptions": [],
+      "memory": 0,
       "memoryReservation": 512,
       "volumesFrom": [],
-      "stopTimeout": "",
+      "stopTimeout": [],
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
-      "startTimeout": "",
-      "firelensConfiguration": "",
-      "dependsOn": "",
-      "disableNetworking": "",
-      "interactive": "",
-      "healthCheck": "",
+      "startTimeout": 0,
+      "firelensConfiguration": {		
+                "type": "",		
+                "options": {		
+                    "KeyName": ""		
+                }		
+            },
+      "dependsOn": [],
+      "disableNetworking": false,
+      "interactive": true,
+      "healthCheck": {
+                "command": [
+                    ""
+                ],
+                "interval": 0,
+                "timeout": 0,
+                "retries": 0,
+                "startPeriod": 0
+            },
       "essential": true,
-      "links": "",
+      "links": [],
       "hostname": "",
-      "extraHosts": "",
-      "pseudoTerminal": "",
+      "extraHosts": [],
+      "pseudoTerminal": true,
       "user": "",
-      "readonlyRootFilesystem": "",
+      "readonlyRootFilesystem": true,
       "dockerLabels": "",
-      "systemControls": "",
-      "privileged": "",
+      "systemControls": [
+                {
+                    "namespace": "",
+                    "value": ""
+                }
+            ],
+      "privileged": true,
       "name": "people"
     }
   ],
   "placementConstraints": [],
   "memory": "",
   "taskRoleArn": "",
-  "compatibilities": [
-    "EC2"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:021866494832:task-definition/people:14",
   "family": "people",
-  "requiresAttributes": [
-    {
-      "targetId": "",
-      "targetType": "",
-      "value": "",
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "targetId": "",
-      "targetType": "",
-      "value": "",
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "targetId": "",
-      "targetType": "",
-      "value": "",
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-    },
-    {
-      "targetId": "",
-      "targetType": "",
-      "value": "",
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-    }
-  ],
   "pidMode": "",
   "requiresCompatibilities": [
     "EC2"
   ],
   "networkMode": "",
   "cpu": "",
-  "revision": 14,
-  "status": "ACTIVE",
-  "inferenceAccelerators": "",
-  "proxyConfiguration": "",
+  "inferenceAccelerators": [{"deviceName":"","deviceType":""}],
+  "proxyConfiguration": {
+      "type": "",
+      "containerName":"",
+      "properties":[
+          {
+              "name":"",
+              "value":""
+          }
+        ]
+   },
   "volumes": []
 }
