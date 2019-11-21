@@ -23,7 +23,7 @@
       ],
       "command": [],
       "linuxParameters": [],
-      "cpu": 0,
+      "cpu": 256,
       "environment": [
         {
           "name": "NODE_ENV",
