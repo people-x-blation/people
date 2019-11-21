@@ -42,12 +42,6 @@
       "stopTimeout": 2,
       "image": "021866494832.dkr.ecr.ap-northeast-2.amazonaws.com/people",
       "startTimeout": 2,
-      "firelensConfiguration": {		
-                "type": "fluentd",		
-                "options": {		
-                    "KeyName": ""		
-                }		
-            },
       "dependsOn": [],
       "disableNetworking": false,
       "interactive": true,
