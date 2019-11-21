@@ -90,7 +90,7 @@
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": "",
+  "networkMode": "bridge",
   "cpu": "256",
   "inferenceAccelerators": [{"deviceName":"","deviceType":""}],
   "proxyConfiguration": {
