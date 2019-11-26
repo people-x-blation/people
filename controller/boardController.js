@@ -3,7 +3,7 @@ import { Board, Comment, participants } from '~/db/model';
 import axios from 'axios';
 import crypto from 'crypto';
 import htmlToText from 'html-to-text';
-import { aes, deaes } from '~/util/crypto';
+import { deaes } from '~/util/crypto';
 
 // 지역 매핑용
 const locationTable = {

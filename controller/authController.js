@@ -35,6 +35,7 @@ export const register = async (req, res, next) => {
     user_input.blood = user_input.blood === 'none' ? null : user_input.blood;
     user_input.id = req.user.id;
     const update_member = await signupUpdate(user_input);
+
     res.redirect('../user/mypage');
   } catch (err) {
     const arr = ['에러가 발생하였습니다. auth register', err.stack];
