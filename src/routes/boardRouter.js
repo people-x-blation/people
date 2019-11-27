@@ -2,7 +2,7 @@ import { Router } from 'express';
 import isValidate from '~/lib/validate';
 const router = new Router();
 
-import * as boardCtrl from './index.ctrl';
+import * as boardCtrl from '~/controller/boardController';
 
 router.get(
   '/write',
