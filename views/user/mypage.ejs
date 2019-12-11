@@ -254,16 +254,6 @@
           mypageRequestOffForm.submit();
         }
       });
-      document.querySelector(".copy").addEventListener("click", function () {
-        var tempElem = document.createElement('textarea');
-        tempElem.value = '국민은행 466401-01-366890';
-        document.body.appendChild(tempElem);
-
-        tempElem.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempElem);
-        alert('감사합니다. \n 세상을 구하는 붉은 인연 피플입니다.');
-      });
     });
   </script>
 </body>
