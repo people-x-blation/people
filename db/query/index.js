@@ -107,7 +107,6 @@ export const update = async (
 };
 
 export const signupUpdate = async (user_input) => {
-  // 추후 리팩토링 필요
   try {
     const instance = new Singleton();
     const query = `UPDATE member SET nickname = $1, blood = $2,phone = $3, my_blood = $4, email = $5 WHERE id = $6`;
