@@ -1,6 +1,6 @@
 .idea
 node_modules
 .next
-.env.*
+.env*
 .vscode
 **/.DS_Store

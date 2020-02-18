@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cp .env.development .env && NODE_ENV=development npx nodemon --exec babel-node -- ./bin/www",
-    "start": "NODE_ENV=production babel-node ./bin/www",
+    "start": "cp .env.production .env && NODE_ENV=production babel-node ./bin/www",
     "test": "jest"
   },
   "dependencies": {
