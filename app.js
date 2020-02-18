@@ -11,7 +11,7 @@ import { findOne } from 'db/query';
 const app = express();
 
 dotenv.config({
-  path: path.join(__dirname, `/.env.${process.env.NODE_ENV || 'development'}`),
+  path: path.join(__dirname, `/.env`),
 });
 import passport from 'passport';
 import session from 'express-session';
